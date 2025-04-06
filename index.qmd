@@ -1,9 +1,8 @@
 ---
 title: "From Bell Numbers to Bessel Functions: A New Family of Sequences with m-Binomial Transform Properties"
 authors:
-  - name: Norah Jones
-    affiliation: The University
-    roles: writing
+  - name: Vencislav Popov
+    affiliation: University of Zurich
     corresponding: true
 bibliography: references.bib
 ---
