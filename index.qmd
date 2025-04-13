@@ -8,7 +8,10 @@ bibliography: references.bib
 csl: math.csl
 ---
 
-## Introduction
+\usepackage{amsmath}
+\DeclareRobustCommand{\Stirling}{\genfrac\{\}{0pt}{}}
+
+## 1. Introduction
 
 Given a sequence $a = (a_0, a_1, \ldots)$, the binomial transform is the procedure that maps it to a new sequence $b = (b_0,b_1,...)$ as follows:
 
@@ -35,3 +38,15 @@ $$
 These are sequences that shift to the left by $m$ places after $m$ applications of the binomial transform. The case $m=1$ corresponds to the Bell numbers, and $m=2$ corresponds to sequences [A007472](https://oeis.org/A007472), [A351143](https://oeis.org/search?q=1,0,1,2,5,16&language=english&go=Search) and [A351028](https://oeis.org/A351028), which shift by 2 places left after 2 binomial transformations (sequences for $m>2$ are not currently present in OEIS). Although the sequences for $m=2$ are listed in OEIS, little is known about their properties.
 
 In the remainder of this paper I show that the m-fold binomial–shift-invariance property that characterizes these sequences arises from a combinatorial structure that mirrors that of the regular Bell numbers. I show that each such m-Bell sequence corresponds to the row sums of new Stirling-like arrays, motivating the name m-Stirling numbers (which come in dual pairs). The m-Bell numbers have explicit exponential generating functions that are the solutions of ordinary differential equations of order $m$. Each of the associated m-Stirling arrays arises as the coefficients of polynomials that result from the application of the exponential shift operator to hypergeometric functions, which have simple forms for $m=1$ (in terms of the exponential function) and $m=2$ (in terms of modified Bessel functions of the first and second kinds). I conclude by providing a combinatorial interpretation for the general case as well as showing a connection to the Conway-Maxwell-Poisson distribution @shmueliUsefulDistributionFitting2005.
+
+## 2. The m-Stirling numbers
+
+Recall that the Bell numbers are the row sums of a triangle array formed by the Stirling numbers of the second kind:
+
+$$
+\begin{align}
+B_n = \sum_{k=0}^{n}\Stirling{n}{k},
+\end{align}
+$$
+
+where
