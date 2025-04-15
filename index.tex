@@ -1,0 +1,492 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+
+\usepackage{bookmark}
+
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={On a New Family of Stirling-like triangular arrays and Bell-like numbers},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{On a New Family of Stirling-like triangular arrays and Bell-like
+numbers}
+\author{Vencislav Popov}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\usepackage{amsmath}
+\usepackage{logix}
+\newcommand{\Stirling}[0]{\genfrac\{\}{0pt}{}}
+\newcommand{\mStirling}[0]{\genfrac{\lfloor}{\rfloor}{0pt}{}}
+
+\subsection{1. Introduction}\label{introduction}
+
+Given a sequence \((a_n)_{n \geq 0} = (a_0, a_1, \ldots)\), the binomial
+transform is the procedure that maps it to a new sequence
+\((b_n)_{n \geq 0} = (b_0,b_1,...)\) as follows:
+
+\[
+b_n = \sum_{k=0}^{n} \binom{n}{k} a_k
+\]
+
+Repeated applications of the binomial transform on the resulting
+sequence can be summarized with a single sum:
+
+\[
+b_n = \sum_{k=0}^{n} \binom{n}{k} m^{n-k} a_k,
+\]
+
+where \(m\) is an integer that represents the number of times the
+binomial transform has been applied. Bernstein and Sloane {[}1{]}
+studied a number of what they call ``Eigen sequences'' of various such
+transformations - sequences \((a_n)\) which when transformed one or more
+times shift by one or more places but are otherwise preserved. Such
+sequences show a ``self-similarity'' under an iterated transform and
+understanding why this self-similarity occurs often reveals new
+properties or relations between different integer sequences.
+
+Perhaps the most famous case of a binomial-transform invariant sequence
+is that of the Bell numbers (\href{https://oeis.org/A000110}{A000110}:
+\(1, 1, 2, 5, 15, 52, 203, \ldots\)), which shift one place to the left
+after a single binomial transformation:
+
+\begin{equation}\phantomsection\label{eq-bell-recurrence}{
+B_{n+1} = \sum_{k=0}^{n} \binom{n}{k} B_k
+}\end{equation}
+
+The Bell numbers count the total number of partitions of an n-element
+set and they are part of a rich combinatorial structure that involves
+the Stirling numbers the of the second kind
+(\href{https://oeis.org/A008277}{A008277}), Touchard polynomials
+{[}2{]}, the exponential function and linear operators acting on it
+{[}3{]}.
+
+In this paper I study a new generalization of the Bell numbers defined
+by the following property:
+
+\begin{equation}\phantomsection\label{eq-mbell-recurrence}{
+B^{(m)}_{n+m} = \sum_{k=0}^n \binom{n}{k} m^{n-k} B_k^{(m)}
+}\end{equation}
+
+These are sequences that shift to the left by \(m\) places after \(m\)
+applications of the binomial transform. The case \(m=1\) corresponds to
+the Bell numbers, and \(m=2\) corresponds to sequences
+\href{https://oeis.org/A007472}{A007472},
+\href{https://oeis.org/search?q=1,0,1,2,5,16&language=english&go=Search}{A351143}
+and \href{https://oeis.org/A351028}{A351028}, which shift by 2 places
+left after 2 binomial transformations (sequences for \(m>2\) are not
+currently present in OEIS). Although the sequences for \(m=2\) are
+listed in OEIS, little is known about their properties.
+
+In the remainder of this paper I show that the m-fold
+binomial--shift-invariance property that characterizes these sequences
+arises from a combinatorial structure that mirrors that of the regular
+Bell numbers. Each such \emph{m-Bell} sequence corresponds to the row
+sums of new Stirling-like arrays, motivating the name \emph{m-Stirling
+numbers} (which come in dual pairs). The m-Bell numbers have explicit
+exponential generating functions (e.g.f.) that are the solutions of
+ordinary differential equations of order \(m\). Each of the associated
+m-Stirling arrays arises as the coefficients of polynomials that result
+from the application of the exponential shift operator to hypergeometric
+functions, which have simple forms for \(m=1\) (in terms of the
+exponential function) and \(m=2\) (in terms of modified Bessel functions
+of the first and second kinds). I conclude by providing a combinatorial
+interpretation for the general case as well as showing a connection to
+the Conway-Maxwell-Poisson distribution {[}4{]}.
+
+To clearly establish the analogue between the Bell-Stirling-Touchard
+framework and the novel results, I begin with a review of standard
+results {[}5{]} {[}6{]}.
+
+\subsection{2. Background - Bell numbers, Stirling numbers, Touchard
+polynomials and operator
+calculus}\label{background---bell-numbers-stirling-numbers-touchard-polynomials-and-operator-calculus}
+
+Recall that the Bell numbers are the row sums of a triangle array formed
+by the Stirling numbers of the second kind:
+
+\[
+\begin{align}
+B_n = \sum_{k=0}^{n}\genfrac\{\}{0pt}{}{n}{k},
+\end{align}
+\]
+
+where the Stirling numbers of the second kind satisfy the recurrence:
+
+\[
+\genfrac\{\}{0pt}{}{n+1}{k} = k \, \genfrac\{\}{0pt}{}{n}{k} + \genfrac\{\}{0pt}{}{n}{k-1}, \,\,\,\,\, (n, k ≥ 1)\\
+\]
+
+The Stirling numbers of the second kind count the number of ways to
+partition n labeled objects into k unlabeled subsets and are the
+coefficients of the Touchard (also known as Bell or exponential)
+polynomials:
+
+\[
+T_n(x) = \sum_{k=0}^{n} \genfrac\{\}{0pt}{}{n}{k} x^k,
+\]
+
+whose bi-variate e.g.f. is below (and is the e.g.f. of the Bell numbers
+when evaluated at \(x=1\)):
+
+\[
+\sum_{n=0}^{\infty} T_n(x) \frac{t^n}{n!} = e^{x(e^t-1)}
+\]
+
+Many useful identities involving Touchard polynomials and Stirling
+numbers can be shown via the action of the exponential scaling operator:
+
+\[
+e^{txD_x}f(x)=f(xe^t)
+\]
+
+where \(D_x\) is the derivative operator with respect to \(x\).
+Specifically, by applying this operator to the standard exponential
+function \(e^x\) we get precisely the e.g.f. for Touchard polynomials
+{[}3{]}:
+
+\[
+e^{-x}e^{txD_x}e^x = e^{x(e^t-1)}
+\]
+
+A final useful relation is the Dobinski formula that let us express
+\(T_n(x)\) and the Bell numbers \(B_n = T_n(1)\) as an infinite sum:
+
+\[
+T_n(x)=e^{-x}\sum_{k=0}^{\infty}\frac{x^k k^n}{k!}
+\]
+
+\subsection{3. The case m = 2}\label{the-case-m-2}
+
+The following three sequences all share the property that they shift by
+2 places left after two binomial transformations:
+
+\begin{itemize}
+\item
+  \href{https://oeis.org/A007472}{A007472}: \$1, 1, 1, 3, 9, 29, 105,
+  431, 1969, \ldots \$
+\item
+  \href{https://oeis.org/A351143}{A351143}:
+  \(1, 0, 1, 2, 5, 16, 61, 258, 1177, \ldots\)
+\item
+  \href{https://oeis.org/A351028}{A351028}: \$0, 1, 0, 1, 4, 13, 44,
+  173, 792, 4009, \ldots \$
+\end{itemize}
+
+Define the following two-term recurrence relation where
+\(\lfloor k/m\rfloor\) is the floor function:
+
+\[
+\genfrac{\lfloor}{\rfloor}{0pt}{}{n+1}{k}_m = m\lfloor k/m \rfloor \, \genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_m + \genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k-1}_m, \,\,\,\,\, n, k ≥ 1
+\]
+
+with initial conditions
+\(\genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_m = \delta_{n,k}\)
+
+For \(m=1\) we obtain the standard Stirling numbers of the first kind.
+Let us first consider the case for \(m=2\) in detail:
+
+\[
+\genfrac{\lfloor}{\rfloor}{0pt}{}{n+1}{k}_2 = 2\lfloor k/2 \rfloor \, \genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_2 + \genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k-1}_2, \,\,\,\,\, (n, k ≥ 1)\\
+\]
+
+This recurrence relation is almost identical to that for the Stirling
+numbers of the second kind, except that the coefficient in front of
+Z(n,k) has parity - it is always even, with k rounded down to the
+nearest even integer.
+
+The first few rows of this array are:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.0794}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 18\tabcolsep) * \real{0.2857}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=0
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=1
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=2
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=3
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=4
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=6
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k=7
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(\sum_{k=0}^{n}\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+n=0 & 1 & & & & & & & & 1 \\
+n=1 & 0 & 1 & & & & & & & 1 \\
+n=2 & 0 & 0 & 1 & & & & & & 1 \\
+n=3 & 0 & 0 & 2 & 1 & & & & & 3 \\
+n=4 & 0 & 0 & 4 & 4 & 1 & & & & 9 \\
+n=5 & 0 & 0 & 8 & 12 & 8 & 1 & & & 29 \\
+n=6 & 0 & 0 & 16 & 32 & 44 & 12 & 1 & & 105 \\
+n=7 & 0 & 0 & 32 & 80 & 208 & 92 & 18 & 1 & 431 \\
+\end{longtable}
+
+The row sums of this array yield the sequence
+\href{https://oeis.org/A007472}{A007472}
+
+\[
+z_n = \sum_{k=0}^{n}\genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_2 = (1, 1, 1, 3, 9, 29, 105, 431, 1969, 9785, 52145, 296155, 1787385, ...)
+\]
+
+which as stated earlier has a property analogous to the Bell numbers: it
+shifts by 2 places left after 2 applications of the binomial transform:
+
+\[
+\mathscr{z}_{n+2}=\sum_{k=0}^{n}\binom{n}{k}2^{n-k}z_k
+\]
+
+where we use the following identity that relates a double binomial
+transform to a single transform with an extra factor of \(2^{n-k}\):
+
+\[
+\sum_{k=0}^{n}\binom{n}{k}\sum_{j=0}^{k}\binom{k}{j}a_j = \sum_{k=0}^{n}\binom{n}{k}2^{n-k}a_k
+\]
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{1}
+\bibitem[\citeproctext]{ref-bernstein1995}
+\CSLLeftMargin{{[}1{]} }%
+\CSLRightInline{Bernstein, M and Sloane, N J A (1995 ). Some canonical
+sequences of integers. \emph{Linear Algebra and its Applications}.
+\textbf{226-228} 57--72.
+\url{https://linkinghub.elsevier.com/retrieve/pii/0024379594002459}}
+
+\bibitem[\citeproctext]{ref-weisstein}
+\CSLLeftMargin{{[}2{]} }%
+\CSLRightInline{Weisstein, E W Bell Polynomial.
+\url{https://mathworld.wolfram.com/BellPolynomial.html}}
+
+\bibitem[\citeproctext]{ref-dattoliTouchardPolynomialsGeneralized2010}
+\CSLLeftMargin{{[}3{]} }%
+\CSLRightInline{Dattoli, G, Germano, B, Martinelli, M R and Ricci, P E
+(2010 ). Touchard like polynomials and generalized {Stirling} numbers.
+\url{http://arxiv.org/abs/1010.5934}}
+
+\bibitem[\citeproctext]{ref-shmueliUsefulDistributionFitting2005}
+\CSLLeftMargin{{[}4{]} }%
+\CSLRightInline{Shmueli, G, Minka, T P, Kadane, J B, Borle, S and
+Boatwright, P (2005 ). A {Useful Distribution} for {Fitting Discrete
+Data}: {Revival} of the {Conway}--{Maxwell}--{Poisson Distribution}.
+\emph{Journal of the Royal Statistical Society Series C: Applied
+Statistics}. \textbf{54} 127--42.
+\url{https://doi.org/10.1111/j.1467-9876.2005.00474.x}}
+
+\bibitem[\citeproctext]{ref-comtet1974}
+\CSLLeftMargin{{[}5{]} }%
+\CSLRightInline{Comtet, L (1974 ). \emph{Advanced Combinatorics}.
+Springer Netherlands, Dordrecht.
+\url{http://link.springer.com/10.1007/978-94-010-2196-8}}
+
+\bibitem[\citeproctext]{ref-suxe1ndor2004}
+\CSLLeftMargin{{[}6{]} }%
+\CSLRightInline{Sándor, J and Crstici, B (2004 ). Stirling, bell,
+bernoulli, euler and eulerian numbers. Springer Netherlands, Dordrecht.
+459--618. \url{https://doi.org/10.1007/1-4020-2547-5_5}}
+
+\end{CSLReferences}
+
+
+
+
+\end{document}
