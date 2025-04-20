@@ -5,8 +5,9 @@ manuscript:
   article: index.qmd
 
 format:
-  html: default
-  pdf: default
+  html: 
+    number-sections: true
+
 
 execute:
   freeze: true

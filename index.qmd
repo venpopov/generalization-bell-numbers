@@ -14,7 +14,7 @@ csl: math.csl
 \newcommand{\Stirling}[0]{\genfrac\{\}{0pt}{}}
 \newcommand{\mStirling}[0]{\genfrac{\lfloor}{\rfloor}{0pt}{}}
 
-## 1. Introduction
+## Introduction
 
 Given a sequence $(a_n)_{n \geq 0} = (a_0, a_1, \ldots)$, the binomial transform is the procedure that maps it to a new sequence $(b_n)_{n \geq 0} = (b_0,b_1,...)$ as follows:
 
@@ -71,9 +71,9 @@ In the remainder of this paper I show that the m-fold binomial–shift-invarianc
 
 To clearly establish the analogue between the Bell-Stirling-Touchard framework and the novel results, I begin with a review of standard results and notation @comtet1974 @sándor2004.
 
-## 2. Background
+## Background
 
-### 2.1. Exponential generating functions and effects of sequence transformations
+### Exponential generating functions and effects of sequence transformations
 
 The exponential generating function (e.g.f.) of a sequence $(a_n)_{n \geq 0}$ is a formal power series in $x$:
 
@@ -96,9 +96,9 @@ $$
 \mathcal{A}'(x)-e^x \mathcal{A(x)} = 0
 $$
 
-### 2.1. Bell numbers, Stirling numbers, Touchard polynomials and operator calculus
+### Bell numbers, Stirling numbers, Touchard polynomials and operator calculus
 
-The solution of the ODE for the Bell numbers is the well known e.g.f.:
+The solution of the ODE for the Bell numbers is the well known e.g.f. (with $x = e^t$):
 
 $$
 e^{e^t-1} = \sum_{n=0}^{\infty} B_n \frac{t^n}{n!}
@@ -112,7 +112,7 @@ B_n = \sum_{k=0}^{n}\genfrac\{\}{0pt}{}{n}{k},
 \end{align}
 $$
 
-where the Stirling numbers of the second kind satisfy the recurrence:
+where the Stirling numbers of the second kind satisfy the two-term recurrence:
 
 $$
 \genfrac\{\}{0pt}{}{n+1}{k} = k \, \genfrac\{\}{0pt}{}{n}{k} + \genfrac\{\}{0pt}{}{n}{k-1}, \,\,\,\,\, n, k ≥ 1\\
@@ -142,7 +142,7 @@ $$
 e^{-x}e^{txD_x}e^x = e^{x(e^t-1)}
 $$
 
-A final useful relation is the **Dobiński** formula that let us express $T_n(x)$ and the Bell numbers $B_n = T_n(1)$ as an infinite sum:
+A final useful relation is the **Dobiński** formula that lets us express $T_n(x)$ and the Bell numbers $B_n = T_n(1)$ as an infinite sum:
 
 $$
 \begin{aligned}
@@ -153,9 +153,9 @@ $$ {#eq-bell-dobinski}
 
 In the remainder of the paper we will see that the sequences for $m = 2$ have many analogous properties as those defined above.
 
-## 3. The case m = 2
+## The case m = 2
 
-### 3.1. Exponential generating functions
+### Exponential generating functions
 
 Before solving the general case, let us focus on the $m=2$ generalization of the Bell numbers. The following three sequences all share the property that they shift by 2 places left after two binomial transformations:
 
@@ -178,7 +178,7 @@ $$
 \begin{aligned}
 \mathcal{A}_{351143}(x) &= K_1(1)I_0(e^x) + I_1(1)K_0(e^x) \\
 \mathcal{A}_{351008}(x) &= K_0(1)I_0(e^x) - I_0(1)K_0(e^x) \\
-\mathcal{A}_{007472}(x) = \mathcal{A}_{351143}(x) + \mathcal{A}_{351008}(x) &= [K_0(1) + K_1(1)]I_0(e^x) + [I_0(1) - I_1(1)]K_0(e^x)
+\mathcal{A}_{007472}(x) = \mathcal{A}_{351143}(x) + \mathcal{A}_{351008}(x) &= [K_0(1) + K_1(1)]I_0(e^x) + [I_1(1) - I_0(1)]K_0(e^x)
 \end{aligned}
 $$
 :::
@@ -222,18 +222,18 @@ To determine $p$ and $q$ we use the known initial conditions. Sequence A007472 i
 
 $$
 \begin{aligned}
-A(0) & = p\, I_0(1) + q\,K_0(1) = 1 \\
-A'(x)\bigr|_{x=0} &=p\, I_0'(e^x)\bigr|_{x=0} + q\,K_0'(e^x)\bigr|_{x=0} = 0
+\mathcal{A}(0) & = p\, I_0(1) + q\,K_0(1) = 1 \\
+\mathcal{A}'(x)\bigr|_{x=0} &=p\, I_0'(e^x)\bigr|_{x=0} + q\,K_0'(e^x)\bigr|_{x=0} = 0
 \end{aligned}
 $$
 
-The derivative of $I_0$ and $K_0$ are thankfully straightforward ([10.29.3](https://dlmf.nist.gov/10.29.E3)) @NIST:DLMF:
+where $A'(x)\bigr|_{x=0}$ is the first derivative of A evaluated at 0. The derivative of $I_0$ and $K_0$ are thankfully straightforward ([10.29.3](https://dlmf.nist.gov/10.29.E3)) @NIST:DLMF:
 
 $$
 \begin{aligned}
 I_0'(x) &= I_1(x) \\ K_0'(x) &= -K_1(x) \\I_0'\bigl(e^x\bigr) &= e^xI_1\bigl(e^x\bigr) \\ K_0'\bigl(e^x\bigr) &= -e^xK_1\bigl(e^x\bigr) \\
 \end{aligned}
-$$
+$$ {#eq-bessel-deriv1}
 
 Evaluating at $x=0$:
 
@@ -244,7 +244,7 @@ A'(0) & = p\,I_1(1)-q K_1(1) = 0
 \end{aligned}
 $$
 
-After some algebraic torture we get expressions for p and q:
+After some standard algebraic torture we get expressions for p and q:
 
 $$
 \begin{aligned}
@@ -254,7 +254,7 @@ q &= \frac{I_1(1)}{I_1(1)K_0(1)+I_0(1)K_1(1)}
 \end{aligned}
 $$
 
-These expressions can be simplified due to the following Bessel identity concerning the Wronskian of the modified Bessel functions (see [10.28.2](https://dlmf.nist.gov/10.28.E2)):
+These expressions can be simplified further due to the following Bessel identity concerning the Wronskian of the modified Bessel functions (see [10.28.2](https://dlmf.nist.gov/10.28.E2)):
 
 $$
 I_v(z)K_{v+1}(z)+I_{v+1}(z)K_v(z) = 1/z
@@ -271,16 +271,16 @@ Therefore the constants for the e.g.f. of sequence A351143 are:
 $$
 \begin{aligned}
 q &= I_1(1) \\
-p &= K_1(1)
+p &= \frac{1 - I_1(1)K_0(1)}{I_0(1)} = \frac{I_0(1)K_1(1)+I_1(1)K_0(1) - I_1(1)K_0(1)}{I_0(1)} = K_1(1)
 \end{aligned}
 $$
 
 With a very similar manipulation for the initial conditions of A351028 and A007472 we get the coefficients in @thm-m2-egf which concludes the proof.
 :::
 
-### 3.2. Series expansion of the e.g.f.
+### Series expansion of the e.g.f.
 
-The relatively complicated expression for the e.g.f. of 2-Bell numbers made me question how it can result in integer coefficients. Let us explore the series expansion for the derved e.g.f.s. Consider first the case of sequence A351143:
+How is it that a relatively complicated expression, such as the e.g.f. of 2-Bell numbers derived above, produce integer coefficients? Let us explore the series expansion for the derved e.g.f.s. Consider first the case of sequence A351143:
 
 $$
 \mathcal{A}_{351143}(x) = K_1(1)I_0(e^x) + I_1(1)K_0(e^x)
@@ -301,13 +301,14 @@ $$
 \begin{aligned}
 I_0(e^x) &= \sum_{k=0}^{\infty} \frac{e^{2xk}}{2^{2k}k!k!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!}\sum_{n=0}^{\infty}\frac{x^n(2k)^n}{n!} = \sum_{n=0}^{\infty}\frac{x^n}{n!}\sum_{k=0}^{\infty} \frac{(2k)^n}{2^{2k}k!k!}
 \end{aligned}
-$$
+$$ {#eq-besseli-exp-maclaurin}
 
 Let the inner sum be represented by $S(n) = \sum_{k=0}^{\infty} \frac{(2k)^n}{2^{2k}k!k!}$. This formula is reminiscent of the **Dobiński** formula for the standard Bell numbers (@eq-bell-dobinski) with an extra factorial in the denominator and extra powers of 2. Indeed, we can state an equivalent theorem:
 
 ::: {#thm-bessel-dobiski}
 $$
 \begin{aligned}
+I_0(e^x) &= \sum_{n=0}^\infty S(n) \frac{x^n}{n!} \\
 S(n) &= \sum_{k=0}^{\infty} \frac{(2k)^n}{(2^{k}k!)^2}=v_n I_0(1) + u_n I_1(1) \\
 A351143(n) &= v_n \\
 A351028(n) &= u_n \\
@@ -316,7 +317,7 @@ A007472(n) &= v_n+u_n
 $$
 :::
 
-::: {#.proof}
+::: proof
 Proceed by induction. First, establish the base cases:
 
 $$
@@ -325,6 +326,12 @@ S(0) &= \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!} = I_0(1) \\
 S(1) &= \sum_{k=0}^{\infty} \frac{2k}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{1}{2^{2k-1}(k-1)!k!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k+1}k!(k+1)!} = I_1(1)\\
 S(2) &= \sum_{k=0}^{\infty} \frac{2^2k^2}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{1}{2^{2k-2}(k-1)!(k-1)!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!} = I_0(1)\\
 \end{aligned}
+$$
+
+where in the case $S(1)$ we used the expansion for a general order modified Bessel function:
+
+$$
+I_v = \sum_{k=0}^\infty \frac{(x/2)^{2v+1}}{\Gamma(k+1)\Gamma(k+v+1)}
 $$
 
 Induction hypothesis: for every $m \leq n$, it holds that $S(m) = v_m I_0(1) + u_m I_1(1)$. Then:
@@ -356,22 +363,62 @@ which completes the proof. Indeed, if we were to enumerate a few more cases, we 
 | 2   | $I_0(1)$            | 1     | 0     | 1         |
 | 3   | $2I_0(1)+I_1(1)$    | 2     | 1     | 3         |
 | 4   | $5I_0(1)+4I_1(1)$   | 5     | 4     | 9         |
-| 5   | $16I_0(1)+13I_1(1)$ | 16    | 13    | 27        |
+| 5   | $16I_0(1)+13I_1(1)$ | 16    | 13    | 29        |
 :::
 
-The major difference between Dobinski-like @eq-2bell-dobinski-proof-step1 and the standard Dobinski formula for the Bell numbers is that unlike the exponential function, modified Bessel functions do not have simple inverses and therefore we cannot simply multiply the @eq-2bell-dobinski-proof-step1 by $I_0(1)^{-1}$ to get rid of the Bessel functions. The recurrence relation and the coefficients we just derived show that in principle the e.g.f. for these sequences can be as simple as $I_0(e^x)$, which is very close to the e.g.f. for the Bell numbers $\exp(-1)\exp(e^x)$. A careful examination of the coefficients in the full series expansion of the e.g.f.s in @thm-m2-egf will reveal that the added factors in the e.g.f. serve the same role as $\exp(-1)$ in the Bell numbers e.g.f. - due to Wronskian identity described in @eq-bessel-wronskian, all Bessel functions get canceled out and we remain with a pure power series in $x$ without any special functions.
+The major difference between Dobinski-like @eq-2bell-dobinski-proof-step1 and the standard Dobinski formula for the Bell numbers is that unlike the exponential function, modified Bessel functions do not have simple inverses and therefore we cannot simply multiply the @eq-2bell-dobinski-proof-step1 by a multiplicative inverse function like $I_0(1)^{-1}$ to get rid of the Bessel functions. The recurrence relation and the coefficients we just derived show that in principle the e.g.f. for these sequences can be as simple as $I_0(e^x)$, which is very close to the e.g.f. for the Bell numbers $\exp(-1)\exp(e^x)$. A careful examination of the coefficients in the full series expansion of the e.g.f.s in @thm-m2-egf will reveal that the added factors in the e.g.f. serve the same role as $\exp(-1)$ in the Bell numbers e.g.f. - due to Wronskian identity described in @eq-bessel-wronskian, all Bessel functions get canceled out and we remain with a pure power series in $x$ without any special functions.
+
+Due to the complicated series expansion of $K_0$ shown above, this cancellation property is easier to see if we use the Maclaurin series for $I$ and $K$. Let $f(x) = I_0(e^x)$ and $g(x) = K_0(e^x)$. Then
 
 $$
 \begin{aligned}
-I_0(e^x) &= \sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!} \\
-K_0(e^x) &= (\log2-x)\sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}+ \sum_{n=0}^{\infty}\frac{\psi(n+1)e^{2xn}}{2^{2n}n!n!} \\
-&= \sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}(\log2-x+\psi(n+1)) \\
-\mathcal{A}_{351143}(x) &= K_1(1)\sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}+I_1(1)\sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}(\log2-x+\psi(n+1)) \\
-&= \sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}(K_1(1) + I_1(1) +\log2-x+\psi(n+1))
+f(x) &= \sum_{n=0}^\infty \frac{x^n}{n!} f^{(n)}(x)|_{x=0} \\
+g(x) &= \sum_{n=0}^\infty \frac{x^n}{n!} g^{(n)}(x)|_{x=0}
 \end{aligned}
 $$
 
-### 3.1. Stirling-like array
+By comparing the coefficients of $f(x)$ with @eq-besseli-exp-maclaurin, we know that $f^{(n)}(x)|_{x=0} = S(n) = v_n I_0(1)+u_nI_1(1)$ where $v_n$ and $u_n$ are as defined in @thm-bessel-dobiski. What about the coefficients in $g(x)$? They are derivatives of $K_0(e^x)$, and since derivatives of $K$ are very similar to those of $I$, we will end up with similar coefficients up to a sign change. Specifically we have the partner theorem to @thm-bessel-dobiski:
+
+::: {#thm-besselk-dobinski}
+$$
+K_0(e^x) = \sum_{n=0}^\infty \frac{x^n}{n!}(v_n K_0(1) - u_n K_1(1))
+$$
+:::
+
+::: proof
+We need to prove that $K_0^{(n)}(e^x)|_{x=0} = v_n K_0(1)-u_n K_1(1)$. First, note that the derivatives of I and K have the same form for all orders, except for order 0, where the derivative of K has a negative sign ([10.29.3](https://dlmf.nist.gov/10.29.E3)) @NIST:DLMF: $$
+\begin{aligned}
+I_0'(e^x) &= I_1(e^x) \\
+K_0'(e^x) &= -K_1(e^x) \\
+I_1'(e^x) &= e^x I_0(e^x) + I_1(e^x) \\
+K_1'(e^x) &= e^x K_0(e^x) + K_1(e^x)
+\end{aligned}
+$$
+
+This means that the n-th derivative of a K function will have the same form as the n-th derivative of an I function, except that the coefficient in front of $K_1(1)$ will be the negated coefficient of $I_1(1)$. Since $I_0'(e^x)|_{x=0} = v_n I_0(1) + u_n I_1(1)$ it follows that $K_0'(e^x)|_{x=0} = v_n K_0(1)-u_n K_1(1)$.
+:::
+
+Finally, by combining @thm-bessel-dobiski and @thm-besselk-dobinski, we have:
+
+$$
+\begin{aligned}
+p I_0(e^x) + q K_0(e^x) = \sum_{n=0}^\infty \frac{x^n}{n!} \bigg[ v_n (p I_0(1) + q K_0(1)) + u_n (p I_1(1) - q K_1(1))\bigg]
+\end{aligned}
+$$
+
+Within this equation, an appropriate choice of $p$ and $q$ will neutralize the bessel functions in the series due to the wronskian property in @eq-bessel-wronskian. Specifically, $p = K_1(1), q = I_1(1)$ makes the coefficient of $v_n$ 1 and the coefficient of $u_n$ 0 and gives us integer coefficients for series A351143. Similarly for the other two choices of p and q established in @thm-m2-egf.
+
+Thus the e.g.f. of 2-Bell sequences is similar to that of the regular 1-Bell sequence - it is the composition of an exponential-like function with the exponential function. The remaining terms are there just to ensure integer coefficients. With the integer‑coefficient property now rigorously settled, we shift to the combinatorial side: a triangular recurrence whose row sums reproduce precisely these 2‑Bell sequences.
+
+### A new Stirling-like array
+
+The similarity of the 2-Bell numbers e.g.f. to the standard Bell numbers e.g.f. immediately invites the question if there is also a 2-Stirling equivalent to the triangular array of the Stirling numbers of the second kind, whose rows sum to the Bell numbers. Since the Stirling numbers appears as the coefficients of a bivariate e.g.f. generalization of the Bell e.g.f., it is worth exploring the following bivariate function:
+
+$$
+\begin{aligned}
+I_0(x e^t) = \sum_{k=0}^\infty \frac{(x/2)^{2k} e^{2kt}}{k!k!} = \sum_{k=0}^\infty \frac{(x/2)^{2k}}{k!k!} \sum_{n=0}^\infty \frac{(2k)^n t^n}{n!} = \sum_{n=0}^\infty \frac{t^n}{n!} \sum_{k=0}^\infty \frac{(x/2)^{2k}(2k)^n}{k!k!}
+\end{aligned}
+$$
 
 Define the following two-term recurrence relation where $\lfloor k/m\rfloor$ is the floor function:
 

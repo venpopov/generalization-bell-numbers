@@ -162,6 +162,15 @@
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{remark}
+\AtBeginDocument{\renewcommand*{\proofname}{Proof}}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem{refremark}{Remark}[section]
+\newtheorem{refsolution}{Solution}[section]
 \makeatother
 \makeatletter
 \makeatother
@@ -195,6 +204,7 @@ numbers}
 
 \usepackage{amsmath}
 \usepackage{logix}
+\usepackage{hyperref}
 \newcommand{\Stirling}[0]{\genfrac\{\}{0pt}{}}
 \newcommand{\mStirling}[0]{\genfrac{\lfloor}{\rfloor}{0pt}{}}
 
@@ -240,12 +250,38 @@ the Stirling numbers the of the second kind
 {[}2{]}, the exponential function and linear operators acting on it
 {[}3{]}.
 
+To simplify the notation, following Bernstein and Sloane {[}1{]}, define
+the following operators on sequences:
+
+\[
+\begin{aligned}
+\mathrm{BINOM} \circ [a_0,a_1,a_2, \dots] &= \bigg[\binom{0}{0}a_0,\binom{1}{0}a_0+\binom{1}{1}a_1, \ldots, \sum_{k=0}^n\binom{n}{k}a_k, \ldots \bigg] \\
+L \circ [a_0,a_1,a_2, \ldots] &= [a_1,a_2, \ldots]
+\end{aligned}
+\]
+
+where \(\mathrm{BINOM}\) is the binomial transform operator applied to
+sequence \(a\), whereas \(L\) is the left-shift operator. Then the Bell
+numbers form the unique sequence that satisfies the following equality
+with initial condition \(a_0 = 1:\)
+
+\[
+\mathrm{BINOM} \circ a = \mathrm{L} \circ a
+\]
+
 In this paper I study a new generalization of the Bell numbers defined
 by the following property:
 
 \begin{equation}\phantomsection\label{eq-mbell-recurrence}{
 B^{(m)}_{n+m} = \sum_{k=0}^n \binom{n}{k} m^{n-k} B_k^{(m)}
 }\end{equation}
+
+where the upper index \((m)\) should be read as the ``m-Bell'' number.
+Equivalently, these sequences satisfy the operator equation:
+
+\[
+\mathrm{BINOM^m} \circ a = \mathrm{L}^m \circ a
+\]
 
 These are sequences that shift to the left by \(m\) places after \(m\)
 applications of the binomial transform. The case \(m=1\) corresponds to
@@ -275,11 +311,50 @@ the Conway-Maxwell-Poisson distribution {[}4{]}.
 
 To clearly establish the analogue between the Bell-Stirling-Touchard
 framework and the novel results, I begin with a review of standard
-results {[}5{]} {[}6{]}.
+results and notation {[}5{]} {[}6{]}.
 
-\subsection{2. Background - Bell numbers, Stirling numbers, Touchard
-polynomials and operator
-calculus}\label{background---bell-numbers-stirling-numbers-touchard-polynomials-and-operator-calculus}
+\subsection{2. Background}\label{background}
+
+\subsubsection{2.1. Exponential generating functions and effects of
+sequence
+transformations}\label{exponential-generating-functions-and-effects-of-sequence-transformations}
+
+The exponential generating function (e.g.f.) of a sequence
+\((a_n)_{n \geq 0}\) is a formal power series in \(x\):
+
+\[
+\mathcal{A}(x) = \sum_{n=0}^\infty a_n \frac{x^n}{n!}
+\]
+
+Both the binomial transform and the left-shift operator acting on \(a\)
+have known effects on the e.g.f., \(\mathcal{B}(x)\), of the resulting
+sequence \(b\) {[}1{]}:
+
+\begin{equation}\phantomsection\label{eq-egf-transform}{
+\begin{aligned}
+b = \mathrm{BINOM} \circ a \,\,\, &\iff \mathcal{B}(x) = e^x \mathcal{A}(x) \\
+b = \mathrm{L} \circ a \,\,\, &\iff \mathcal{B}(x) = \mathcal{A}'(x)
+\end{aligned}
+}\end{equation}
+
+These relations can be used to establish an ordinary differential
+equation (ODE) which the e.g.f. of sequences like those defined by
+Equation~\ref{eq-mbell-recurrence} must satisfy. In the case of the Bell
+numbers, this is simply:
+
+\[
+\mathcal{A}'(x)-e^x \mathcal{A(x)} = 0
+\]
+
+\subsubsection{2.1. Bell numbers, Stirling numbers, Touchard polynomials
+and operator
+calculus}\label{bell-numbers-stirling-numbers-touchard-polynomials-and-operator-calculus}
+
+The solution of the ODE for the Bell numbers is the well known e.g.f.:
+
+\[
+e^{e^t-1} = \sum_{n=0}^{\infty} B_n \frac{t^n}{n!}
+\]
 
 Recall that the Bell numbers are the row sums of a triangle array formed
 by the Stirling numbers of the second kind:
@@ -293,7 +368,7 @@ B_n = \sum_{k=0}^{n}\genfrac\{\}{0pt}{}{n}{k},
 where the Stirling numbers of the second kind satisfy the recurrence:
 
 \[
-\genfrac\{\}{0pt}{}{n+1}{k} = k \, \genfrac\{\}{0pt}{}{n}{k} + \genfrac\{\}{0pt}{}{n}{k-1}, \,\,\,\,\, (n, k ≥ 1)\\
+\genfrac\{\}{0pt}{}{n+1}{k} = k \, \genfrac\{\}{0pt}{}{n}{k} + \genfrac\{\}{0pt}{}{n}{k-1}, \,\,\,\,\, n, k ≥ 1\\
 \]
 
 The Stirling numbers of the second kind count the number of ways to
@@ -305,8 +380,7 @@ polynomials:
 T_n(x) = \sum_{k=0}^{n} \genfrac\{\}{0pt}{}{n}{k} x^k,
 \]
 
-whose bi-variate e.g.f. is below (and is the e.g.f. of the Bell numbers
-when evaluated at \(x=1\)):
+whose e.g.f. is a more general case of the Bell numbers e.g.f.::
 
 \[
 \sum_{n=0}^{\infty} T_n(x) \frac{t^n}{n!} = e^{x(e^t-1)}
@@ -328,29 +402,318 @@ function \(e^x\) we get precisely the e.g.f. for Touchard polynomials
 e^{-x}e^{txD_x}e^x = e^{x(e^t-1)}
 \]
 
-A final useful relation is the Dobinski formula that let us express
-\(T_n(x)\) and the Bell numbers \(B_n = T_n(1)\) as an infinite sum:
+A final useful relation is the \textbf{Dobiński} formula that let us
+express \(T_n(x)\) and the Bell numbers \(B_n = T_n(1)\) as an infinite
+sum:
 
-\[
-T_n(x)=e^{-x}\sum_{k=0}^{\infty}\frac{x^k k^n}{k!}
-\]
+\begin{equation}\phantomsection\label{eq-bell-dobinski}{
+\begin{aligned}
+T_n(x) & =e^{-x}\sum_{k=0}^{\infty}\frac{x^k k^n}{k!} \\
+B_n & = \frac{1}{e}\sum_{k=0}^{\infty}\frac{k^n}{k!}
+\end{aligned}
+}\end{equation}
+
+In the remainder of the paper we will see that the sequences for
+\(m = 2\) have many analogous properties as those defined above.
 
 \subsection{3. The case m = 2}\label{the-case-m-2}
 
-The following three sequences all share the property that they shift by
-2 places left after two binomial transformations:
+\subsubsection{3.1. Exponential generating
+functions}\label{exponential-generating-functions}
+
+Before solving the general case, let us focus on the \(m=2\)
+generalization of the Bell numbers. The following three sequences all
+share the property that they shift by 2 places left after two binomial
+transformations:
 
 \begin{itemize}
 \item
-  \href{https://oeis.org/A007472}{A007472}: \$1, 1, 1, 3, 9, 29, 105,
-  431, 1969, \ldots \$
+  \href{https://oeis.org/A007472}{A007472}:
+  \(1, 1, 1, 3, 9, 29, 105, 431, 1969, \ldots\)
 \item
   \href{https://oeis.org/A351143}{A351143}:
   \(1, 0, 1, 2, 5, 16, 61, 258, 1177, \ldots\)
 \item
-  \href{https://oeis.org/A351028}{A351028}: \$0, 1, 0, 1, 4, 13, 44,
-  173, 792, 4009, \ldots \$
+  \href{https://oeis.org/A351028}{A351028}:
+  \(0, 1, 0, 1, 4, 13, 44, 173, 792, 4009, \ldots\)
 \end{itemize}
+
+The main difference between them are the initial conditions
+\((a_0, a_1)\): \((1, 1); (1,0); (0,1)\). They all satisfy the property:
+
+\begin{equation}\phantomsection\label{eq-2bell-recurrence}{
+B^{(2)}_{n+2} = \sum_{k=0}^n \binom{n}{k} 2^{n-k} B_k^{(2)}
+}\end{equation}
+
+\begin{theorem}[]\protect\hypertarget{thm-m2-egf}{}\label{thm-m2-egf}
+
+\emph{The exponential generating functions for 2-Bell numbers are a
+linear combination of modified Bessel functions of the first and second
+kind of order 0 whose weights are uniquely determined by the first two
+elements of the series. Specifically:}
+
+\[
+\begin{aligned}
+\mathcal{A}_{351143}(x) &= K_1(1)I_0(e^x) + I_1(1)K_0(e^x) \\
+\mathcal{A}_{351008}(x) &= K_0(1)I_0(e^x) - I_0(1)K_0(e^x) \\
+\mathcal{A}_{007472}(x) = \mathcal{A}_{351143}(x) + \mathcal{A}_{351008}(x) &= [K_0(1) + K_1(1)]I_0(e^x) + [I_0(1) - I_1(1)]K_0(e^x)
+\end{aligned}
+\]
+
+\end{theorem}
+
+\begin{proof}
+Using the operator notation introduced in section 1, 2-Bell numbers
+satisfy the operator equality
+\(\mathrm{BINOM}^2 \circ a = \mathrm{L}^2 \circ a\). Using
+Equation~\ref{eq-egf-transform}, we see that the e.g.f. of these
+sequences must satisfy the following differential equation:
+
+\[
+\mathcal{A}''(x)-e^{2x}A(x) =0
+\]
+
+To solve the ODE, first, use the substitutions
+\(t=e^x, \frac{dt}{dx}=t, f(t)=\mathcal{A}(x)\) to simplify it:
+
+\[
+\begin{aligned}
+\mathcal{A}'(x) & = \frac{d\mathcal{A}}{dx}=\frac{d\mathcal{A}}{dt}\frac{dt}{dx} = t \,f'(t) \\
+\mathcal{A}''(x) &= \frac{d}{dx}\mathcal{A}'(x) = \frac{d}{dx}t f'(t) = \frac{dt}{dx} f'(t) + t \frac{d}{dx}f'(t) = t f'+t^2 f'' \\
+e^{2x} \mathcal{A}(x) &= t^2f\\
+\end{aligned}
+\]
+
+We can now express the ODE as follows:
+
+\begin{equation}\phantomsection\label{eq-m2-ode}{
+t^2f''+tf'-t^2f = 0
+}\end{equation}
+
+In this standard form, it is easy to see that Equation~\ref{eq-m2-ode}
+is the modified Bessel equation for the case of \(n=0\) (see
+\href{https://dlmf.nist.gov/10.25.E1}{10.25.1}){[}7{]}, whose general
+solution is:
+
+\[
+f(t)=p\,I_0(t)+q\,K_0(t)
+\]
+
+with \(I_n\) and \(K_n\) being the modified Bessel functions of the
+first and second kind, and \(p\) and \(q\) are constants determined by
+the initial conditions. Therefore, the general solution for
+\(\mathcal{A}(x)\), the e.g.f. of sequences
+\href{https://oeis.org/A007472}{A007472},
+\href{https://oeis.org/A351143}{A351143} and
+\href{https://oeis.org/A351028}{A351028} is:
+
+\begin{equation}\phantomsection\label{eq-m2-ODE-solution}{
+\mathcal{A}(x)=p\, I_o(e^x) + q\,K_0(e^x)
+}\end{equation}
+
+To determine \(p\) and \(q\) we use the known initial conditions.
+Sequence A007472 is the element-wise sum of A351143 and A351028, so it
+is sufficient to determine \(p\) and \(q\) for the latter 2 only. For
+A351143 we have \(a_0 = 1\) and \(a_1 = 0\). Thus, we have the following
+system of equations:
+
+\[
+\begin{aligned}
+A(0) & = p\, I_0(1) + q\,K_0(1) = 1 \\
+A'(x)\bigr|_{x=0} &=p\, I_0'(e^x)\bigr|_{x=0} + q\,K_0'(e^x)\bigr|_{x=0} = 0
+\end{aligned}
+\]
+
+The derivative of \(I_0\) and \(K_0\) are thankfully straightforward
+(\href{https://dlmf.nist.gov/10.29.E3}{10.29.3}) {[}7{]}:
+
+\[
+\begin{aligned}
+I_0'(x) &= I_1(x) \\ K_0'(x) &= -K_1(x) \\I_0'\bigl(e^x\bigr) &= e^xI_1\bigl(e^x\bigr) \\ K_0'\bigl(e^x\bigr) &= -e^xK_1\bigl(e^x\bigr) \\
+\end{aligned}
+\]
+
+Evaluating at \(x=0\):
+
+\[
+\begin{aligned}
+A(0) & = p \,I_0(1)+q\,K_0(1) = 1 \\
+A'(0) & = p\,I_1(1)-q K_1(1) = 0
+\end{aligned}
+\]
+
+After some algebraic torture we get expressions for p and q:
+
+\[
+\begin{aligned}
+p &= \frac{1-qK_0(1)}{I_0(1)} \\
+q &= p\frac{I_1(1)}{K_1(1)} = \frac{I_1(1)-qI_1(1)K_0(1)}{I_0(1)K_1(1)} \\
+q &= \frac{I_1(1)}{I_1(1)K_0(1)+I_0(1)K_1(1)}
+\end{aligned}
+\]
+
+These expressions can be simplified due to the following Bessel identity
+concerning the Wronskian of the modified Bessel functions (see
+\href{https://dlmf.nist.gov/10.28.E2}{10.28.2}):
+
+\[
+I_v(z)K_{v+1}(z)+I_{v+1}(z)K_v(z) = 1/z
+\]
+
+which holds for any complex \(v\) and \(z\). In the special case when
+\(v = 0\) and \(z=1\):
+
+\begin{equation}\phantomsection\label{eq-bessel-wronskian}{
+I_0(1)K_1(1)+I_1(1)K_0(1) = 1
+}\end{equation}
+
+Therefore the constants for the e.g.f. of sequence A351143 are:
+
+\[
+\begin{aligned}
+q &= I_1(1) \\
+p &= K_1(1)
+\end{aligned}
+\]
+
+With a very similar manipulation for the initial conditions of A351028
+and A007472 we get the coefficients in Theorem~\ref{thm-m2-egf} which
+concludes the proof.
+\end{proof}
+
+\subsubsection{3.2. Series expansion of the
+e.g.f.}\label{series-expansion-of-the-e.g.f.}
+
+The relatively complicated expression for the e.g.f. of 2-Bell numbers
+made me question how it can result in integer coefficients. Let us
+explore the series expansion for the derved e.g.f.s. Consider first the
+case of sequence A351143:
+
+\[
+\mathcal{A}_{351143}(x) = K_1(1)I_0(e^x) + I_1(1)K_0(e^x)
+\]
+
+We have the following standard series for \(I_0\) and \(K_0\):
+
+\[
+\begin{aligned}
+I_0(z) &= \sum_{k=0}^{\infty} \frac{(\frac{1}{2}z)^{2k}}{k!k!} \\
+K_0(z) &= -\log\biggl(\frac{z}{2}\biggr)I_0(z) + \sum_{k=0}^{\infty}\frac{\psi(k+1)(\frac{1}{2}z)^{2k}}{k!k!}
+\end{aligned}
+\]
+
+where \(\psi\) is the digamma function. Let us focus on the \(I_0\)
+function. Substituting \(z=e^x\) and then expanding the Taylor series
+for the exponential function we get:
+
+\[
+\begin{aligned}
+I_0(e^x) &= \sum_{k=0}^{\infty} \frac{e^{2xk}}{2^{2k}k!k!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!}\sum_{n=0}^{\infty}\frac{x^n(2k)^n}{n!} = \sum_{n=0}^{\infty}\frac{x^n}{n!}\sum_{k=0}^{\infty} \frac{(2k)^n}{2^{2k}k!k!}
+\end{aligned}
+\]
+
+Let the inner sum be represented by
+\(S(n) = \sum_{k=0}^{\infty} \frac{(2k)^n}{2^{2k}k!k!}\). This formula
+is reminiscent of the \textbf{Dobiński} formula for the standard Bell
+numbers (Equation~\ref{eq-bell-dobinski}) with an extra factorial in the
+denominator and extra powers of 2. Indeed, we can state an equivalent
+theorem:
+
+\begin{theorem}[]\protect\hypertarget{thm-bessel-dobiski}{}\label{thm-bessel-dobiski}
+
+\[
+\begin{aligned}
+S(n) &= \sum_{k=0}^{\infty} \frac{(2k)^n}{(2^{k}k!)^2}=v_n I_0(1) + u_n I_1(1) \\
+A351143(n) &= v_n \\
+A351028(n) &= u_n \\
+A007472(n) &= v_n+u_n
+\end{aligned}
+\]
+
+\end{theorem}
+
+\phantomsection\label{.proof}
+Proceed by induction. First, establish the base cases:
+
+\[
+\begin{aligned}
+S(0) &= \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!} = I_0(1) \\
+S(1) &= \sum_{k=0}^{\infty} \frac{2k}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{1}{2^{2k-1}(k-1)!k!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k+1}k!(k+1)!} = I_1(1)\\
+S(2) &= \sum_{k=0}^{\infty} \frac{2^2k^2}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{1}{2^{2k-2}(k-1)!(k-1)!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!} = I_0(1)\\
+\end{aligned}
+\]
+
+Induction hypothesis: for every \(m \leq n\), it holds that
+\(S(m) = v_m I_0(1) + u_m I_1(1)\). Then:
+
+\begin{equation}\phantomsection\label{eq-2bell-dobinski-proof-step1}{
+\begin{aligned}
+S(n+2) &= \sum_{k=0}^{\infty} \frac{(2k)^{n+2}}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{(2k)^{n}}{2^{2k-2}(k-1)!(k-1)!} = \sum_{k=0}^{\infty} \frac{(2k+2)^{n}}{2^{2k}k!k!}\\
+&= \sum_{k=0}^{\infty}\sum_{m=0}^{n} \binom{n}{m}2^{n-m}\frac{(2k)^m}{2^{2k}k!k!} = \sum_{m=0}^{n}\binom{n}{m}2^{n-m} \sum_{k=0}^{\infty}\frac{(2k)^m}{2^{2k}k!k!} \\
+&= \sum_{m=0}^{n}\binom{n}{m}2^{n-m} S(m)
+\end{aligned}
+}\end{equation}
+
+First, notice that Equation~\ref{eq-2bell-dobinski-proof-step1} has
+exactly the same form as the recurrence relation for the 2-Bell numbers
+as defined in Equation~\ref{eq-2bell-recurrence}. Second, use the
+induction hypothesis and substitute \(S(m)\):
+
+\[
+\begin{aligned}
+S(n+2) &= \sum_{m=0}^{n}\binom{n}{m}2^{n-m} (v_m I_0(1)+u_m I_1(1)) \\
+&= I_0(1)\bigg[\sum_{m=0}^{n}\binom{n}{m}2^{n-m}v_m\bigg] + I_1(1)\bigg[\sum_{m=0}^{n}\binom{n}{m}2^{n-m}u_m\bigg] \\
+&= v_{n+2}I_0(1)+u_{n+2}I_1(1)
+\end{aligned}
+\]
+
+which completes the proof. Indeed, if we were to enumerate a few more
+cases, we would see that \(v_n\) and \(u_n\) precisely match the
+sequences A351143 and A351028.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+\(n\) & \(S(n)\) & \(v_n\) & \(u_n\) & \(v_n+u_n\) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & \(I_0(1)\) & 1 & 0 & 1 \\
+1 & \(I_1(1)\) & 0 & 1 & 1 \\
+2 & \(I_0(1)\) & 1 & 0 & 1 \\
+3 & \(2I_0(1)+I_1(1)\) & 2 & 1 & 3 \\
+4 & \(5I_0(1)+4I_1(1)\) & 5 & 4 & 9 \\
+5 & \(16I_0(1)+13I_1(1)\) & 16 & 13 & 27 \\
+\end{longtable}
+
+The major difference between Dobinski-like
+Equation~\ref{eq-2bell-dobinski-proof-step1} and the standard Dobinski
+formula for the Bell numbers is that unlike the exponential function,
+modified Bessel functions do not have simple inverses and therefore we
+cannot simply multiply the Equation~\ref{eq-2bell-dobinski-proof-step1}
+by \(I_0(1)^{-1}\) to get rid of the Bessel functions. The recurrence
+relation and the coefficients we just derived show that in principle the
+e.g.f. for these sequences can be as simple as \(I_0(e^x)\), which is
+very close to the e.g.f. for the Bell numbers \(\exp(-1)\exp(e^x)\). A
+careful examination of the coefficients in the full series expansion of
+the e.g.f.s in Theorem~\ref{thm-m2-egf} will reveal that the added
+factors in the e.g.f. serve the same role as \(\exp(-1)\) in the Bell
+numbers e.g.f. - due to Wronskian identity described in
+Equation~\ref{eq-bessel-wronskian}, all Bessel functions get canceled
+out and we remain with a pure power series in \(x\) without any special
+functions.
+
+\[
+\begin{aligned}
+I_0(e^x) &= \sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!} \\
+K_0(e^x) &= (\log2-x)\sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}+ \sum_{n=0}^{\infty}\frac{\psi(n+1)e^{2xn}}{2^{2n}n!n!} \\
+&= \sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}(\log2-x+\psi(n+1)) \\
+\mathcal{A}_{351143}(x) &= K_1(1)\sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}+I_1(1)\sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}(\log2-x+\psi(n+1)) \\
+&= \sum_{n=0}^{\infty} \frac{e^{2xn}}{2^{2n}n!n!}(K_1(1) + I_1(1) +\log2-x+\psi(n+1))
+\end{aligned}
+\]
+
+\subsubsection{3.1. Stirling-like array}\label{stirling-like-array}
 
 Define the following two-term recurrence relation where
 \(\lfloor k/m\rfloor\) is the floor function:
@@ -483,6 +846,12 @@ Springer Netherlands, Dordrecht.
 \CSLRightInline{Sándor, J and Crstici, B (2004 ). Stirling, bell,
 bernoulli, euler and eulerian numbers. Springer Netherlands, Dordrecht.
 459--618. \url{https://doi.org/10.1007/1-4020-2547-5_5}}
+
+\bibitem[\citeproctext]{ref-NIST:DLMF}
+\CSLLeftMargin{{[}7{]} }%
+\CSLRightInline{{\emph{NIST Digital Library of Mathematical Functions}}.
+\url{https://dlmf.nist.gov/}, Release 1.2.4 of 2025-03-15.
+\url{https://dlmf.nist.gov/}}
 
 \end{CSLReferences}
 
