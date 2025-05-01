@@ -2,34 +2,34 @@
 \usepackage{biblatex}
 \addbibresource{references.bib}
 \usepackage{amsmath}
-\usepackage[left=2.5cm, right=2cm]{geometry}
 \bibliography{references}
+\RequirePackage[a4paper, left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\renewcommand{\theequation}{A\arabic{equation}}
 \begin{document}
-
-\title{Appendix A}
-\maketitle
+\section*{Appendix A: Z(n,k) formula derivation}
 We have the recurrence
-$$
+\begin{equation}\label{zet-recurrence}
 Z(n,k) = 2\floor{k/2} Z(n-1,k)+Z(n-1,k-1),
-$$
-Let $A_k$ be the ordinary generating function over $x^n$:
+\end{equation}
+with initial conditions $Z(0,k) = \delta_{0,k}$, valid for $1 \leq k \leq n$, which forms a lower triangular array. 
+Here I derive an explicit formula for $Z(n,k)$. Let $A_k$ be the ordinary generating function for the k-th column over $x^n$:
 $$
 A_k(x) = \sum_{n} Z(n,k) x^n
 $$
-We multiply each side of the recurrence by $x^n$ and sum over n:
+We first multiply each side of the recurrence in Eq. \ref{zet-recurrence} by $x^n$ and sum over n:
 $$
 \begin{aligned}
 \sum_{n \geq 1} Z(n,k)x^n &= 2\floor{k/2}\sum_{n \geq 1}Z(n-1,k)x^n + \sum_{n \geq 1} Z(n-1,k-1) x^n \\
 A_k -Z(0,k)&=2\floor{k/2}x A_k+x A_{k-1}, \quad k \geq 1
 \end{aligned}
 $$
-Since $Z(0,k) = 0$ when $k \neq 0$, then this simplifies to
+Since $Z(0,k) = 0$ when $k \neq 0$, then this simplifies to the following recurrence for the column generating function:
 $$
 A_k = \frac{x}{(1-2\floor{k/2}x)} A_{k-1}
 $$
-We know that $A_0(x) = 1$, hence:
+We know from the initial conditions that $A_0(x) = 1$, hence:
 $$
 \begin{aligned}
     A_0 &= 1 \\
@@ -40,47 +40,62 @@ $$
     A_5 &= \frac{x^5}{(1-2x)^2 (1-4x)^2}, \\
 \end{aligned}
 $$
-and so on. More generally:
-$$
+and so on. More generally, the ordinary generating function for the k-th column is:
+\begin{equation}\label{column-ogf}
 A_k(x) = \frac{x^k}{\prod_{j=0}^k(1-2\floor{j/2}x)}
+\end{equation}
+In order to get an explicit formula for $Z(n,k)$, use the technique on p.19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}:
 $$
-In order to get an explicit formula for $Z(n,k)$ use the technique on p.19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}. Start with partial fraction decomposition of $A_k(x)$. First, denote:
+Z(n,k) = [x^n]A(x),
+$$
+where $[x^n]$ is the coefficient extractor operator. Start with partial fraction decomposition of $A_k(x)$. First, denote:
 $$
 A_k(x) = x^kP_k(x),
 $$
 where
 $$
-P_k(x) = \prod_{1 \leq j \leq k}\frac{1}{1-2\floor{j/2}x}
+P_k(x) = \prod_{0 \leq j \leq k}\frac{1}{1-2\floor{j/2}x}.
 $$
-We can can express this as a sum of partial fractions with unknown coefficients (note the slight difference in ranges for odd and even k):
+Hence
+\begin{equation}\label{znk-coef}
+Z(n,k) = [x^n]x^kP_k(x) = [x^{n-k}]P_k(x)
+\end{equation}
+We can express $P_k(x)$ as a sum of partial fractions with unknown coefficients (note the slight difference in ranges for odd and even k):
+
+\begin{equation}\label{pkx}
+    \begin{aligned}
+    P_{2m}(x) &= \sum_{1 \leq j \leq m} \frac{C_{2m,j}}{1-2jx} + \sum_{1 \leq j \leq m-1} \frac{D_{2m,j}}{(1-2jx)^2} \\
+    P_{2m+1}(x) &= \sum_{1 \leq j \leq m} \frac{C_{2m+1,j}}{1-2jx} + \sum_{1 \leq j \leq m} \frac{D_{2m+1,j}}{(1-2jx)^2}
+    \end{aligned}
+\end{equation}
+
+It is easy to calculate the $D$ coefficients with the standard Heaviside cover-up method:
 $$
 \begin{aligned}
-P_{2m}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m,j}}{1-2jx} + \sum_{1 \leq j < m} \frac{d_{2m,j}}{(1-2jx)^2} \\
-P_{2m+1}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m+1,j}}{1-2jx} + \sum_{1 \leq j \leq m} \frac{d_{2m+1,j}}{(1-2jx)^2}
+    D_{k,r} &= (1-2rx)^2P_k(x)|_{x=\frac{1}{2r}} \\
+    &= (1-2rx)^2 \prod_{1 \leq j \leq k} \frac{1}{1-2 \floor{j/2}x} \bigg|_{x=\frac{1}{2r}} \\
+    &= \prod_{1 \leq j < 2r} \frac{1}{1-\floor{j/2}/r} \prod_{2r < j \leq k} \frac{1}{1- \floor{j/2}/r} \\
+    &= \prod_{1 \leq j < 2r} \frac{r}{r-\floor{j/2}} \prod_{2r < j \leq k} \frac{r}{r- \floor{j/2}}, \\
 \end{aligned}
 $$
-It is easy to calculate the $d$'s with the standard Heaviside cover-up method:
-$$
-d_{k,r} = (1-2rx)P_k(x)|_{x=\frac{1}{2r}},
-$$
-which varies only slightly for even and odd k:
+which simplifies to:
+\begin{equation}\label{d-k-r}
+        D_{k,r}=\frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!}.
+\end{equation}
+$D_{k,r}$ varies only slightly for even and odd k:
 $$
 \begin{aligned}
-    d_{2m,r} &= -\frac{r^{2m-1}}{r!r!(m-r)!(m-1-r)!} \\
-    d_{2m+1,r} &= \frac{r^{2m}}{r!r!(m-r)!(m-r)!} \\
+    D_{2m,r} &= \frac{-r^{2m-1}}{r!r!(m-r)!(m-1-r)!} \\
+    D_{2m+1,r} &= \frac{r^{2m}}{r!r!(m-r)!(m-r)!} \\
 \end{aligned}
 $$
-Or more generally:
+For the $C_{k,j}$ coefficients, we have two main cases to consider. When $k=2m$ is even and $j=m$, $P_k(x)$ has a simple pole at $1-2mx$, so we get $C_{2m,m}$ easily by the same method:
+\begin{equation}\label{c-2m-m}
+    C_{2m,m} = (1-2mx)P_{2m}(x)|_{x=\frac{1}{2m}} = \frac{m^{2m}}{m!m!}
+\end{equation}
+For the remaining C coefficients  we have a pole of $P_k(x)$ of multiplicity 2 at $1-2jx$ so we need to use the derivative method. Specifically:
 $$
-d_{k,r}=\frac{(-r)^{k-1}}{r! r!(\floor{k/2}-r)!(\floor{k/2}-r-1)!(\floor{k/2}-r)^{k \pmod 2}}
-$$
-For the $c_{k,j}$ coefficients, we proceed we have two main cases to consider. When $k=2m$ is even and $j=m$, we have a simple pole at $1-k$, so we get easily:
-$$
-c_{2m,m} = (1-2mx)P_{2m}(x)|_{x=\frac{1}{2m}} = \frac{m^{2m}}{m!m!}
-$$
-In the remaining c coefficients where  we have a repeated pole of $P_k$ at $x=\frac{1}{2j}$ so we need to use the derivative method. Specifically:
-$$
-c_{k,r} = \frac{d}{dx} (1-2rx)^2P_k(x)\bigg|_{x=\frac{1}{2r}}
+-2r C_{k,r} = \frac{\mathrm{d}}{\mathrm{d}x} (1-2rx)^2P_k(x)\bigg|_{x=\frac{1}{2r}}
 $$
 Let 
 $$
@@ -88,143 +103,89 @@ $$
 Q_r &= (1-2rx)^2 P_k(x) = \prod_{j} \frac{1}{(1-2jx)^{e_j}},\\
 e_j &= 
     \begin{cases} 
-    2,& \mathrm{if}\quad 2j < k \land  j \neq r \\ 
+    2,& \mathrm{if}\quad 0 \leq 2j < k \land  j \neq r \\ 
     1, & \mathrm{if} \quad 2j = k \land j \neq r \\
     0, & \mathrm{otherwise}
     \end{cases}
 \end{aligned}
 $$
-Then $c_{k,r} = Q'_r\left (\frac{1}{2r} \right)$ and we can use the logarithmic derivative to simplify the calculation:
+Then $C_{k,r} = -\frac{1}{2r}Q'_r\left (\frac{1}{2r} \right)$ and we can use the logarithmic derivative to simplify the calculation:
+
 $$ 
 \begin{aligned}
-Q'_r &= Q_r\frac{d}{dx}\log(Q_r) \\
-    \frac{d}{dx}log(Q_r) &= \frac{d}{dx}\left[ -\sum_{j} e_j\log(1-2jx) \right]=  \sum_{j} 2e_j\frac{j}{1-2jx}  \\
-    c_{k,r} &= 2\sum_{j} e_j\frac{j}{1-j/r} Q_r\left(\frac{1}{2r}\right) \\ &= 2 d_{k,r}\sum_{j}e_j\frac{rj }{r-j} \\
-    &= 2r d_{k,r}\sum_{j}e_j \frac{j}{r-j}
+    \frac{Q'_{r}}{Q_r} &= \frac{d}{dx}log(Q_r) = \frac{d}{dx}\left[ -\sum_{j} e_j\log(1-2jx) \right]=  \sum_{j} 2e_j\frac{j}{1-2jx}  \\
+    C_{k,r} &= - \frac{1}{2r}Q'_r\left (\frac{1}{2r} \right) = -\log(Q_r(x))'Q_r(x)|_{x=1/{2r}} \\
+    &= -\frac{1}{2r} Q_r\left(\frac{1}{2r}\right) 2\sum_{j} e_j\frac{j}{1-j/r} \\ 
+    &= -\frac{1}{2r} 2 D_{k,r}\sum_{j}e_j\frac{rj }{r-j} \\
+    &= - \frac{1}{2r}2r D_{k,r}\sum_{j}e_j \frac{j}{r-j} \\
+    &= - D_{k,r}\sum_{j}e_j \frac{j}{r-j} \\
 \end{aligned}
 $$
 Let $S_k=\sum_{j}e_j\frac{j}{r-j}$ and simplify S. First, consider the case $k=2m+1$. 
 $$
 \begin{aligned}
-    S_{2m+1} &= 2\sum_{\substack{1 \leq j \leq m \\ j \neq r}}\frac{j}{r-j} = 2 \sum_{1 \leq j \leq r-1} \frac{j}{r-j} - 2\sum_{r+1 \leq j \leq m}\frac{j}{j-r} \\
+    S_{2m+1} &=  2\sum_{\substack{1 \leq j \leq m \\ j \neq r}}\frac{j}{r-j} \\ 
+    &= 2\left[\frac{1}{r-1}+\frac{2}{r-2} + \cdots  + \frac{r-1}{1}-\frac{r+1}{1}-\frac{r+2}{2}-\cdots-\frac{m}{m-r}\right]\\
     &= 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq m-r}\frac{j+r}{j} \\
-    &= 2rH_{r-1}-2(r-1)-2rH_{m-r}-2(m-r) \\
-    &= 2r(H_{r-1}-H_{m-r})-2(m-1) \\
-    c_{2m+1,r} &= ([4r^2(H_{r-1}-H_{m-r})-4r(m-1))d_{2m+1,r}
+    &= 2r\left(\sum_{1 \leq j \leq r-1}\frac{1}{j}\right) - 2(r-1) - 2r\left(\sum_{1 \leq j \leq m-r}\frac{1}{j}\right)-2(m-r)\\
+    &= 2r(H_{r-1}-H_{m-r})-2m+2 \\
 \end{aligned}
 $$
-We proceed similarly for $k=2m$ with some care about $e_{m}=1$:
+where $H_n$ is the $n^{th}$ harmonic number. We proceed similarly for $k=2m$ with some care about $e_{m}=1$:
 $$
 \begin{aligned}
-    S_{2m} &= \sum_{j}e_j \frac{j}{r-j} = \frac{m}{r-m} + 2\sum_{\substack{1 \leq j < m \\ j \neq r}}\frac{j}{r-j}\\ 
-    &= \frac{m}{r-m} + 2 \sum_{1 \leq j \leq r-1} \frac{j}{r-j} - 2\sum_{r+1 \leq j < m}\frac{j}{j-r} \\
-    &= \frac{m}{r-m} + 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j < m-r}\frac{j+r}{j} \\
+    S_{2m} &= \sum_{j}e_j \frac{j}{r-j} = \frac{m}{r-m} + 2\sum_{\substack{1 \leq j \leq m-1 \\ j \neq r}}\frac{j}{r-j}\\ 
+    &= \frac{m}{r-m} + 2 \sum_{1 \leq j \leq r-1} \frac{j}{r-j} - 2\sum_{r+1 \leq j \leq m-1}\frac{j}{j-r} \\
+    &= \frac{m}{r-m} + 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq m-r-1}\frac{j+r}{j} \\
     &= \frac{m}{r-m} + 2rH_{r-1}-2(r-1)-2rH_{m-r-1}-2(m-r-1) \\
-    &= \frac{m}{r-m} + 2r(H_{r-1}-H_{m-r-1})-2(m-2) \\
-    c_{2m,r} &= \left [4r^2(H_{r-1}-H_{m-r-1})-4r(m-2) + \frac{2mr}{m-r}\right ]d_{2m,r}
+    &=  2rH_{r-1} - 2rH_{m-r-1}-2(m-2)-\frac{m}{m-r}  \\
+    &= 2rH_{r-1} - 2rH_{m-r-1} - 2(m-2) - \frac{r}{m-r} -1 \\
+    &= r\left(2H_{r-1} - H_{m-r-1}-H_{m-r}\right) - 2m + 3
 \end{aligned}
 $$
-
-Combining everything so far, the results are best expressed by considering separately odd and even cases for k:
-
+Generally when $r \neq m$:
+\begin{equation}\label{s-k}
+    S_k = r(2H_{r-1}-H_{\floor{k/2}-r}-H_{\floor{(k-1)/2}-r})-k+3
+\end{equation}
+Combining everything we have:
+\begin{equation}\label{d-s-c}
+    \begin{aligned}
+        D_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{k/2}-r)!(\floor{(k-1)/2}-r)!} \\
+        S_{k,r} &= r(2H_{r-1}-H_{\floor{k/2}-r}-H_{\floor{(k-1)/2}-r})-k+3 \\
+        C_{k,r} &= 
+        \begin{cases}
+            - D_{k,r} S_{k,r} & \text{if}\, 1 \leq r < k/2\\
+            \frac{r^{2r}}{r!r!} & \text{if}\, r = k/2\\
+            0 & \text{otherwise}
+        \end{cases} 
+    \end{aligned}
+\end{equation}
+Next, let us find an explicit formula for Z(n,k). From \ref{znk-coef} and \ref{pkx}:
 $$
 \begin{aligned}
-    d_{k,r} &= \begin{cases}
-        \frac{r^{2m}}{r!r!(m-r)!(m-r)!} & \quad \text{if k is odd,} \, k=2m+1 \\
-        -\frac{r^{2m-1}}{r!r!(m-r)!(m-r-1)!}&\quad \text{if k is even,} \, k=2m \\
-    \end{cases} \\
-    c_{k,r} &= \begin{cases}
-        (4r^2(H_{r-1}-H_{m-r})-4r(m-1))d_{2m+1,r} & \quad \text{if k is odd,} \, k=2m+1 \\
-        (4r^2(H_{r-1}-H_{m-r-1})-4r(m-2) + \frac{2rm}{m-r})d_{2m,r} &\quad \text{if k is even,} \, k=2m \land r\neq m\\
-        \frac{m^{2m}}{m!m!} & \quad \text{if k is even} \land r=m 
-    \end{cases}
+    Z(n,k) &=[x^{n-k}]P_k(x) \\
+    &= [x^{n-k}]\left[ \sum_{1 \leq j \leq \floor{k/2}} \frac{C_{k,j}}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} \frac{D_{k,j}}{(1-2jx)^2} \right]\\
+     &= \sum_{1 \leq j \leq \floor{k/2}}C_{k,j}[x^{n-k}]  \frac{1}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} D_{k,j}[x^{n-k}]\frac{1}{(1-2jx)^2} \\ 
 \end{aligned}
 $$
-
-Hmm, somewhere I have an off index. After confirming with Mathematica, the correct version is:
+We have the standard geometric series expansions:
 $$
 \begin{aligned}
-    d_{k,r} &= \begin{cases}
-        \frac{r^{2m}}{r!r!(m-r)!(m-r)!} & \quad \text{if k is odd,} \, k=2m+1 \\
-        -\frac{r^{2m-1}}{r!r!(m-r)!(m-r-1)!}&\quad \text{if k is even,} \, k=2m \\
-    \end{cases} \\
-    c_{k,r} &= \begin{cases}
-        (2r(H_{m-r}-H_{r-1})+2(m-1))d_{2m+1,r} & \quad \text{if k is odd,} \, k=2m+1 \\
-        (2r(H_{m-r}-H_{r-1})+2(m-1) - \frac{m}{m-r})d_{2m,r} &\quad \text{if k is even,} \, k=2m \land r\neq m\\
-        \frac{m^{2m}}{m!m!} & \quad \text{if k is even} \land r=m 
-    \end{cases}
+     & [x^{n-k}]\frac{1}{1-2jx} = [x^{n-k}]\sum_{i\geq0}(2j)^ix^i = (2j)^{n-k}\\ 
+     & [x^{n-k}]\frac{1}{(1-2jx)^2} = [x^{n-k}]\sum_{i\geq0}(i+1)(2j)^ix^i = (n-k+1)(2j)^{n-k}.\\ 
 \end{aligned}
 $$
-For the moment trust the Mathematica results. Try to find an explicit formula for Z(n,k).
-
-$$
-\begin{aligned}
-    Z(n,k) 
-    &= [x^n] x^k P_k(x) \\
-    &=[x^{n-k}]P_k(x)
-\end{aligned}
-$$
-
-Recall the different forms depending on k parity:
-$$
-\begin{aligned}
-P_{2m}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m,j}}{1-2jx} + \sum_{1 \leq j < m} \frac{d_{2m,j}}{(1-2jx)^2} \\
-P_{2m+1}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m+1,j}}{1-2jx} + \sum_{1 \leq j \leq m} \frac{d_{2m+1,j}}{(1-2jx)^2}
-\end{aligned}
-$$
-$$
-\begin{aligned}
-    Z(n,2m+1)  
-    &= [x^{n-k}] \sum_{1 \leq j \leq m} \frac{c_{2m+1,j}}{1-2jx} + \sum_{1 \leq j \leq m} \frac{d_{2m+1,j}}{(1-2jx)^2} \\
-     &= \sum_{1 \leq j \leq m}c_{2m+1,j}[x^{n-k}]  \frac{1}{1-2jx} + \sum_{1 \leq j \leq m} d_{2m+1,j}[x^{n-k}]\frac{1}{(1-2jx)^2} \\ 
-     &= \sum_{1 \leq j \leq m}c_{2m+1,j}(2j)^{n-k} + \sum_{1 \leq j \leq m} d_{2m+1,j}(n-k+1)(2j)^{n-k+1}
-\end{aligned}
-$$
-and for k even:
-$$
-\begin{aligned}
-    Z(n,2m)  
-     &= \sum_{1 \leq j \leq m}c_{2m,j}(2j)^{n-k} + \sum_{1 \leq j < m} d_{2m,j}(n-k+1)(2j)^{n-k+1} \\
-    Z(n,2m+1)  
-     &= \sum_{1 \leq j \leq m}c_{2m+1,j}(2j)^{n-k} + \sum_{1 \leq j \leq m} d_{2m+1,j}(n-k+1)(2j)^{n-k+1}
-\end{aligned}
-$$
-
-The final set of formulas confirmed with Mathematica are:
-
-$$
-\begin{aligned}
-    Z(n,k)  
-     &= \sum_{1 \leq j \leq k/2}c_{k,j}(2j)^{n-k} + \sum_{1 \leq j 
-     \leq k/2} d_{k,j}(n-k+1)(2j)^{n-k} \\
-    d_{k,r} &= \begin{cases}
-        \frac{r^{2m}}{r!r!(m-r)!(m-r)!} & \quad \text{if k is odd,} \, k=2m+1 \\
-        -\frac{r^{2m-1}}{r!r!(m-r)!(m-r-1)!}&\quad \text{if k is even,} \, k=2m \\
-    \end{cases} \\
-    c_{k,r} &= \begin{cases}
-        (2r(H_{m-r}-H_{r-1})+2(m-1))d_{2m+1,r} & \quad \text{if k is odd,} \, k=2m+1 \\
-        (2r(H_{m-r}-H_{r-1})+2(m-1) - \frac{m}{m-r})d_{2m,r} &\quad \text{if k is even,} \, k=2m \land r\neq m\\
-        \frac{m^{2m}}{m!m!} & \quad \text{if k is even} \land r=m 
-    \end{cases}
-\end{aligned}
-$$
-
-(since $d_{k,j} =0$ when j >= k/2, the indices in the sum are unneeded. That simplifies things.
-
-$$
-\begin{aligned}
-    Z(n,k) &= \sum_{j}(2j)^{n-k}d_{k,j}\bigg[2r(H_{\floor{k/2}-r} - H_{r-1})+2\bigg(\floor{\frac{k}{2}}-1\bigg)-\frac{m}{m-r}[k \pmod 2]\bigg]\\
-        d_{k,r} &= \begin{cases}
-        \frac{r^{2m}}{r!r!(m-r)!(m-r)!} & \quad \text{if k is odd,} \, k=2m+1 \\
-        -\frac{r^{2m-1}}{r!r!(m-r)!(m-r-1)!}&\quad \text{if k is even,} \, k=2m \\
-    \end{cases} \\
-\end{aligned}
-$$
-
-$$
-\begin{aligned}
-    Z(n,k) &= \sum_{j}(2j)^{n-k}\frac{j^{k-1}}{j!j!(m-j)!}\bigg[2r(H_{\floor{k/2}-r} - H_{r-1})+2\bigg(\floor{\frac{k}{2}}-1\bigg)-\frac{m}{m-r}[k \pmod 2]\bigg]\\
-\end{aligned}
-$$
+Which results in the following final set of formulas valid for $n \geq 2, k \geq 2$:
+\begin{equation}
+    \begin{aligned}
+        Z(n,k &)= \sum_{1 \leq j \leq \floor{\frac{k}{2}}}(2j)^{n-k}\left (C_{k,j} +D_{k,j}(n-k+1) \right )\\
+            D_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!} \\
+            C_{k,r} &= \begin{cases}
+                - D_{k,r} (r(2H_{r-1}-H_{\floor{\frac{k}{2}}-r}-H_{\floor{\frac{k-1}{2}}-r})-k+3) & \text{if} \, 1 \leq r < k/2\\
+                \frac{r^{2r}}{r!r!} & \text{if}  \, r = k/2\\
+                0 & \text{otherwise}
+            \end{cases} 
+    \end{aligned}
+\end{equation}
 \printbibliography
 \end{document}
