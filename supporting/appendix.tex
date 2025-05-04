@@ -2,6 +2,7 @@
 \usepackage{biblatex}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{hyperref}
 \addbibresource{references.bib}
 \bibliography{references}
 \RequirePackage[a4paper, left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
@@ -204,5 +205,33 @@ $$
 \end{aligned}
 $$
 This formula provides a single, unified expression for $Z(n,k)$ that is valid for all integers $n,k \geq 0$. The inclusion of the $j=0$ term in the sum is essential, as the limit process correctly evaluates its contribution, ensuring validity for boundary cases like $Z(0,0)=1$, $ Z(1,1)=1$, and ensuring $Z(n,k)=0$ for $k>n$.
+
+Here are explicit formulas for columns 2-5 and related OEIS sequences:
+\[
+    \begin{aligned}
+        Z(n,2) &= 2^{n-2}, & \quad n \ge 2\, (\text{rel. } \href{https://oeis.org/A000079}{A000079})\\
+        Z(n,3) &= (n-2)2^{n-3}, & \quad n \ge 3\, (\text{rel. } \href{https://oeis.org/A001787}{A001787})\\
+        Z(n,4) &= 2^{2n-6}-(n-1)\,2^{n-4}, & n\geq 4 \, (\text{rel. } \href{https://oeis.org/A100575}{A100575})\\
+        Z(n,5) &= n\,2^{n-5}+(n-6) 2^{2n-8}, & n\geq 5 \, (\text{rel. } \href{https://oeis.org/A158681}{A158681})\\
+    \end{aligned}
+\]
+
+(with the caveat that the sequences listed at the end of each line are offset or scaled). The first subdiagonal gives \href{https://oeis.org/A007590}{A007590}.
+
+\pagebreak
+\section*{Appendix B: Bessel-Stirling numbers identities}
+
+\begin{proposition}[Hockey-stick-like identity]
+    \[
+        \mStirling{n}{k}_2 = \sum_{j=k}^{n}(2\floor{k/2})^{n-j} \mStirling{j-1}{k-1}_2
+    \]
+\end{proposition}
+
+
+\[
+    \mStirling{n+m}{k}_2 = b^m \mStirling{n}{k}_2 +\sum_{j=0}^{m-1}b^{m-1-j} \mStirling{n+j}{k-1}_2
+\]
+where $b=2\floor{k/2}$
+
 \printbibliography
 \end{document}

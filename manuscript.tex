@@ -1,10 +1,12 @@
 \documentclass[a4paper]{amsart}
+\usepackage{tikz}
 \usepackage{biblatex}
 \usepackage{amsaddr}
 \usepackage{hyperref}
-\usepackage{amsmath} % Needed for align, aligned, equation*
 \usepackage{mathrsfs} % Needed for \mathscr
 \usepackage{array} % Needed for table column specifiers
+\usepackage{amssymb} % for \varnothing
+\usepackage{pdflscape}  % For PDF output (rotates the page in the PDF viewer)
 
 % Custom commands
 \newcommand{\Stirling}[0]{\genfrac\{\}{0pt}{}}
@@ -27,10 +29,11 @@
 
 
 %% Meta
-\title{On a New Family of Bell-like numbers and Stirling-like triangular arrays}
+\title[A generalization of the Bell and Stirling numbers]{On a New Family of Bell-like numbers and Stirling-like triangular arrays}
 \author{Vencislav Popov}
 \email{vencislav.popov@gmail.com}
 \address{Department of Psychology, University of Zurich}
+\thanks{Computational results and other supporting information is available on \href{https://github.com/venpopov/generalization-bell-numbers}{GitHub}}
 \date{}
 
 % Biblio
@@ -475,7 +478,7 @@ n=9 & 0   & 0   & 128 & 448 & 3840& 3216& 1776& 344 & 32  & 1   & 9785          
 \end{tabular}
 \smallskip
 \end{center}
-where the values in the upper triangle are all 0. The row sums of this array yield the Bessel-Bell numbers \href{https://oeis.org/A007472}{A007472}
+where the values in the upper triangle are all 0. The row sums of this array yield the Bessel-Bell numbers \href{https://oeis.org/A007472}{A007472}:
 \[
 B_n^{(2)} = \sum_{k=0}^{n}\genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_2 = (1, 1, 1, 3, 9, 29, 105, 431, 1969, 9785, 52145, 296155, 1787385, ...)
 \]
@@ -490,20 +493,24 @@ This recurrence relation is almost identical to that for the Stirling numbers of
 The Bessel-Sitrling numbers are a novel generalization of the Stirling numbers and joins a broader family of two-term recurrences (\cite{mansour_general_2012},\cite{neuwirth_recursively_2001},\cite{barbero_g_bivariate_2014},\cite{spiveySolutionsGeneralCombinatorial2011}). I will return to the connection between this new array and previous generalizations of the Stirling numbers in Section \ref{sec-final-remarks}.
 
 Due to the form of their recurrence, the Bessel-Stirling numbers admit many identities common to other such two-term recurrence triangular arrays. Here I list the most interesting of them.
-\begin{theorem}[Explicit formula for the Bessel-Stirling numbers of the second kind]
+
+\begin{theorem}[Explicit formula for the Bessel-Stirling numbers of the second kind]\label{thm-bs-formula}
 The Bessel-Stirling numbers can be calculated explicitly for $n \ge 2, k \geq 2$ via  the following formula:
-\begin{equation*}\label{z-d-c}
-    \begin{aligned}
-        \mStirling{n}{k}_2&= \sum_{1 \leq j \leq \floor{\frac{k}{2}}}(2j)^{n-k}\left (C_{k,j} +D_{k,j}(n-k+1) \right )\\
-            D_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!} \\
-            C_{k,r} &= \begin{cases}
-                - D_{k,r} (r(2H_{r-1}-H_{\floor{\frac{k}{2}}-r}-H_{\floor{\frac{k-1}{2}}-r})-k+3) & \text{if} \, 1 \leq r < k/2\\
+\[
+    \mStirling{n}{k}_2 = \sum_{j=1}^{\floor{k/2}}(2j)^{n-k}\left (c_{k,j} +d_{k,j}(n-k+1) \right )
+\]
+where $d$ and $c$ are determined as follows:
+\[
+\begin{aligned}
+    d_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!} \\
+    c_{k,r} &= \begin{cases}
+                - c_{k,r} (r(2H_{r-1}-H_{\floor{\frac{k}{2}}-r}-H_{\floor{\frac{k-1}{2}}-r})-k+3) & \text{if} \, 1 \leq r < k/2\\
                 \frac{r^{2r}}{r!r!} & \text{if}  \, r = k/2\\
                 0 & \text{otherwise}
             \end{cases} 
-    \end{aligned}
-\end{equation*}
-Or via the following limit definition, valid for all $n\ge0, k\ge 0$:
+\end{aligned}
+\]
+Alternatively, the following limit definition of the Bessel-Stirling numbers is valid for all $n\ge0, k\ge 0$:
 $$
 \begin{aligned}
     (-1)^{k-1} 2^{n-k} \sum_{j=0}^{\floor{k/2}} \lim_{t \to j} \left[t^{n-1}
@@ -512,13 +519,200 @@ $$
             {\Gamma(t+1) \Gamma(t+1) \Gamma(\floor{\frac{k}{2}}-t+1) \Gamma(\floor{\frac{k-1}{2}}-t+1)}\right]
 \end{aligned}
 $$
+Where $H_n$ is the n-th harmonic number, $\psi(x)$ is the digamma function, and $\Gamma(x)$ is the gamma function. 
+\end{theorem}
+The proof is lengthy and given in \textbf{Appendix A}, which also includes relationships to other known OEIS sequences. This formula provides a single, unified expression for the Bessel-Bell numbers that is valid for all integers $n, k \ge 0$. The inclusion of the j = 0 term in the sum is essential, as the limit process correctly evaluates its contribution, ensuring validity for the boundary conditions.
+
+\section{Combinatorial interpretation of the Bessel-Stirling numbers of the second kind and the Bessel-Bell numbers}\label{sec-combinatorial}
+\noindent One possible interpretation of the Bessel-Stirling numbers $\mStirling{n}{k}_2$ is that they enumerate the number of ways to place $n$ labeled marbles in $k$ unlabeled compartments following a parity-constrained urn model.
+\begin{theorem}[The two-compartment urn model]\label{thm-urn-model}
+The Bessel-Stirling number of the second kind $\mStirling{n}{k}_2$ counts the number of ways to arrange $n$ labeled marbles in $k$ total compartments distributed across urns with two unlabeled compartments each, subject to the following constraints:
+\begin{itemize}
+    \renewcommand\labelitemi{--}
+    \item You can place a marble in any compartment of any urn to begin
+    \item You cannot place another marble in an urn's same compartment until the other compartment of that urn also contains at least one marble
+    \item You can freely place marbles in any compartment of urns where both compartments have been used
+    \item You cannot open a new urn until both compartments of all previously used urns contain at least one marble each
+\end{itemize}
+Then the Bessel-Bell numbers (\href{https://oeis.org/A007472}{A007472}) count the total number of ways to partition n labeled objects in such non-empty two-compartment urns.
 \end{theorem}
 
-\section{Combinatorial interpretation}\label{sec-combinatorial}
+Before diving into the proof, let us go through some examples to build intuition. Let $\{\dots|\dots||\dots|\dots \}$ represent 2 urns with double vertical bars separating the urns and single vertical bars separating the compartments within an urn. The numbers between the bars will represent the objects, labeled in the order in which they were placed in the urn (one at a time).
+For $\mStirling{3}{2}_2$ we have two ways to place the objects in two compartments of a single urn: $\{13|2\}$ or $\{1|23\}$.
+For $\mStirling{3}{3}_2$ we have one way to place each object in its own compartment (2 urns, 3 compartments used): $\{1|2||3|\varnothing\}$
+
+For 4 objects we have:
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Z(n,k) & Count & Examples \\
+\hline
+Z(4,2) & 4 & \texttt{\{134|2\},\{14|23\},\{13|24\},\{1|234\}} \\
+Z(4,3) & 4 & \texttt{\{13|2$\Vert$4|$\varnothing$\},\{1|23$\Vert$4|$\varnothing$\},\{14|2$\Vert$3|$\varnothing$\},\{1|24$\Vert$3|$\varnothing$\}}\\
+Z(4,4) & 4 & \texttt{\{1|2$\Vert$3|4\}} \\
+\hline
+Z(5,2) & 8 & 8 cases (examples not yet provided)\\
+Z(5,3) & 12 & 12 cases (examples not yet provided)\\
+Z(5,4) & 8 & 8 cases (examples not yet provided)\\
+Z(5,5) & 1 & 1 case (example not yet provided)\\
+\hline
+\end{tabular}
+\end{center}
+\begin{proof}
+We proceed by induction on $n$. The base cases are straightforward:
+\begin{itemize}
+\item $\mStirling{0}{0}_2 = 1$: There is exactly one way to arrange 0 marbles using 0 compartments.
+\item $\mStirling{n}{0}_2 = 0$ for $n > 0$: It's impossible to arrange any positive number of marbles using 0 compartments.
+\item $\mStirling{n}{k}_2 = 0$ for $k > n$: It's impossible to use more than $n$ compartments when placing $n$ marbles, since each compartment must contain at least one marble.
+\item $\mStirling{n}{n}_2 = 1$ for $n > 0$: There is exactly one way to place $n$ marbles into $n$ different compartments.
+\end{itemize}
+For the inductive step, assume that for some $n \geq 1$, the number $\mStirling{n}{k}_2$ correctly counts the arrangements of $n$ labeled marbles into $k$ compartments following our constraints. We need to show that $\mStirling{n+1}{k}_2 = 2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2$ counts the arrangements for $n+1$ marbles in $k$ compartments.
+Consider the placement options for the $(n+1)^{th}$ marble:
+
+Place in a new compartment: The $(n+1)^{th}$ marble can be placed in a new (previously unused) compartment, making the total number of compartments used equal to $k$. This requires that the previous $n$ marbles were arranged in $k-1$ compartments, and there are $\mStirling{n}{k-1}_2$ such arrangements.
+
+Place in a previously used compartment: The $(n+1)^{th}$ marble can be placed in one of the compartments already containing marbles. Here, the key insight comes from the urn model's constraints.
+
+We need to count how many valid placement options exist among the $k$ compartments already in use. This depends on the distribution of these compartments across urns:
+
+When $k$ is even, say $k = 2j$, the $k$ compartments must be distributed across exactly $j$ fully-filled urns (both compartments used in each). This is because our constraints prohibit opening a new urn until all previous urns have at least one marble in each compartment. With $j$ fully-filled urns, we have $2j = k$ valid placement options for the $(n+1)^{th}$ marble, since we can place it in any of the already-used compartments.
+When $k$ is odd, say $k = 2j+1$, we must have $j$ fully-filled urns (accounting for $2j$ compartments) plus one urn with exactly one compartment used. According to the constraints, we cannot place another marble in this partially-filled urn's used compartment until its other compartment also contains a marble. Therefore, we have only $2j = 2\lfloor k/2 \rfloor$ valid placement options in previously used compartments.
+
+In either case, the number of valid placement options in previously used compartments is $2\lfloor k/2 \rfloor$. Since there are $\mStirling{n}{k}_2$ ways to arrange the first $n$ marbles in $k$ compartments, we have $2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2$ ways to place the $(n+1)^{th}$ marble in a previously used compartment.
+Combining both cases, the total number of ways to arrange $n+1$ marbles in $k$ compartments is:
+$\mStirling{n+1}{k}_2 = 2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2$
+This matches exactly the recurrence relation for the Bessel-Stirling numbers, completing the proof.
+\end{proof}
+
+Note that this combinatorial interpretation easily generalizes to any $m$-Stirling numbers and $m$-Bell sequences. In the special case of $m=1$, each urn has only one compartment, so we are left with the standard combinatorial interpretation of counting partitions of labeled objects in unlabeled non-empty sets. This combinatorial interpretation may provide insight into why the sequence $a_n = \sum_{k=0}^n \mStirling{n}{k}_2$ shifts two places to the left after applying the binomial transform twice. The constraint requiring both compartments of an urn to be filled before opening a new urn creates a "pairing effect" that manifests mathematically as the shift-by-two property. This somewhat loose argument however requires further study.
+
+\section{Succession rules and a generating tree for Bessel-Stirling numbers}\label{sec-succession-rule}
+\noindent The 2-Stirling numbers can also be elegantly described using the formalism of succession rules and generating trees, as introduced by West \cite{west_generating_1995}. This representation provides yet another perspective on the structure of these numbers and their recurrence relation.
+\begin{definition}[Succession Rule for 2-Stirling Numbers]
+The 2-Stirling triangle can be generated using the following succession rule:
+\[
+    \begin{aligned}
+        \Omega: \begin{cases}
+        (0) \\
+        (2k) \to (2k)^{2k} (2k+1) \\
+        (2k+1) \to (2k+1)^{2k}(2k+2)
+        \end{cases}
+    \end{aligned}
+\]
+where the notation $(a) \to (b)^c , (d)$ means that a node labeled $(a)$ produces $c$ children labeled $(b)$ and one child labeled $(d)$.
+\end{definition}
+Starting from the root node labeled $(0)$, we apply this rule iteratively to build a generating tree. The labels at level $n$ of this tree encode the 2-Stirling numbers $\mStirling{n}{k}_2$. Specifically, the number of nodes (the exponent) with label $(k)$ at level $n$ corresponds precisely to $\mStirling{n}{k}_2$.
+For example, the first few levels of the generating tree produce the following multisets of labels:
+\[
+    \begin{aligned}
+    \text{Level 0}: &{(0)} \\
+    \text{Level 1}: &{(1)} \\
+    \text{Level 2}: &{(2)} \\
+    \text{Level 3}: &{(2)^2(3)} \\
+    \text{Level 4}: &{(2)^4(3)^4(4)} \\
+    \text{Level 5}: &{(2)^8(3)^{12}(4)^8(5)} \\
+    \end{aligned}
+\]
+The total number of labels at level $n$ is precisely the $n$-th 2-Bell number (sequence A007472). This succession rule representation directly encodes the recurrence relation for 2-Stirling numbers. For even values $k = 2j$, a node labeled $(2j)$ produces $2j$ children with the same label plus one child with label $(2j+1)$, corresponding to the term $2j \cdot \mStirling{n}{2j}_2$ in the recurrence relation. Similarly, for odd values $k = 2j+1$, a node produces $2j$ children with the same label, corresponding to the term $2j \cdot \mStirling{n}{2j+1}_2$, plus one child with label $(2j+2)$.
+
+This succession rule formalism provides a direct connection to the combinatorial interpretation: the label $(k)$ represents using $k$ compartments, and the number of children with the same label reflects the number of valid placements in already-used compartments, while the single child with a new label represents opening a new compartment.
+
+% Where you want the figure to appear
+\begin{landscape}
+\begin{figure}[p]  % 'p' places it on a page of its own
+\centering
+\begin{tikzpicture}[level distance=1.1cm,
+level 1/.style={sibling distance=16cm},
+level 2/.style={sibling distance=8cm},
+level 3/.style={sibling distance=7cm},
+level 4/.style={sibling distance=2.3cm},
+level 5/.style={sibling distance=0.6cm},
+every node/.style={draw,circle,minimum size=0.25cm,font=\scriptsize}]
+\node {0}
+    child {node {1}
+        child {node {2}
+            child {node {2}
+                child {node {2}
+                    child {node {2}}
+                    child {node {2}}
+                    child {node {3}}
+                }
+                child {node {2}
+                    child {node {2}}
+                    child {node {2}}
+                    child {node {3}}
+                }
+                child {node {3}
+                    child {node {3}}
+                    child {node {3}}
+                    child {node {4}}
+                }
+            }
+            child {node {2}
+                child {node {2}
+                    child {node {2}}
+                    child {node {2}}
+                    child {node {3}}
+                }
+                child {node {2}
+                    child {node {2}}
+                    child {node {2}}
+                    child {node {3}}
+                }
+                child {node {3}
+                    child {node {3}}
+                    child {node {3}}
+                    child {node {4}}
+                }
+            }
+            child {node {3}
+                child {node {3}
+                    child {node {3}}
+                    child {node {3}}
+                    child {node {4}}
+                }
+                child {node {3}
+                    child {node {3}}
+                    child {node {3}}
+                    child {node {4}}
+                }
+                child {node {4}
+                    child {node {4}}
+                    child {node {4}}
+                    child {node {4}}
+                    child {node {5}}
+                }
+            }
+        }
+    };
+\end{tikzpicture}
+\caption{First five levels of the generating tree for 2-Stirling numbers using the succession rule $\Omega$.}
+\label{fig:generating-tree}
+\end{figure}
+\end{landscape}
+
+\section{Bessel-Bell numbers of the first kind}
+
+UNFINISHED!
+
+The regular Stirling numbers come in a dual pair. In addition to the Stirling numbers of the second kind, which we explored at length, there exist a partner triangular array that bears the name Stirling numbers of the first kind. The two arrays are orthogonal to each other, meaning that ...
+
+Similarly we find that the 2-Stirling numbers also have a first kind, defined by the following recurrence: ...
+
+Amazingly, although this triangular array is also not present in OEIS, its row sums yield a sequence with a rich combinatorial history: A000246! A000246 is known to be the row sums of a couple of other triangles, neither of which is the one formed by the 2-Stirling numbers of the first kind....
+
 
 \section{The general case}\label{sec-general-case}
+To-be-done:
 
-\begin{conjecture}m-Bell numbers are the row sums of m-Stirling numbers of the second kind triangular arrays.
+- [ ] explicit solution to the m-th order ODE in terms of \cite{tauberGeneralizationsExponentialFunction1960}.
+
+- [ ] tables of m-Bell numbers
+
+- [ ] Same combinatorial story, but with m compartments per urn
+
+\begin{conjecture} m-Bell numbers are the row sums of m-Stirling numbers of the second kind triangular arrays.
 \[
 B_{n}^{(m)} = \sum_{k=0}^n \mStirling{n}{k}_m
 \]
@@ -529,9 +723,279 @@ where $\mStirling{n}{k}_m$ is a number satisfying the following two-term recurre
 for $n, k \ge 0$ and initial conditions $\genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_m = \delta_{n,k}$ for $k\ge n$.
 \end{conjecture}
 
+BLA-BLA-BLA
+
+The succession rule presented in Section \ref{sec-succession-rule} can also be generalized to $m$-Stirling numbers by adapting the pattern to reflect the $m$-compartment structure:
+\begin{definition}[Succession Rule for $m$-Stirling Numbers]
+\begin{align}
+\Omega_m: \begin{cases}
+(0) \
+(mk+j) \to (mk+j)^{mk} , (mk+j+1) \quad \text{for } 0 \leq j < m
+\end{cases}
+\end{align}
+\end{definition}
+This representation further reinforces the structural unity of the $m$-Stirling family of sequences and provides an efficient way to generate and analyze these numbers through tree-based methods.
+
 \section{Moments of the Conway-Maxwell-Poisson distribution}\label{sec-cmp}
 
+Perhaps the most intriguing result from the current work is the connection between the $m$-Bell numbers and the moments of an existing generalization of the Poisson distribution - the Conway-Maxwell-Poisson distribution...
+
 \section{Final remarks}\label{sec-final-remarks}
+
+\pagebreak
+
+\section*{Appendix A: Bessel-Stirling numbers formula (Proof of Theorem \ref{thm-bs-formula})}
+Let $A_k$ be the ordinary generating function for the k-th column over $x^n$:
+$$
+A_k(x) = \sum_{n} \mStirling{n}{k}_2 x^n
+$$
+We first multiply each side of the recurrence in \ref{conj-bs-recurrence} by $x^n$ and sum over n:
+$$
+\begin{aligned}
+\sum_{n \geq 1} \mStirling{n}{k}_2x^n &= 2\floor{k/2}\sum_{n \geq 1}\mStirling{n-1}{k}_2x^n + \sum_{n \geq 1} \mStirling{n-1}{k-1}_2 x^n \\
+A_k -\mStirling{0}{k}_2&=2\floor{k/2}x A_k+x A_{k-1}, \quad k \geq 1
+\end{aligned}
+$$
+Since $\mStirling{0}{k}_2 = 0$ when $k \neq 0$, then this simplifies to the following recurrence for the column generating function:
+$$
+A_k = \frac{x}{(1-2\floor{k/2}x)} A_{k-1}
+$$
+We know from the initial conditions that $A_0(x) = 1$, hence:
+$$
+\begin{aligned}
+    A_0 &= 1 \\
+    A_1 &= x \\
+    A_2 &= \frac{x^2}{1-2x} \\
+    A_3 &= \frac{x^3}{(1-2x)^2} \\
+    A_4 &= \frac{x^4}{(1-2x)^2 (1-4x)} \\
+    A_5 &= \frac{x^5}{(1-2x)^2 (1-4x)^2}, \\
+\end{aligned}
+$$
+and so on. More generally, the ordinary generating function for the k-th column is:
+\begin{equation}\label{column-ogf}
+A_k(x) = \frac{x^k}{\prod_{j=1}^k(1-2\floor{j/2}x)}
+\end{equation}
+In order to get an explicit formula for $\mStirling{n}{k}_2$, use the technique on p.19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}:
+$$
+\mStirling{n}{k}_2 = [x^n]A(x),
+$$
+where $[x^n]$ is the coefficient extractor operator. Start with partial fraction decomposition of $A_k(x)$. First, denote:
+$$
+A_k(x) = x^kP_k(x),
+$$
+where
+$$
+P_k(x) = \prod_{1 \leq j \leq k}\frac{1}{1-2\floor{j/2}x}.
+$$
+Hence
+\begin{equation}\label{znk-coef}
+\mStirling{n}{k}_2 = [x^n]x^kP_k(x) = [x^{n-k}]P_k(x)
+\end{equation}
+We can express $P_k(x)$ as a sum of partial fractions with unknown coefficients (note the slight difference in ranges for odd and even k):
+
+\begin{equation}\label{pkx}
+    \begin{aligned}
+    P_{2m}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m,j}}{1-2jx} + \sum_{1 \leq j \leq m-1} \frac{d_{2m,j}}{(1-2jx)^2} \\
+    P_{2m+1}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m+1,j}}{1-2jx} + \sum_{1 \leq j \leq m} \frac{d_{2m+1,j}}{(1-2jx)^2}
+    \end{aligned}
+\end{equation}
+
+It is easy to calculate the $d$ coefficients with the standard Heaviside cover-up method:
+$$
+\begin{aligned}
+    d_{k,r} &= (1-2rx)^2P_k(x)|_{x=\frac{1}{2r}} \\
+    &= (1-2rx)^2 \prod_{1 \leq j \leq k} \frac{1}{1-2 \floor{j/2}x} \bigg|_{x=\frac{1}{2r}} \\
+    &= \prod_{1 \leq j < 2r} \frac{1}{1-\floor{j/2}/r} \prod_{2r < j \leq k} \frac{1}{1- \floor{j/2}/r} \\
+    &= \prod_{1 \leq j < 2r} \frac{r}{r-\floor{j/2}} \prod_{2r < j \leq k} \frac{r}{r- \floor{j/2}}, \\
+\end{aligned}
+$$
+which simplifies to:
+\begin{equation}\label{d-k-r}
+        d_{k,r}=\frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!}.
+\end{equation}
+$d_{k,r}$ varies only slightly for even and odd k:
+$$
+\begin{aligned}
+    d_{2m,r} &= \frac{-r^{2m-1}}{r!r!(m-r)!(m-1-r)!} \\
+    d_{2m+1,r} &= \frac{r^{2m}}{r!r!(m-r)!(m-r)!} \\
+\end{aligned}
+$$
+For the $c_{k,j}$ coefficients, we have two main cases to consider. When $k=2m$ is even and $j=m$, $P_k(x)$ has a simple pole at $1-2mx$, so we get $c_{2m,m}$ easily by the same method:
+\begin{equation}\label{c-2m-m}
+    c_{2m,m} = (1-2mx)P_{2m}(x)|_{x=\frac{1}{2m}} = \frac{m^{2m}}{m!m!}
+\end{equation}
+For the remaining $c$ coefficients  we have a pole of $P_k(x)$ of multiplicity 2 at $1-2jx$ so we need to use the derivative method. Specifically:
+$$
+-2r\,c_{k,r} = \frac{\mathrm{d}}{\mathrm{d}x} (1-2rx)^2P_k(x)\bigg|_{x=\frac{1}{2r}}
+$$
+Let 
+$$
+\begin{aligned}
+Q_r &= (1-2rx)^2 P_k(x) = \prod_{j} \frac{1}{(1-2jx)^{e_j}},\\
+e_j &= 
+    \begin{cases} 
+    2,& \mathrm{if}\quad 1 \leq 2j < k \land  j \neq r \\ 
+    1, & \mathrm{if} \quad 2j = k \land j \neq r \\
+    0, & \mathrm{otherwise}
+    \end{cases}
+\end{aligned}
+$$
+Then $c_{k,r} = -\frac{1}{2r}Q'_r\left (\frac{1}{2r} \right)$ and we can use the logarithmic derivative to simplify the calculation:
+
+$$ 
+\begin{aligned}
+    \frac{Q'_{r}}{Q_r} &= \frac{d}{dx}log(Q_r) = \frac{d}{dx}\left[ -\sum_{j} e_j\log(1-2jx) \right]=  \sum_{j} 2e_j\frac{j}{1-2jx}  \\
+    c_{k,r} &= - \frac{1}{2r}Q'_r\left (\frac{1}{2r} \right) = -\log(Q_r(x))'Q_r(x)|_{x=1/{2r}} \\
+    &= -\frac{1}{2r} Q_r\left(\frac{1}{2r}\right) 2\sum_{j} e_j\frac{j}{1-j/r} \\ 
+    &= -\frac{1}{2r} 2 d_{k,r}\sum_{j}e_j\frac{rj }{r-j} \\
+    &= - \frac{1}{2r}2r d_{k,r}\sum_{j}e_j \frac{j}{r-j} \\
+    &= - d_{k,r}\sum_{j}e_j \frac{j}{r-j} \\
+\end{aligned}
+$$
+Let $s_k=\sum_{j}e_j\frac{j}{r-j}$ and simplify $s$. First, consider the case $k=2m+1$. 
+$$
+\begin{aligned}
+    s_{2m+1} &=  2\sum_{\substack{1 \leq j \leq m \\ j \neq r}}\frac{j}{r-j} \\ 
+    &= 2\left[\frac{1}{r-1}+\frac{2}{r-2} + \cdots  + \frac{r-1}{1}-\frac{r+1}{1}-\frac{r+2}{2}-\cdots-\frac{m}{m-r}\right]\\
+    &= 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq m-r}\frac{j+r}{j} \\
+    &= 2r\left(\sum_{1 \leq j \leq r-1}\frac{1}{j}\right) - 2(r-1) - 2r\left(\sum_{1 \leq j \leq m-r}\frac{1}{j}\right)-2(m-r)\\
+    &= 2r(H_{r-1}-H_{m-r})-2m+2 \\
+\end{aligned}
+$$
+where $H_n$ is the $n^{th}$ harmonic number. We proceed similarly for $k=2m$ with some care about $e_{m}=1$:
+$$
+\begin{aligned}
+    s_{2m} &= \sum_{j}e_j \frac{j}{r-j} = \frac{m}{r-m} + 2\sum_{\substack{1 \leq j \leq m-1 \\ j \neq r}}\frac{j}{r-j}\\ 
+    &= \frac{m}{r-m} + 2 \sum_{1 \leq j \leq r-1} \frac{j}{r-j} - 2\sum_{r+1 \leq j \leq m-1}\frac{j}{j-r} \\
+    &= \frac{m}{r-m} + 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq m-r-1}\frac{j+r}{j} \\
+    &= \frac{m}{r-m} + 2rH_{r-1}-2(r-1)-2rH_{m-r-1}-2(m-r-1) \\
+    &=  2rH_{r-1} - 2rH_{m-r-1}-2(m-2)-\frac{m}{m-r}  \\
+    &= 2rH_{r-1} - 2rH_{m-r-1} - 2(m-2) - \frac{r}{m-r} -1 \\
+    &= r\left(2H_{r-1} - H_{m-r-1}-H_{m-r}\right) - 2m + 3
+\end{aligned}
+$$
+Generally when $r \neq m$:
+\begin{equation}\label{s-k}
+    s_k = r(2H_{r-1}-H_{\floor{k/2}-r}-H_{\floor{(k-1)/2}-r})-k+3
+\end{equation}
+Combining everything we have:
+\begin{equation}\label{d-s-c}
+    \begin{aligned}
+        d_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{k/2}-r)!(\floor{(k-1)/2}-r)!} \\
+        s_{k,r} &= r(2H_{r-1}-H_{\floor{k/2}-r}-H_{\floor{(k-1)/2}-r})-k+3 \\
+        c_{k,r} &= 
+        \begin{cases}
+            - d_{k,r} s_{k,r} & \text{if}\, 1 \leq r < k/2\\
+            \frac{r^{2r}}{r!r!} & \text{if}\, r = k/2\\
+            0 & \text{otherwise}
+        \end{cases} 
+    \end{aligned}
+\end{equation}
+Next, let us find an explicit formula for $\mStirling{n}{k}_2$. From \ref{znk-coef} and \ref{pkx}:
+$$
+\begin{aligned}
+    \mStirling{n}{k}_2 &=[x^{n-k}]P_k(x) \\
+    &= [x^{n-k}]\left[ \sum_{1 \leq j \leq \floor{k/2}} \frac{c_{k,j}}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} \frac{d_{k,j}}{(1-2jx)^2} \right]\\
+     &= \sum_{1 \leq j \leq \floor{k/2}}c_{k,j}[x^{n-k}]  \frac{1}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} d_{k,j}[x^{n-k}]\frac{1}{(1-2jx)^2} \\ 
+\end{aligned}
+$$
+We have the standard geometric series expansions:
+$$
+\begin{aligned}
+     & [x^{n-k}]\frac{1}{1-2jx} = [x^{n-k}]\sum_{i\geq0}(2j)^ix^i = (2j)^{n-k}\\ 
+     & [x^{n-k}]\frac{1}{(1-2jx)^2} = [x^{n-k}]\sum_{i\geq0}(i+1)(2j)^ix^i = (n-k+1)(2j)^{n-k}.\\ 
+\end{aligned}
+$$
+Which results in the following final set of formulas valid for $n \geq 2, k \geq 2$:
+\begin{equation}\label{z-d-c}
+    \begin{aligned}
+        \mStirling{n}{k}_2 &= \sum_{1 \leq j \leq \floor{\frac{k}{2}}}(2j)^{n-k}\left (c_{k,j} +d_{k,j}(n-k+1) \right )\\
+            d_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!} \\
+            c_{k,r} &= \begin{cases}
+                - d_{k,r} (r(2H_{r-1}-H_{\floor{\frac{k}{2}}-r}-H_{\floor{\frac{k-1}{2}}-r})-k+3) & \text{if} \, 1 \leq r < k/2\\
+                \frac{r^{2r}}{r!r!} & \text{if}  \, r = k/2\\
+                0 & \text{otherwise}
+            \end{cases} 
+    \end{aligned}
+\end{equation}
+
+This piecewise construction is necessary because the Harmonic numbers have a singularity at negative integer indices, which occurs when $r \geq k/2$ or $r\leq 0$. This problem can be avoided by replacing the Harmonic numbers with the identity $H(n) = \psi(n+1)+\gamma$ where $\gamma$ is the Euler-Mascheroni constant and $\psi(x)$ is the Digamma function, and by replacing the factorials with the Gamma function. Since we have digamma functions in the numerator and gamma functions in the denominator of the resulting expression, the limit of their ratio as the argument approaches non-positive integer indices is well defined. Specifically, using the residues of the digamma and gamma functions around the negative integer poles it can be easily shown that
+$$
+\lim_{x \to -n}\frac{\psi(x)}{\Gamma(x)} = (-1)^{n+1}n!, \quad n \in\mathbb{N}^{+}.
+$$
+After incorporating the coefficient definitions into the expression for $\mStirling{n}{k}_2$ (\ref{z-d-c}) and performing simplifications using properties of these special functions, we arrive at the following expression. 
+$$
+\begin{aligned}
+    (-1)^{k-1} 2^{n-k} \sum_{j=0}^{\floor{k/2}} \lim_{t \to j} \left[t^{n-1}
+        \frac
+            {n-2-t\,\left(2\psi(t)-\psi\left(\floor{\frac{k}{2}}-t+1\right)-\psi\left(\floor{\frac{k-1}{2}}-t+1\right)\right)}
+            {\Gamma(t+1) \Gamma(t+1) \Gamma(\floor{\frac{k}{2}}-t+1) \Gamma(\floor{\frac{k-1}{2}}-t+1)}\right]
+\end{aligned}
+$$
+This formula provides a single, unified expression for $\mStirling{n}{k}_2$ that is valid for all integers $n,k \geq 0$. The inclusion of the $j=0$ term in the sum is essential, as the limit process correctly evaluates its contribution, ensuring validity for boundary cases like $\mStirling{0}{0}_2=\mStirling{1}{1}_2=1$, and ensuring $\mStirling{n}{k}_2=0$ for $k>n$.
+
+Here are explicit formulas for columns 2-5 and related OEIS sequences:
+\[
+    \begin{aligned}
+        Z(n,2) &= 2^{n-2}, & \quad n \ge 2\, (\text{rel. } \href{https://oeis.org/A000079}{A000079})\\
+        Z(n,3) &= (n-2)2^{n-3}, & \quad n \ge 3\, (\text{rel. } \href{https://oeis.org/A001787}{A001787})\\
+        Z(n,4) &= 2^{2n-6}-(n-1)\,2^{n-4}, & n\geq 4 \, (\text{rel. } \href{https://oeis.org/A100575}{A100575})\\
+        Z(n,5) &= n\,2^{n-5}+(n-6) 2^{2n-8}, & n\geq 5 \, (\text{rel. } \href{https://oeis.org/A158681}{A158681})\\
+    \end{aligned}
+\]
+
+(with the caveat that the sequences listed at the end of each line are offset or scaled). The first subdiagonal gives \href{https://oeis.org/A007590}{A007590}.
+
+\pagebreak
+\section*{Appendix B: Bessel-Stirling numbers identities}
+\noindent In all cases below $b = 2\floor{k/2}$ is used to simplify the notation.
+\begin{lemma}[Distant Hockey-stick-like identity]\label{lemma-dist-hockey}
+\[
+    \mStirling{n+m}{k}_2 = b^m \mStirling{n}{k}_2 +\sum_{j=0}^{m-1}b^{m-1-j}\mStirling{n+j}{k-1}_2
+\]
+\end{lemma}
+\begin{proof}
+The base case for $m=1$ comes from the basic recurrence formula (\ref{conj-bs-recurrence}):
+\[
+    \mStirling{n+1}{k}_2 = b \,\mStirling{n}{k}_2 + \mStirling{n}{k-1}_2
+\]
+Assume it holds for \textit{m} (induction hypothesis). Then from the basic recurrence we have:
+\[
+    \mStirling{n+m+1}{k}_2 = b \, \mStirling{n+m}{k}_2 +\mStirling{n+m}{k-1}_2
+\]
+From the induction hypothesis:
+\[
+    \begin{aligned}
+        \mStirling{n+m+1}{k}_2 &= b \, \bigg(b^m \mStirling{n}{k}_2 +\sum_{j=0}^{m-1}b^{m-1-j}\mStirling{n+j}{k-1}_2\bigg) +\mStirling{n+m}{k-1}_2 \\
+                   &= b^{m+1}\mStirling{n}{k}_2+\sum_{j=0}^mb^{m-j}\, \mStirling{n+j}{k-1}_2
+    \end{aligned}
+\]
+which completes the proof.
+\end{proof}
+\begin{proposition}[Hockey-stick-like identity]
+    \[
+        \mStirling{n}{k}_2 = \sum_{j=k}^{n}b^{n-j} \mStirling{j-1}{k-1}_2
+    \]
+\end{proposition}
+\begin{proof}
+Set $n=0$ in Lemma \ref{lemma-dist-hockey}:
+$$
+    \mStirling{m}{k}_2 = b^m \mStirling{0}{k}_2 +\sum_{j=0}^{m-1}b^{m-1-j}\mStirling{j}{k-1}_2
+$$
+Due to the initial conditions $\mStirling{0}{0}_2=1$, $\mStirling{n}{0}_2 = \mStirling{0}{k}_2 =0$, the first term of the right-hand side is always 0. Then we can simplify it, rewriting the indices:
+$$
+\mStirling{n}{k}_2 = \sum_{j=0}^{n-1}b^{n-j-1}\mStirling{j}{k-1}_2
+$$
+and since $\mStirling{n}{k}_2 =0$ when $k > n$, we can start $j$ from $k$, and also shift it by 1 to match the Proposition's form:
+\[
+        \mStirling{n}{k}_2 = \sum_{j=k}^{n}b^{n-j} \mStirling{j-1}{k-1}_2
+\]
+\end{proof}
+
+\pagebreak
+\section{Appendix C: Comparison of properties of the Bell-Stirling-Touchard framework and the 2-Bell/2-Stirling generalization}
+
+PUT A TABLE HERE TO HIGHLIGHT THE PARALLELS AND TO SERVE AS EASY REFERENCE
 
 \printbibliography
 \end{document}
