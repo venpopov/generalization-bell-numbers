@@ -1,7 +1,8 @@
 \documentclass{article}
 \usepackage{biblatex}
-\addbibresource{references.bib}
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\addbibresource{references.bib}
 \bibliography{references}
 \RequirePackage[a4paper, left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
@@ -42,7 +43,7 @@ $$
 $$
 and so on. More generally, the ordinary generating function for the k-th column is:
 \begin{equation}\label{column-ogf}
-A_k(x) = \frac{x^k}{\prod_{j=0}^k(1-2\floor{j/2}x)}
+A_k(x) = \frac{x^k}{\prod_{j=1}^k(1-2\floor{j/2}x)}
 \end{equation}
 In order to get an explicit formula for $Z(n,k)$, use the technique on p.19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}:
 $$
@@ -54,7 +55,7 @@ A_k(x) = x^kP_k(x),
 $$
 where
 $$
-P_k(x) = \prod_{0 \leq j \leq k}\frac{1}{1-2\floor{j/2}x}.
+P_k(x) = \prod_{1 \leq j \leq k}\frac{1}{1-2\floor{j/2}x}.
 $$
 Hence
 \begin{equation}\label{znk-coef}
@@ -103,7 +104,7 @@ $$
 Q_r &= (1-2rx)^2 P_k(x) = \prod_{j} \frac{1}{(1-2jx)^{e_j}},\\
 e_j &= 
     \begin{cases} 
-    2,& \mathrm{if}\quad 0 \leq 2j < k \land  j \neq r \\ 
+    2,& \mathrm{if}\quad 1 \leq 2j < k \land  j \neq r \\ 
     1, & \mathrm{if} \quad 2j = k \land j \neq r \\
     0, & \mathrm{otherwise}
     \end{cases}
@@ -176,7 +177,7 @@ $$
 \end{aligned}
 $$
 Which results in the following final set of formulas valid for $n \geq 2, k \geq 2$:
-\begin{equation}
+\begin{equation}\label{z-d-c}
     \begin{aligned}
         Z(n,k &)= \sum_{1 \leq j \leq \floor{\frac{k}{2}}}(2j)^{n-k}\left (C_{k,j} +D_{k,j}(n-k+1) \right )\\
             D_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!} \\
@@ -187,5 +188,21 @@ Which results in the following final set of formulas valid for $n \geq 2, k \geq
             \end{cases} 
     \end{aligned}
 \end{equation}
+
+This piecewise construction is necessary because the Harmonic numbers have a singularity at negative integer indices, which occurs when $r \geq k/2$ or $r\leq 0$. This problem can be avoided by replacing the Harmonic numbers with the identity $H(n) = \psi(n+1)+\gamma$ where $\gamma$ is the Euler-Mascheroni constant and $\psi(x)$ is the Digamma function, and by replacing the factorials with the Gamma function. Since we have digamma functions in the numerator and gamma functions in the denominator of the resulting expression, the limit of their ratio as the argument approaches non-positive integer indices is well defined. Specifically, using the residues of the digamma and gamma functions around the negative integer poles it can be easily shown that
+$$
+\lim_{x \to -n}\frac{\psi(x)}{\Gamma(x)} = (-1)^{n+1}n!, \quad n \in\mathbb{N}^{+}.
+$$
+After incorporating the coefficient definitions into the expression for $Z(n,k)$ (\ref{z-d-c}) and performing simplifications using properties of these special functions, we arrive at the following expression. 
+$$
+\begin{aligned}
+    Z(n,k) =\\
+    (-1)^{k-1} 2^{n-k} \sum_{j=0}^{\floor{k/2}} \lim_{t \to j} \left[t^{n-1}
+        \frac
+            {n-2-t\,\left(2\psi(t)-\psi\left(\floor{\frac{k}{2}}-t+1\right)-\psi\left(\floor{\frac{k-1}{2}}-t+1\right)\right)}
+            {\Gamma(t+1) \Gamma(t+1) \Gamma(\floor{\frac{k}{2}}-t+1) \Gamma(\floor{\frac{k-1}{2}}-t+1)}\right]
+\end{aligned}
+$$
+This formula provides a single, unified expression for $Z(n,k)$ that is valid for all integers $n,k \geq 0$. The inclusion of the $j=0$ term in the sum is essential, as the limit process correctly evaluates its contribution, ensuring validity for boundary cases like $Z(0,0)=1$, $ Z(1,1)=1$, and ensuring $Z(n,k)=0$ for $k>n$.
 \printbibliography
 \end{document}
