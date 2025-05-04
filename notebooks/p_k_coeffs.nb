@@ -1,0 +1,1103 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     36278,       1095]
+NotebookOptionsPosition[     34223,       1055]
+NotebookOutlinePosition[     34620,       1071]
+CellTagsIndexPosition[     34577,       1068]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"P", "[", "k_", "]"}], " ", ":=", " ", 
+  RowBox[{"1", "/", 
+   RowBox[{"Product", "[", 
+    RowBox[{
+     RowBox[{"1", "-", 
+      RowBox[{"2", 
+       RowBox[{"Floor", "[", 
+        RowBox[{"j", "/", "2"}], "]"}], "x"}]}], ",", 
+     RowBox[{"{", 
+      RowBox[{"j", ",", "0", ",", "k"}], "}"}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.954924223326523*^9, 3.9549242438199253`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"f33dae4e-964f-49cb-b67e-a711d185fbbe"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"ApartSquareFree", "[", 
+     RowBox[{"P", "[", "k", "]"}], "]"}], ",", " ", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "8"}], "}"}]}], "]"}], " ", "//", " ", 
+  "TableForm"}]], "Input",
+ CellChangeTimes->{{3.954988800565462*^9, 3.954988854923707*^9}},
+ CellLabel->"In[21]:=",ExpressionUUID->"13abf73c-3a88-427a-9c0c-5cf6134ef6bb"],
+
+Cell[BoxData[
+ TagBox[
+  TagBox[GridBox[{
+     {"1"},
+     {
+      RowBox[{"-", 
+       FractionBox["1", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"2", " ", "x"}]}]]}]},
+     {
+      FractionBox["1", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"-", "1"}], "+", 
+          RowBox[{"2", " ", "x"}]}], ")"}], "2"]]},
+     {
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", "1"}], "+", 
+            RowBox[{"2", " ", "x"}]}], ")"}], "2"]]}], "+", 
+       FractionBox["2", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"2", " ", "x"}]}]], "-", 
+       FractionBox["4", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"4", " ", "x"}]}]]}]},
+     {
+      RowBox[{
+       FractionBox["1", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"2", " ", "x"}]}], ")"}], "2"]], "-", 
+       FractionBox["4", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"2", " ", "x"}]}]], "+", 
+       FractionBox["4", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"4", " ", "x"}]}], ")"}], "2"]], "+", 
+       FractionBox["8", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"4", " ", "x"}]}]]}]},
+     {
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", 
+         RowBox[{"2", " ", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", 
+             RowBox[{"2", " ", "x"}]}], ")"}], "2"]}]]}], "+", 
+       FractionBox["11", 
+        RowBox[{"4", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"2", " ", "x"}]}], ")"}]}]], "-", 
+       FractionBox["8", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"4", " ", "x"}]}], ")"}], "2"]], "+", 
+       FractionBox["8", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"4", " ", "x"}]}]], "-", 
+       FractionBox["81", 
+        RowBox[{"4", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"6", " ", "x"}]}], ")"}]}]]}]},
+     {
+      RowBox[{
+       FractionBox["1", 
+        RowBox[{"4", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", "1"}], "+", 
+            RowBox[{"2", " ", "x"}]}], ")"}], "2"]}]], "-", 
+       FractionBox["7", 
+        RowBox[{"4", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"2", " ", "x"}]}], ")"}]}]], "+", 
+       FractionBox["16", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"4", " ", "x"}]}], ")"}], "2"]], "-", 
+       FractionBox["64", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"4", " ", "x"}]}]], "+", 
+       FractionBox["81", 
+        RowBox[{"4", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", "1"}], "+", 
+            RowBox[{"6", " ", "x"}]}], ")"}], "2"]}]], "+", 
+       FractionBox["405", 
+        RowBox[{"4", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"6", " ", "x"}]}], ")"}]}]]}]},
+     {
+      RowBox[{
+       RowBox[{"-", 
+        FractionBox["1", 
+         RowBox[{"12", " ", 
+          SuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"-", "1"}], "+", 
+             RowBox[{"2", " ", "x"}]}], ")"}], "2"]}]]}], "+", 
+       FractionBox["25", 
+        RowBox[{"36", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"2", " ", "x"}]}], ")"}]}]], "-", 
+       FractionBox["16", 
+        SuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"4", " ", "x"}]}], ")"}], "2"]], "+", 
+       FractionBox["96", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", 
+         RowBox[{"4", " ", "x"}]}]], "-", 
+       FractionBox["243", 
+        RowBox[{"4", " ", 
+         SuperscriptBox[
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"-", "1"}], "+", 
+            RowBox[{"6", " ", "x"}]}], ")"}], "2"]}]], "-", 
+       FractionBox["243", 
+        RowBox[{"4", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"6", " ", "x"}]}], ")"}]}]], "-", 
+       FractionBox["1024", 
+        RowBox[{"9", " ", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"-", "1"}], "+", 
+           RowBox[{"8", " ", "x"}]}], ")"}]}]]}]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.5599999999999999]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}],
+   Column],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.954988810778912*^9, 3.954988855589921*^9}},
+ CellLabel->
+  "Out[21]//TableForm=",ExpressionUUID->"5fa81091-fa17-45d9-9347-\
+3512b7d6d234"]
+}, Open  ]],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[Cell[BoxData[
+   FormBox[GridBox[{
+      {Cell[TextData[{
+        " ",
+        Cell[BoxData[
+         RowBox[{
+          SubscriptBox[
+           StyleBox["P", "TI"], 
+           RowBox[{"2", 
+            StyleBox["m", "TI"]}]], "(", 
+          StyleBox["x", "TI"], ")"}]], "InlineFormula",ExpressionUUID->
+         "947c9729-ec06-41d2-bd19-f9aee780f1cd"],
+        " "
+       }],ExpressionUUID->"f19ea33a-87c0-4805-a96b-cab8ada4d266"], Cell[
+       TextData[{
+        " ",
+        Cell[BoxData[
+         RowBox[{"\[LongEqual]", 
+          UnderscriptBox["\[Sum]", 
+           RowBox[{"0", "\[LessEqual]", 
+            StyleBox["j", "TI"], "\[LessEqual]", 
+            StyleBox["m", "TI"]}],
+           LimitsPositioning->True], 
+          FractionBox[
+           SubscriptBox[
+            StyleBox["C", "TI"], 
+            RowBox[{"2", 
+             StyleBox["m", "TI"], ",", 
+             StyleBox["j", "TI"]}]], 
+           RowBox[{"1", "-", "2", 
+            StyleBox["j", "TI"], 
+            StyleBox["x", "TI"]}]], "+", 
+          UnderscriptBox["\[Sum]", 
+           RowBox[{"0", "\[LessEqual]", 
+            StyleBox["j", "TI"], "\[LessEqual]", 
+            StyleBox["m", "TI"], "-", "1"}],
+           LimitsPositioning->True], 
+          FractionBox[
+           SubscriptBox[
+            StyleBox["D", "TI"], 
+            RowBox[{"2", 
+             StyleBox["m", "TI"], ",", 
+             StyleBox["j", "TI"]}]], 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"1", "-", "2", 
+              StyleBox["j", "TI"], 
+              StyleBox["x", "TI"]}], ")"}], "2"]]}]], "InlineFormula",
+         ExpressionUUID->"d93fff13-9036-49c4-a3df-26510403210d"],
+        " "
+       }],ExpressionUUID->"aa5f3508-a3bc-4883-b24c-e6892eff238c"]},
+      {Cell[TextData[{
+        " ",
+        Cell[BoxData[
+         RowBox[{
+          SubscriptBox[
+           StyleBox["P", "TI"], 
+           RowBox[{"2", 
+            StyleBox["m", "TI"], "+", "1"}]], "(", 
+          StyleBox["x", "TI"], ")"}]], "InlineFormula",ExpressionUUID->
+         "8a3d8222-6967-4ce2-a4c9-d36dcc3c7fca"],
+        " "
+       }],ExpressionUUID->"a8797e84-5924-4a10-91ca-787b3adec398"], Cell[
+       TextData[{
+        " ",
+        Cell[BoxData[
+         RowBox[{"\[LongEqual]", 
+          UnderscriptBox["\[Sum]", 
+           RowBox[{"0", "\[LessEqual]", 
+            StyleBox["j", "TI"], "\[LessEqual]", 
+            StyleBox["m", "TI"]}],
+           LimitsPositioning->True], 
+          FractionBox[
+           SubscriptBox[
+            StyleBox["C", "TI"], 
+            RowBox[{"2", 
+             StyleBox["m", "TI"], "+", "1", ",", 
+             StyleBox["j", "TI"]}]], 
+           RowBox[{"1", "-", "2", 
+            StyleBox["j", "TI"], 
+            StyleBox["x", "TI"]}]], "+", 
+          UnderscriptBox["\[Sum]", 
+           RowBox[{"0", "\[LessEqual]", 
+            StyleBox["j", "TI"], "\[LessEqual]", 
+            StyleBox["m", "TI"]}],
+           LimitsPositioning->True], 
+          FractionBox[
+           SubscriptBox[
+            StyleBox["D", "TI"], 
+            RowBox[{"2", 
+             StyleBox["m", "TI"], "+", "1", ",", 
+             StyleBox["j", "TI"]}]], 
+           SuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"1", "-", "2", 
+              StyleBox["j", "TI"], 
+              StyleBox["x", "TI"]}], ")"}], "2"]]}]], "InlineFormula",
+         ExpressionUUID->"09ad684f-66ad-43bc-81ec-c21cd79a4a27"],
+        " "
+       }],ExpressionUUID->"f8a46a34-d934-42f0-927d-5abf5a5ba63d"]}
+     }], TraditionalForm]],ExpressionUUID->
+   "dc0e599e-0814-410a-95d1-d7ddaafb64ed"], 
+  TraditionalForm]],ExpressionUUID->"93b29940-490b-4978-89e1-b54cde6f2987"]], \
+"Text",
+ CellChangeTimes->{{3.954988896892645*^9, 
+  3.954988935375802*^9}},ExpressionUUID->"c9a1fad3-4287-48d2-ad8f-\
+4cc11b3420c5"],
+
+Cell[BoxData[
+ TemplateBox[<|"boxes" -> FormBox[
+     RowBox[{
+       SubscriptBox[
+        StyleBox["C", "TI"], 
+        RowBox[{
+          StyleBox["k", "TI"], ",", 
+          StyleBox["j", "TI"]}]], ":", "\[LongEqual]", 
+       Cell[
+        BoxData[
+         FormBox[
+          GridBox[{{
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  Cell[
+                   BoxData[
+                    RowBox[{
+                    StyleBox["k", "TI"], "/", 
+                    StyleBox["j", "TI"]}]], "InlineFormula"]], 
+                 "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["1", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["2", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["3", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["4", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["1", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["2", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["1", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["3", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["4", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["-2", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["4", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["5", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["4", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["-8", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["6", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  RowBox[{"-", 
+                    FractionBox["11", "4"]}]], "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["-8", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  FractionBox["81", "4"]], "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["7", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  FractionBox["7", "4"]], "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["64", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  RowBox[{"-", 
+                    FractionBox["405", "4"]}]], "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["0", "InlineFormula"]}]]}, {
+             Cell[
+              TextData[{
+                Cell["8", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  RowBox[{"-", 
+                    FractionBox["25", "36"]}]], "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell["-96", "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  FractionBox["243", "4"]], "InlineFormula"]}]], 
+             Cell[
+              TextData[{
+                Cell[
+                 BoxData[
+                  FractionBox["1024", "9"]], "InlineFormula"]}]]}}, 
+           ColumnAlignments -> {Center, Left, Center, Center, Center}], 
+          TraditionalForm]]]}], TraditionalForm], "errors" -> {}, "input" -> 
+   "C_{k,j} :=\n\\begin{array}{c|ccccc}\n\\text{$k / j$} & 1 & 2 & 3 & 4 \\\\\
+\n\\hline\n1 & 0 & 0 & 0 & 0 \\\\\n2 & 1 & 0 & 0 & 0 \\\\\n3 & 0 & 0 & 0 & 0 \
+\\\\\n4 & -2 & 4 & 0 & 0 \\\\\n5 & 4 & -8 & 0 & 0 \\\\\n6 & -\\frac{11}{4} & \
+-8 & \\frac{81}{4} & 0 \\\\\n7 & \\frac{7}{4} & 64 & -\\frac{405}{4} & 0 \\\\\
+\n8 & -\\frac{25}{36} & -96 & \\frac{243}{4} & \\frac{1024}{9}\n\\end{array}",
+    "state" -> "Boxes"|>,
+  "TeXAssistantTemplate"]], "Input",
+ CellChangeTimes->{{3.9549889497059593`*^9, 3.954989003808329*^9}, {
+  3.9549893958454*^9, 3.954989410717465*^9}, {3.954990021222086*^9, 
+  3.954990050503183*^9}},ExpressionUUID->"6d242881-f621-4dc4-8806-\
+1338cca46338"],
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  TemplateBox[<|"boxes" -> FormBox[
+      RowBox[{
+        SubscriptBox[
+         StyleBox["D", "TI"], 
+         RowBox[{
+           StyleBox["k", "TI"], ",", 
+           StyleBox["j", "TI"]}]], ":", "\[LongEqual]", 
+        Cell[
+         BoxData[
+          FormBox[
+           GridBox[{{
+              Cell[
+               TextData[{
+                 Cell[
+                  BoxData[
+                   Cell[
+                    BoxData[
+                    RowBox[{
+                    StyleBox["k", "TI"], "/", 
+                    StyleBox["j", "TI"]}]], "InlineFormula"]], 
+                  "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["1", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["2", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["3", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["4", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["1", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["2", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["3", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["1", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["4", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["-1", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["5", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["1", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["4", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["6", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell[
+                  BoxData[
+                   RowBox[{"-", 
+                    FractionBox["1", "2"]}]], "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["-8", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["7", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell[
+                  BoxData[
+                   FractionBox["1", "4"]], "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["16", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell[
+                  BoxData[
+                   FractionBox["81", "4"]], "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}, {
+              Cell[
+               TextData[{
+                 Cell["8", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell[
+                  BoxData[
+                   RowBox[{"-", 
+                    FractionBox["1", "12"]}]], "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["-16", "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell[
+                  BoxData[
+                   RowBox[{"-", 
+                    FractionBox["243", "4"]}]], "InlineFormula"]}]], 
+              Cell[
+               TextData[{
+                 Cell["0", "InlineFormula"]}]]}}, 
+            ColumnAlignments -> {Center, Left, Center, Center, Center}], 
+           TraditionalForm]]]}], TraditionalForm], "errors" -> {}, "input" -> 
+    "D_{k,j}:=\n\\begin{array}{c|cccc}\n\\text{$k /j$} & 1 & 2 & 3 & 4 \\\\\n\
+\\hline\n1 & 0 & 0 & 0 & 0 \\\\\n2 & 0 & 0 & 0 & 0 \\\\\n3 & 1 & 0 & 0 & 0 \\\
+\\\n4 & -1 & 0 & 0 & 0 \\\\\n5 & 1 & 4 & 0 & 0 \\\\\n6 & -\\frac{1}{2} & -8 & \
+0 & 0 \\\\\n7 & \\frac{1}{4} & 16 & \\frac{81}{4} & 0 \\\\\n8 & \
+-\\frac{1}{12} & -16 & -\\frac{243}{4} & 0\n\\end{array}", "state" -> "Boxes"|>,
+   "TeXAssistantTemplate"], 
+  TraditionalForm]],ExpressionUUID->"b8f58716-3e29-47e0-a647-a375628e223e"]], \
+"Text",
+ CellChangeTimes->{{3.9549900534545517`*^9, 
+  3.954990063591948*^9}},ExpressionUUID->"eb04b73d-6e0f-499d-b4ab-\
+d5bb08afa8a1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"d", "[", 
+   RowBox[{"k_", ",", "r_"}], "]"}], " ", ":=", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"-", "r"}], ")"}], "^", 
+    RowBox[{"(", 
+     RowBox[{"k", "-", "1"}], ")"}]}], "/", 
+   RowBox[{"(", 
+    RowBox[{
+     RowBox[{"r", "!"}], 
+     RowBox[{"r", "!"}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Floor", "[", 
+         RowBox[{"k", "/", "2"}], "]"}], "-", "r"}], ")"}], "!"}], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"Floor", "[", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"k", "-", "1"}], ")"}], "/", "2"}], "]"}], "-", "r"}], 
+       ")"}], "!"}]}], ")"}]}]}]], "Input",
+ CellChangeTimes->{{3.9549900896934433`*^9, 3.954990141690691*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"14c57521-7887-4d40-a11e-35d78d475a54"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"d", "[", 
+     RowBox[{"k", ",", "j"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "8"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"j", ",", "k"}], "}"}]}], "]"}], " ", "//", " ", 
+  "TableForm"}]], "Input",
+ CellChangeTimes->{{3.954990144969103*^9, 3.954990175731545*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"b757200c-5345-4537-84b6-b1f856ac110b"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {"0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\
+\>", "\<\"\"\>"},
+    {"0", 
+     "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\
+\>"},
+    {"1", "0", 
+     "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>"},
+    {
+     RowBox[{"-", "1"}], "0", "0", 
+     "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>"},
+    {"1", "4", "0", "0", "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>"},
+    {
+     RowBox[{"-", 
+      FractionBox["1", "2"]}], 
+     RowBox[{"-", "8"}], "0", "0", "0", "0", "\<\"\"\>", "\<\"\"\>"},
+    {
+     FractionBox["1", "4"], "16", 
+     FractionBox["81", "4"], "0", "0", "0", "0", "\<\"\"\>"},
+    {
+     RowBox[{"-", 
+      FractionBox["1", "12"]}], 
+     RowBox[{"-", "16"}], 
+     RowBox[{"-", 
+      FractionBox["243", "4"]}], "0", "0", "0", "0", "0"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  TableForm[{{0}, {0, 0}, {1, 0, 0}, {-1, 0, 0, 0}, {1, 4, 0, 0, 0}, {
+     Rational[-1, 2], -8, 0, 0, 0, 0}, {
+     Rational[1, 4], 16, 
+     Rational[81, 4], 0, 0, 0, 0}, {
+     Rational[-1, 12], -16, 
+     Rational[-243, 4], 0, 0, 0, 0, 0}}]]], "Output",
+ CellChangeTimes->{{3.954990170711561*^9, 3.954990176254839*^9}},
+ CellLabel->
+  "Out[24]//TableForm=",ExpressionUUID->"557232d8-1c77-4b9e-8963-\
+402f81f7afdb"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"H", "[", "n_", "]"}], ":=", 
+  RowBox[{"HarmonicNumber", "[", "n", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"c", "[", 
+   RowBox[{"k_", ",", "r_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"Piecewise", "[", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         RowBox[{"d", "[", 
+          RowBox[{"k", ",", "r"}], "]"}]}], 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"r", 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"2", 
+              RowBox[{"H", "[", 
+               RowBox[{"r", "-", "1"}], "]"}]}], "-", 
+             RowBox[{"H", "[", 
+              RowBox[{
+               RowBox[{"Floor", "[", 
+                RowBox[{"k", "/", "2"}], "]"}], "-", "r"}], "]"}], "-", 
+             RowBox[{"H", "[", 
+              RowBox[{
+               RowBox[{"Floor", "[", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"k", "-", "1"}], ")"}], "/", "2"}], "]"}], "-", 
+               "r"}], "]"}]}], ")"}]}], "-", "k", "+", "3"}], ")"}]}], ",", 
+       RowBox[{"0", "<", "r", "<", 
+        RowBox[{"(", 
+         RowBox[{"k", "/", "2"}], ")"}]}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"r", "^", 
+         RowBox[{"(", 
+          RowBox[{"2", "r"}], ")"}]}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"r", "!"}], 
+          RowBox[{"r", "!"}]}], ")"}]}], ",", 
+       RowBox[{"r", "==", 
+        RowBox[{"(", 
+         RowBox[{"k", "/", "2"}], ")"}]}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", " ", 
+       RowBox[{"r", ">", 
+        RowBox[{"k", "/", "2"}]}]}], "}"}]}], "\[IndentingNewLine]", "}"}], 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.9549902040486526`*^9, 3.954990378663121*^9}, {
+  3.95499059798272*^9, 3.954990662431253*^9}, {3.9549916451936893`*^9, 
+  3.954991670403417*^9}},
+ CellLabel->"In[77]:=",ExpressionUUID->"75300e8a-c5ed-4296-b44a-db058550933b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"c", "[", 
+     RowBox[{"k", ",", "j"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "8"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"j", ",", "k"}], "}"}]}], "]"}], " ", "//", " ", 
+  "TableForm"}]], "Input",
+ CellChangeTimes->{{3.954990389581594*^9, 3.9549903897024593`*^9}, {
+   3.954990446332942*^9, 3.954990446426978*^9}, {3.9549905570474443`*^9, 
+   3.954990573859421*^9}, 3.954990639682118*^9},
+ CellLabel->"In[79]:=",ExpressionUUID->"c8c0b895-8076-477b-9155-5fa2d01e5529"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {"0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\
+\>", "\<\"\"\>"},
+    {"1", 
+     "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\
+\>"},
+    {"0", "0", 
+     "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>"},
+    {
+     RowBox[{"-", "2"}], "4", "0", 
+     "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>"},
+    {"4", 
+     RowBox[{"-", "8"}], "0", "0", "0", "\<\"\"\>", "\<\"\"\>", "\<\"\"\>"},
+    {
+     RowBox[{"-", 
+      FractionBox["11", "4"]}], 
+     RowBox[{"-", "8"}], 
+     FractionBox["81", "4"], "0", "0", "0", "\<\"\"\>", "\<\"\"\>"},
+    {
+     FractionBox["7", "4"], "64", 
+     RowBox[{"-", 
+      FractionBox["405", "4"]}], "0", "0", "0", "0", "\<\"\"\>"},
+    {
+     RowBox[{"-", 
+      FractionBox["25", "36"]}], 
+     RowBox[{"-", "96"}], 
+     FractionBox["243", "4"], 
+     FractionBox["1024", "9"], "0", "0", "0", "0"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  TableForm[{{0}, {1, 0}, {0, 0, 0}, {-2, 4, 0, 0}, {4, -8, 0, 0, 0}, {
+     Rational[-11, 4], -8, 
+     Rational[81, 4], 0, 0, 0}, {
+     Rational[7, 4], 64, 
+     Rational[-405, 4], 0, 0, 0, 0}, {
+     Rational[-25, 36], -96, 
+     Rational[243, 4], 
+     Rational[1024, 9], 0, 0, 0, 0}}]]], "Output",
+ CellChangeTimes->{
+  3.9549903901830673`*^9, 3.954990453950947*^9, {3.954990557819394*^9, 
+   3.954990574318034*^9}, {3.95499062864655*^9, 3.954990663837288*^9}, {
+   3.954991647654687*^9, 3.9549916768909616`*^9}},
+ CellLabel->
+  "Out[79]//TableForm=",ExpressionUUID->"5f899ad9-72d5-49ab-81a7-\
+ffc74cf1a2f2"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Z", "[", 
+   RowBox[{"n_", ",", "k_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"Sum", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"2", "j"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"n", "-", "k"}], ")"}]}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"c", "[", 
+        RowBox[{"k", ",", "j"}], "]"}], "+", 
+       RowBox[{
+        RowBox[{"d", "[", 
+         RowBox[{"k", ",", "j"}], "]"}], 
+        RowBox[{"(", 
+         RowBox[{"n", "-", "k", "+", "1"}], ")"}]}]}], ")"}]}], ",", 
+    RowBox[{"{", 
+     RowBox[{"j", ",", "1", ",", 
+      RowBox[{"k", "/", "2"}]}], "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.954991013040378*^9, 3.9549910841084127`*^9}, {
+  3.954991745254994*^9, 3.9549917891650963`*^9}},
+ CellLabel->"In[86]:=",ExpressionUUID->"f0908e3a-272a-42e6-b7dd-125246b365db"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Table", "[", 
+   RowBox[{
+    RowBox[{"Z", "[", 
+     RowBox[{"n", ",", "k"}], "]"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"n", ",", "0", ",", "8"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"k", ",", "0", ",", "8"}], "}"}]}], "]"}], " ", "//", 
+  "TableForm"}]], "Input",
+ CellChangeTimes->{{3.9549910866140633`*^9, 3.954991122845242*^9}, {
+  3.954991203235319*^9, 3.954991215081058*^9}},
+ CellLabel->"In[87]:=",ExpressionUUID->"eb211049-829b-4ac7-9518-87d670e65271"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"0", "0", 
+     FractionBox["1", "4"], 
+     RowBox[{"-", 
+      FractionBox["1", "4"]}], 
+     FractionBox["5", "64"], 
+     RowBox[{"-", 
+      FractionBox["3", "128"]}], 
+     FractionBox["5", "1152"], 
+     RowBox[{"-", 
+      FractionBox["11", "13824"]}], 
+     FractionBox["47", "442368"]},
+    {"0", "0", 
+     FractionBox["1", "2"], 
+     RowBox[{"-", 
+      FractionBox["1", "4"]}], 
+     FractionBox["1", "16"], 
+     RowBox[{"-", 
+      FractionBox["1", "64"]}], 
+     FractionBox["1", "384"], 
+     RowBox[{"-", 
+      FractionBox["1", "2304"]}], 
+     FractionBox["1", "18432"]},
+    {"0", "0", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "2", "1", "0", "0", "0", "0", "0"},
+    {"0", "0", "4", "4", "1", "0", "0", "0", "0"},
+    {"0", "0", "8", "12", "8", "1", "0", "0", "0"},
+    {"0", "0", "16", "32", "44", "12", "1", "0", "0"},
+    {"0", "0", "32", "80", "208", "92", "18", "1", "0"},
+    {"0", "0", "64", "192", "912", "576", "200", "24", "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.954991109707011*^9, 3.954991123188827*^9}, {
+   3.954991204251705*^9, 3.95499121554062*^9}, 3.954991649884203*^9, 
+   3.954991680199974*^9, {3.9549917592003193`*^9, 3.95499179108854*^9}},
+ CellLabel->
+  "Out[87]//TableForm=",ExpressionUUID->"e04c9abb-7d2e-4220-847c-\
+594a81895e56"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"d", "[", 
+  RowBox[{"10", ",", "4"}], "]"}]], "Input",
+ CellChangeTimes->{{3.954991453598872*^9, 3.954991461784144*^9}, {
+  3.9549918390435467`*^9, 3.954991839100816*^9}},
+ CellLabel->"In[88]:=",ExpressionUUID->"f70dd676-a35d-4cc9-bd10-f453966618ed"],
+
+Cell[BoxData[
+ RowBox[{"-", 
+  FractionBox["4096", "9"]}]], "Output",
+ CellChangeTimes->{{3.9549914591957483`*^9, 3.9549914623873*^9}, 
+   3.954991839495441*^9},
+ CellLabel->"Out[88]=",ExpressionUUID->"1f9f5795-8d68-4c4c-aee5-9fa214baa489"]
+}, Open  ]]
+},
+WindowSize->{1392, 1036},
+WindowMargins->{{Automatic, 236}, {Automatic, 99}},
+FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (March 16, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b773e2f5-e736-4c4f-992e-6c8f004ca857"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 500, 13, 44, "Input",ExpressionUUID->"f33dae4e-964f-49cb-b67e-a711d185fbbe"],
+Cell[CellGroupData[{
+Cell[1079, 37, 403, 10, 44, "Input",ExpressionUUID->"13abf73c-3a88-427a-9c0c-5cf6134ef6bb"],
+Cell[1485, 49, 5484, 186, 329, "Output",ExpressionUUID->"5fa81091-fa17-45d9-9347-3512b7d6d234"]
+}, Open  ]],
+Cell[6984, 238, 3853, 107, 111, "Text",ExpressionUUID->"c9a1fad3-4287-48d2-ad8f-4cc11b3420c5"],
+Cell[10840, 347, 6084, 183, 339, "Input",ExpressionUUID->"6d242881-f621-4dc4-8806-1338cca46338"],
+Cell[16927, 532, 6085, 180, 381, "Text",ExpressionUUID->"eb04b73d-6e0f-499d-b4ab-d5bb08afa8a1"],
+Cell[23015, 714, 860, 28, 44, "Input",ExpressionUUID->"14c57521-7887-4d40-a11e-35d78d475a54"],
+Cell[CellGroupData[{
+Cell[23900, 746, 440, 12, 44, "Input",ExpressionUUID->"b757200c-5345-4537-84b6-b1f856ac110b"],
+Cell[24343, 760, 1609, 44, 271, "Output",ExpressionUUID->"557232d8-1c77-4b9e-8963-402f81f7afdb"]
+}, Open  ]],
+Cell[25967, 807, 2104, 61, 197, "Input",ExpressionUUID->"75300e8a-c5ed-4296-b44a-db058550933b"],
+Cell[CellGroupData[{
+Cell[28096, 872, 566, 14, 44, "Input",ExpressionUUID->"c8c0b895-8076-477b-9155-5fa2d01e5529"],
+Cell[28665, 888, 1881, 52, 272, "Output",ExpressionUUID->"5f899ad9-72d5-49ab-81a7-ffc74cf1a2f2"]
+}, Open  ]],
+Cell[30561, 943, 876, 26, 44, "Input",ExpressionUUID->"f0908e3a-272a-42e6-b7dd-125246b365db"],
+Cell[CellGroupData[{
+Cell[31462, 973, 506, 13, 44, "Input",ExpressionUUID->"eb211049-829b-4ac7-9518-87d670e65271"],
+Cell[31971, 988, 1682, 47, 288, "Output",ExpressionUUID->"e04c9abb-7d2e-4220-847c-594a81895e56"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33690, 1040, 274, 5, 44, "Input",ExpressionUUID->"f70dd676-a35d-4cc9-bd10-f453966618ed"],
+Cell[33967, 1047, 240, 5, 65, "Output",ExpressionUUID->"1f9f5795-8d68-4c4c-aee5-9fa214baa489"]
+}, Open  ]]
+}
+]
+*)
+
