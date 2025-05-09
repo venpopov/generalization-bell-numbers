@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{tikz-cd}
+\usepackage{logix}
+
+% Custom commands
+\newcommand{\Stirling}[0]{\genfrac\{\}{0pt}{}}
+\newcommand{\Stirlingone}[0]{\genfrac[]{0pt}{}}
+\newcommand{\Lah}[0]{\genfrac{\lfloor}{\rfloor}{0pt}{}}
+\newcommand{\mStirling}[0]{\genfrac{\OpnDblBrac}{\ClsDblBrac}{0pt}{}}
+\newcommand{\mStirlingone}[0]{\genfrac{\OpnBrktBar}{\ClsBrktBar}{0pt}{}}
+\newcommand{\mLah}[0]{\genfrac{\OpnDblFloor}{\ClsDblFloor}{0pt}{}}
+
+\begin{document}
+\[
+\begin{tikzcd}[column sep=9em, row sep=4.5em]
+    x^{\overline{n}} 
+        \arrow[rd, bend left=45, "(-1)^{n-k}\Stirling{n}{k}" description]
+        \arrow[dd, bend left=15, "{\Lah{n}{k}}" description]
+    & & 
+    x^{\overline{n,2}}
+        \arrow[ld, bend left=-45, swap, "(-1)^{n-k}\mStirling{n}{k}" description]
+        \arrow[dd, bend left=-15, swap, "{\mLah{n}{k}}" description]
+    \\
+    & 
+    x^{n} 
+        \arrow[ul, bend left=15, "\Stirlingone{n}{k}" description]
+        \arrow[ur, bend left=-15, swap, "\mStirlingone{n}{k}" description]
+        \arrow[dl, bend left=45, "(-1)^{n-k}\Stirlingone{n}{k}" description]
+        \arrow[dr, bend left=-45, swap, "(-1)^{n-k}\mStirlingone{n}{k}" description]
+    &\\
+    x^{\underline{n}}
+        \arrow[uu, bend left=45, "{(-1)^{n-k}\Lah{n}{k}}" description]
+        \arrow[ur, bend left=15, "\Stirling{n}{k}" description]
+    & & 
+    x^{\underline{n,2}}
+        \arrow[uu, bend left=-45, swap, "{(-1)^{n-k}\mLah{n}{k}}" description]
+        \arrow[ul, bend left=-15, swap, "\mStirling{n}{k}" description]
+\end{tikzcd}
+\]
+\end{document}

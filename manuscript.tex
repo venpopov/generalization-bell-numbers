@@ -1,5 +1,6 @@
 \documentclass[a4paper]{amsart}
 \usepackage{tikz}
+\usetikzlibrary{quotes}
 \usepackage{biblatex}
 \usepackage{amsaddr}
 \usepackage{hyperref}
@@ -7,10 +8,21 @@
 \usepackage{array} % Needed for table column specifiers
 \usepackage{amssymb} % for \varnothing
 \usepackage{pdflscape}  % For PDF output (rotates the page in the PDF viewer)
+\usepackage{logix}
+\usepackage{tikz-cd}
 
 % Custom commands
 \newcommand{\Stirling}[0]{\genfrac\{\}{0pt}{}}
-\newcommand{\mStirling}[0]{\genfrac{\lfloor}{\rfloor}{0pt}{}}
+\newcommand{\Stirlingone}[0]{\genfrac[]{0pt}{}}
+\newcommand{\Lah}[0]{\genfrac{\lfloor}{\rfloor}{0pt}{}}
+\newcommand{\mStirling}[0]{\genfrac{\OpnDblBrac}{\ClsDblBrac}{0pt}{}}
+\newcommand{\mStirlingone}[0]{\genfrac{\OpnBrktBar}{\ClsBrktBar}{0pt}{}}
+\newcommand{\mLah}[0]{\genfrac{\OpnDblFloor}{\ClsDblFloor}{0pt}{}}
+\newcommand{\uuline}[1]{\underline{\underline{#1}}}
+\newcommand{\ooline}[1]{\overline{\overline{#1}}}
+
+
+
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand{\R}{\mathbf{R}} % The real numbers.
@@ -29,11 +41,11 @@
 
 
 %% Meta
-\title[A generalization of the Bell and Stirling numbers]{On a New Family of Bell-like numbers and Stirling-like triangular arrays}
+\title[The theory of hypergeometric Stirling and Bell numbers]{The theory of hypergeometric Stirling and Bell numbers}
 \author{Vencislav Popov}
 \email{vencislav.popov@gmail.com}
 \address{Department of Psychology, University of Zurich}
-\thanks{Computational results and other supporting information is available on \href{https://github.com/venpopov/generalization-bell-numbers}{GitHub}}
+\thanks{Computational results and other supporting information is available on \href{https://github.com/venpopov/generalization-bell-numbers}{GitHub} and \href{https://www.wolframcloud.com/obj/vpopov0/Published/marray-recurrence-triangle.nb}{Wolfram Cloud}}
 \date{}
 
 % Biblio
@@ -42,10 +54,10 @@
 
 \begin{document}
 \begin{abstract}
-I introduce $m$-Bell numbers $B^{(m)}_{n}$, a generalization of the Bell numbers ($m=1$). They are characterized by the operator identity $\mathrm{BINOM}^{m}\!\circ a=\mathrm{L}^{m}\!\circ a$ for a sequence $a=(a_{n})_{n\ge0}$, i.e.\ invariance under $m$ binomial transforms up to an $m$-place left shift.  Their exponential generating functions (EGFs) satisfy $m$-th‑order ordinary differential equations whose solutions are hypergeometric functions; for $m=2$ these specialize to modified Bessel functions, yielding the “Bessel‑Bell’’ numbers. Analogous to the Bell–Stirling correspondence, there exist \(m\)-Stirling triangular arrays arising from the two‑term recurrence  $S_{n+1,k}=m\!\lfloor k/m\rfloor\,S_{n,k}+S_{n,k-1},$ whose row sums reproduce $B^{(m)}_{n}$. These numbers admit combinatorial interpretations through parity‑constrained partitions and are linked to moments of the Conway–Maxwell–Poisson distribution.
+I introduce a natural generalization of the Bell numbers, the $m$-Bell numbers $B^{(m)}_{n}$, characterized by invariance under m binomial transforms followed by an m-place left shift.  Their exponential generating functions satisfy $m$-th‑order ordinary differential equations whose solutions are hypergeometric functions, specializing to the exponential function when $m=1$ (classical Bell numbers) and to modified Bessel functions when $m=2$ (yielding "Bessel-Bell" numbers). Analogous to the Bell–Stirling correspondence, there exist \(m\)-Stirling triangular arrays arising from the two‑term recurrence  $S_{n+1,k}=m\!\lfloor k/m\rfloor\,S_{n,k}+S_{n,k-1},$ whose row sums reproduce $B^{(m)}_{n}$. These structures serve as conversion operators between polynomial bases, generalizing the role of classical Stirling numbers, and they admit combinatorial interpretations through parity‑constrained partitions. Finally, the $m-$Bell numbers are linked to moments of the Conway–Maxwell–Poisson distribution.
 
 \bigskip
-\noindent\textbf{Keywords.} Bell numbers, Stirling numbers, Conway–Maxwell–Poisson distribution, modified Bessel functions
+\noindent\textbf{Keywords.} Bell numbers, Stirling numbers, Conway–Maxwell–Poisson distribution, modified Bessel functions, hypergeometric functions
 \end{abstract}
 
 \maketitle
@@ -58,7 +70,7 @@ I introduce $m$-Bell numbers $B^{(m)}_{n}$, a generalization of the Bell numbers
 
 Repeated applications of the binomial transform on the resulting sequence can be represented with a single sum (see \cite{spiveyKbinomialTransformsHankel2006}):
 \begin{equation*}
-    b_n = \sum_{k_1=0}^{n} \binom{n}{k_1}\sum_{k_2=0}^{n} \binom{k_1}{k_2} \dots \sum_{k_{m}=0}^{k_{m-1}} \binom{k_{m-1}}{k_m} a_{k_m} = \sum_{k=0}^{n} \binom{n}{k} m^{n-k} a_k,
+    b_n = \sum_{k_1=0}^{n} \binom{n}{k_1}\sum_{k_2=0}^{k_1} \binom{k_1}{k_2} \dots \sum_{k_{m}=0}^{k_{m-1}} \binom{k_{m-1}}{k_m} a_{k_m} = \sum_{k=0}^{n} \binom{n}{k} m^{n-k} a_k,
 \end{equation*}
 where $m$ is an integer that represents the number of times the binomial transform has been applied. Bernstein and Sloane \cite{bernstein1995} studied a number of what they call "Eigen sequences" of various such transformations - sequences $(a_n)$ which when transformed one or more times shift by one or more places but are otherwise preserved. Such sequences show a "self-similarity" under an iterated transform and understanding why this self-similarity occurs often reveals new properties or relations between different integer sequences and the combinatorial structures they enumerate.
 
@@ -92,7 +104,7 @@ where the upper index $(m)$ has no algebraic meaning and should be read merely a
 
 These are sequences that shift to the left by $m$ places after $m$ applications of the binomial transform. The case $m=1$ corresponds to the Bell numbers, and $m=2$ corresponds to sequences \href{https://oeis.org/A007472}{A007472}, \href{https://oeis.org/search?q=1,0,1,2,5,16&language=english&go=Search}{A351143} and \href{https://oeis.org/A351028}{A351028}, which shift by 2 places left after 2 binomial transformations (sequences for $m>2$ are not currently present in OEIS). Although the sequences for $m=2$ are listed in OEIS, little is known about their properties.
 
-In this paper I show that the m-fold binomial–shift-invariance property that characterizes these sequences arises from a combinatorial structure that mirrors that of the regular Bell numbers (Section \ref{sec-background}). The $m$-Bell numbers have exponential generating functions (e.g.f.) that are the solutions of ordinary differential equations of order $m$. The solutions to these equations are hypergeometric functions \cite{tauberGeneralizationsExponentialFunction1960}, which reduce to the exponential function for $m=1$ (the 1-Bell numbers) and modified Bessel functions of the first and second kinds for $m=2$ (motivating the name Bessel-Bell or 2-Bell numbers; Section \ref{sec-m2}; Theorem \ref{thm-m2-egf}). These generalized Bell numbers admit Dobiński-like formula representations (Theorem \ref{thm-bessel-dobiski}). Each such \textit{m-Bell} sequence corresponds to the row sums of new Stirling-like arrays (Section \ref{sec-2-stirling}), motivating the name \textit{m-Stirling }numbers, which, as we will see, come in dual pairs just like the regular Stirling numbers of the first and second kind. Each of the associated $m$-Stirling arrays arises as the coefficients of polynomials that result from the application of the exponential shift operator to the hypergeometric e.g.f's. The $m$-Stirling and $m$-Bell numbers count parity-constrained partitions, resulting in a novel general combinatorial structure that greatly expands the Bell-Stirling-Touchard story (Section \ref{sec-combinatorial}). Finally, just like their standard counterparts are related to moments of the Poisson distribution, the $m$-Bell numbers turn out to be related to the moments of a generalized Poisson distribution known as the Conway-Maxwell-Poisson distribution \cite{shmueliUsefulDistributionFitting2005} (Section \ref{sec-cmp}).
+In this paper I show that the m-fold binomial–shift-invariance property that characterizes these sequences arises from a combinatorial structure that mirrors that of the regular Bell numbers (Section \ref{sec-background}). The $m$-Bell numbers have exponential generating functions (e.g.f.) that are the solutions of ordinary differential equations of order $m$. The solutions to these equations are a class of hypergeometric functions, which reduce to the exponential function for $m=1$ (the 1-Bell numbers) and modified Bessel functions of the first and second kinds for $m=2$ (motivating the name Bessel-Bell or 2-Bell numbers; Section \ref{sec-m2}; Theorem \ref{thm-m2-egf}). These generalized Bell numbers admit Dobiński-like formula representations (Theorem \ref{thm-bessel-dobiski}). Each such \textit{m-Bell} sequence corresponds to the row sums of new Stirling-like arrays (Section \ref{sec-2-stirling}), motivating the name \textit{m-Stirling }numbers, which, as we will see, come in dual pairs just like the regular Stirling numbers of the first and second kind. Each of the associated $m$-Stirling arrays arises as the coefficients of polynomials that result from the application of the exponential shift operator to the hypergeometric e.g.f's. The $m$-Stirling and $m$-Bell numbers count parity-constrained partitions, resulting in a novel general combinatorial structure that greatly expands the Bell-Stirling-Touchard story (Section \ref{sec-combinatorial}). Finally, just like their standard counterparts are related to moments of the Poisson distribution, the $m$-Bell numbers turn out to be related to the moments of a generalized Poisson distribution known as the Conway-Maxwell-Poisson distribution \cite{shmueliUsefulDistributionFitting2005} (Section \ref{sec-cmp}).
 
 To clearly ground the analogue between the Bell-Stirling-Touchard framework and the novel results, I begin with a review of standard results and notation \cite{comtet1974, sándor2004}.
 
@@ -139,7 +151,7 @@ where the Stirling numbers of the second kind satisfy the two-term recurrence:
 \genfrac\{\}{0pt}{}{n+1}{k} = k \, \genfrac\{\}{0pt}{}{n}{k} + \genfrac\{\}{0pt}{}{n}{k-1}, \,\,\,\,\, n, k \ge 1\\.
 \]
 
-The Stirling numbers of the second kind count the number of ways to partition n labeled objects into k unlabeled subsets and are the coefficients of the Touchard (also known as Bell or exponential) polynomials:
+The Stirling numbers of the second kind count the number of ways to partition $n$ labeled objects into $k$ unlabeled subsets and are the coefficients of the Touchard (also known as Bell or exponential) polynomials:
 \begin{equation}\label{eq-touchard-def}
     T_n(x) = \sum_{k=0}^{n} \genfrac\{\}{0pt}{}{n}{k} x^k,
 \end{equation}
@@ -267,7 +279,6 @@ These expressions can be simplified further due to the following Bessel identity
 \begin{equation}\label{eq-bessel-wronskian-general}
     I_v(z)K_{v+1}(z)+I_{v+1}(z)K_v(z) = 1/z
 \end{equation}
-
 which holds for any complex $v$ and $z$. In the special case when $v = 0$ and $z=1$:
 \begin{equation}\label{eq-bessel-wronskian}
 I_0(1)K_1(1)+I_1(1)K_0(1) = 1
@@ -343,26 +354,44 @@ S(n+2) &= \sum_{m=0}^{n}\binom{n}{m}2^{n-m} (v_m I_0(1)+u_m I_1(1)) \\
 &= v_{n+2}I_0(1)+u_{n+2}I_1(1)
 \end{aligned}
 \]
-which completes the proof. Indeed, if we were to enumerate a few more cases, we would see that $v_n$ and $u_n$ precisely match the sequences A351143 and A351028.
+which completes the proof. Indeed, if we were to enumerate a few more cases, we would see that $v_n$ and $u_n$ precisely match the sequences A351143 and A351028 (Table \ref{tab-vn-un-coefs}).
 
-\begin{center}
-\begin{tabular}{|c|l|c|c|c|}
-\hline
-$n$ & $S(n)$                & $v_n$ & $u_n$ & $v_n+u_n$ \\
-\hline
-0   & $I_0(1)$              & 1     & 0     & 1         \\
-1   & $I_1(1)$              & 0     & 1     & 1         \\
-2   & $I_0(1)$              & 1     & 0     & 1         \\
-3   & $2I_0(1)+I_1(1)$    & 2     & 1     & 3         \\
-4   & $5I_0(1)+4I_1(1)$   & 5     & 4     & 9         \\
-5   & $16I_0(1)+13I_1(1)$ & 16    & 13    & 29        \\
-6   & $61I_0(1)+44I_1(1)$ & 61    & 44 &    105 \\ 
-\hline
-\end{tabular}
-\end{center}
+\begin{table}[]
+    \centering
+        \begin{tabular}{|c|l|c|c|c|}
+        \hline
+        $n$ & $S(n)$                & $v_n$ & $u_n$ & $v_n+u_n$ \\
+        \hline
+        0   & $I_0(1)$              & 1     & 0     & 1         \\
+        1   & $I_1(1)$              & 0     & 1     & 1         \\
+        2   & $I_0(1)$              & 1     & 0     & 1         \\
+        3   & $2I_0(1)+I_1(1)$    & 2     & 1     & 3         \\
+        4   & $5I_0(1)+4I_1(1)$   & 5     & 4     & 9         \\
+        5   & $16I_0(1)+13I_1(1)$ & 16    & 13    & 29        \\
+        6   & $61I_0(1)+44I_1(1)$ & 61    & 44 &    105 \\ 
+        \hline
+        \end{tabular}
+        \bigskip
+    \caption{Coefficients in the expansion of the Dobiński-like formula for the Bessel-Bell numbers \ref{thm-bessel-dobiski}}
+    \label{tab-vn-un-coefs}
+\end{table}
 \end{proof}
 
-The major difference between Dobiński-like Equation \eqref{eq-2bell-dobinski-proof-step1} and the standard Dobiński formula for the Bell numbers is that there are two different modified Bessel functions acting as carriers for the coefficients of the two primitive Bessel-Bell sequences, rather than a single exponential function. In the standard Dobiński formula one multiplies the infinite sum by $1/e$ to cancel the exponential carrier function, which here is not possible. The recurrence relation and the coefficients just derived show that in principle the e.g.f. for these sequences can be as simple as $I_0(e^x)$, which is very close to the e.g.f. for the Bell numbers $\exp(-1)\exp(e^x)$. A careful examination of the coefficients in the full series expansion of the e.g.f.s in Theorem~\ref{thm-m2-egf} will reveal that the added factors in the e.g.f. serve the same role as $\exp(-1)$ in the Bell numbers e.g.f. - due to Wronskian identity described in Equation \eqref{eq-bessel-wronskian}, all Bessel functions get canceled out and we remain with a pure power series in $x$ without any special functions.
+The major difference between Dobiński-like Equation \eqref{eq-2bell-dobinski-proof-step1} and the standard Dobiński formula for the Bell numbers is that there are two different modified Bessel functions acting as \textbf{carriers} for the coefficients of the two primitive Bessel-Bell sequences, rather than a single exponential function. In the standard Dobiński formula one multiplies the infinite sum by $1/e$ to cancel the exponential carrier function, which here is not possible. The concept of a carrier function will play a fundamental role in understanding how $m$-Bell and $m$-Stirling numbers are generated, so we should make it explicit.
+
+\begin{definition}[Carrier functions]
+Let $\mathcal{L}$ be a linear operator on a function space $\mathcal{F}$ over a field $\mathbb{K}$. A set of functions $\{f_1, f_2, \ldots, f_m\} \subset \mathcal{F}$ is called a set of \textit{carrier functions} for $\mathcal{L}$ if:
+
+(i) For each $n \in \mathbb{N}$, the function $\mathcal{L}^n f_1$ can be expressed as a linear combination of the form $\sum_{j=1}^m P_{n,j}(x) f_j(x)$, where each $P_{n,j}$ is a polynomial in $x$ with coefficients in $\mathbb{K}$;
+
+(ii) The coefficients of these polynomials form sequences of combinatorial significance.
+
+The function $f_1$ is called the \textit{primary carrier function} of the system.
+\end{definition}
+
+For example, $e^x$ is the primary carrier function for the operator $\mathcal{L} = x\frac{d}{dx}$, as $\mathcal{L}^n e^x$ produces polynomials whose coefficients are the Stirling numbers of the second kind. Similarly, $I_0(x)$ and $I_1(x)$ form a set of carrier functions for the same operator, generating polynomials whose coefficients are the Bessel-Stirling numbers of the second kind.
+
+The recurrence relation and the coefficients just derived show that in principle the e.g.f. for these sequences can be as simple as $I_0(e^x)$, which is very close to the e.g.f. for the Bell numbers $\exp(-1)\exp(e^x)$. A careful examination of the coefficients in the full series expansion of the e.g.f.s in Theorem~\ref{thm-m2-egf} will reveal that the added factors in the e.g.f. serve the same role as $\exp(-1)$ in the Bell numbers e.g.f. - due to Wronskian identity described in Equation \eqref{eq-bessel-wronskian}, all Bessel functions get canceled out and we remain with a pure power series in $x$ without any special functions. 
 
 Due to the complicated series expansion of $K_0$ shown in Equation \eqref{eq-i-k-0-series}, this cancellation property is easier to see if we use the Maclaurin series for $I$ and $K$. Let $f(x) = I_0(e^x)$ and $g(x) = K_0(e^x)$. Then
 \[
@@ -400,11 +429,11 @@ p I_0(e^x) + q K_0(e^x) = \sum_{n=0}^\infty \frac{x^n}{n!} \bigg[ v_n (p I_0(1) 
 \]
 Within this equation, an appropriate choice of $p$ and $q$ will neutralize the modified Bessel functions in the series due to the Wronskian property in Equation \eqref{eq-bessel-wronskian}. Specifically, $p = K_1(1), q = I_1(1)$ makes the coefficient of $v_n$ 1 and the coefficient of $u_n$ 0 and gives us integer coefficients for series A351143. Similarly for the other two choices of p and q established in Theorem~\ref{thm-m2-egf}.
 
-Thus the e.g.f. of 2-Bell sequences is similar to that of the regular 1-Bell sequence - it is the composition of an exponential-like function with the exponential function. The remaining terms are there just to ensure integer coefficients. With the integer‑coefficient property now rigorously settled, we shift to the combinatorial side: a triangular recurrence whose row sums reproduce precisely these 2‑Bell sequences.
+Thus the e.g.f. of 2-Bell sequences is similar to that of the regular 1-Bell sequence - it is the composition of an exponential-like function with the exponential function. The remaining terms are there just to ensure integer coefficients. With the integer‑coefficient property now rigorously settled, let us shift to the combinatorial side: a triangular recurrence whose row sums reproduce precisely the Bessel‑Bell sequence.
 
 \section{Bessel-Stirling numbers of the second kind}\label{sec-2-stirling}
 
-The similarity of the Bessel-Bell numbers e.g.f. to the standard Bell numbers e.g.f. immediately invites the question if there is also a Bessel-Stirling equivalent to the triangular array of the Stirling numbers of the second kind, whose rows sum to the Bell numbers. Recall that the Stirling numbers appears as the coefficients of the Touchard polynomials, which themseleves are the coefficients of a bi-variate generalization of the Bell e.g.f. (Equations\eqref{eq-touchard-def} and \eqref{eq-touchard-egf}). Turns out a analogous structure arises from a bi-variate generalization of the Bessel-Bell e.g.f.
+\noindent The similarity of the Bessel-Bell numbers e.g.f. to the standard Bell numbers e.g.f. immediately invites the question if there is also a Bessel-Stirling equivalent to the triangular array of the Stirling numbers of the second kind, whose rows sum to the Bell numbers. Recall that the Stirling numbers appears as the coefficients of the Touchard polynomials, which themseleves are the coefficients of a bi-variate generalization of the Bell e.g.f. (Equations\eqref{eq-touchard-def} and \eqref{eq-touchard-egf}). Turns out a analogous structure arises from a bi-variate generalization of the Bessel-Bell e.g.f..
 
 \begin{theorem}[Bessel-Bell polynomials and Bessel-Stirtling numbers]\label{thm-bb-polynomials}
 The Bessel-Bell numbers are the row sums of a Stirling-like triangular array, whose row entries arise as the coefficients of x of Touchard-like polynomials that are the coefficients of $t^n$ in the expansion of the following bi-variate e.g.f.:
@@ -419,7 +448,7 @@ The Bessel-Bell numbers are the row sums of a Stirling-like triangular array, wh
 \end{theorem}
 
 \begin{proof}
-The claim that $\mathscr{B}_n(1)$ represents the n-th Bessel-Bell number follows simply from the facty that $G(t,1)$ reduces to the e.g.f. of the Bessel-Bell numbers (Theorem \ref{thm-m2-egf}). Therefore what we need to prove is that $\mathscr{B}(x)$ is an n-th degree polynomial in x. As we saw in the previous section, we can work with a much simpler version of the e.g.f., namely, $I_0(xe^t)$ and show that the remaining components are present only to cancel the carrier special functions. The standard series expansion of $I_0(xe^t)$ gives:
+The claim that $\mathscr{B}_n(1)$ represents the n-th Bessel-Bell number follows simply from the fact that $G(t,1)$ reduces to the e.g.f. of the Bessel-Bell numbers (Theorem \ref{thm-m2-egf}). Therefore what we need to prove is that $\mathscr{B}(x)$ is an n-th degree polynomial in x. As we saw in the previous section, we can work with a much simpler version of the e.g.f., namely, $I_0(xe^t)$ and show that the remaining components are present only to cancel the carrier special functions. The standard series expansion of $I_0(xe^t)$ gives:
 \[
 \begin{aligned}
 I_0(x e^t) = \sum_{k=0}^\infty \frac{(x/2)^{2k} e^{2kt}}{k!k!} = \sum_{k=0}^\infty \frac{(x/2)^{2k}}{k!k!} \sum_{n=0}^\infty \frac{(2k)^n t^n}{n!} = \sum_{n=0}^\infty \frac{t^n}{n!} \sum_{k=0}^\infty \frac{(x/2)^{2k}(2k)^n}{k!k!},
@@ -455,32 +484,83 @@ V_4(x) &= 4x^2\,I_0(x) + 4x^3\,I_1(x) + x^4\,I_0(x) \\
 V_5(x) &= 8x^2\,I_0(x) + 12x^3\,I_1(x) + 8x^4\,I_0(x) + x^5\,I_1(x) \\
 \end{aligned}
 \]
-Notice two things. First, these polynomials are generated in very much the same way as Touchard polynomials, but by applying the exponential scaling operator to $I_0(x)$ instead of to $e^x$. Second, each mononomial $x^k$ is accompanied by a modified Bessel carrier function - $I_0$ "carries" the even degrees of x and $I_1$ "carries" the odd degrees of x. The proper analogue to the Touchard polynomials stated in Theorem \ref{thm-bb-polynomials} would not have these carrier functions. Thankfully, the solution is the same as that for the e.g.f. of the 2-Bell numbers derived in Section \ref{sec-m2} - to use the general Wronskian property of Bessel functions \eqref{eq-bessel-wronskian-general} to construct a bi-variate e.g.f. that leads to the cancellation of all carrier functions. Some straightforward but tedious algebra, mirroring the steps in Section~\ref{2-bell-integer-coefs}, confirms that the chosen form of $G(t,x)$ precisely cancels the carrier functions. We omit the details.
+Notice two things. First, these polynomials are generated in very much the same way as Touchard polynomials, but by applying the exponential scaling operator to $I_0(x)$ instead of to $e^x$. Second, each mononomial $x^k$ is accompanied by a modified Bessel carrier function - $I_0$ "carries" the even degrees of x and $I_1$ "carries" the odd degrees of x. The proper analogue to the Touchard polynomials stated in Theorem \ref{thm-bb-polynomials} would not have these carrier functions. Thankfully, the solution is the same as that for the e.g.f. of the 2-Bell numbers derived in Section \ref{sec-m2} - to use the general Wronskian property of Bessel functions \eqref{eq-bessel-wronskian-general} to construct a bi-variate e.g.f. that leads to the cancellation of all carrier functions. Some straightforward but tedious algebra, mirroring the steps in Section~\ref{2-bell-integer-coefs}, confirms that the chosen form of $G(t,x)$ precisely cancels the carrier functions. I omit the details.
 \end{proof}
 
-The numbers $\mStirling{n}{k}_2$ form a triangular array whose first few rows are:
-\begin{center}
-\begin{tabular}{|l|*{10}{c}|c|}
-\hline
-      & k=0 & k=1 & k=2 & k=3 & k=4 & k=5 & k=6 & k=7 & k=8 & k=9 & $\sum_{k=0}^{n}$ \\
-\hline
-n=0 & 1   &     &     &     &     &     &     &     &     &     & 1                \\
-n=1 & 0   & 1   &     &     &     &     &     &     &     &     & 1                \\
-n=2 & 0   & 0   & 1   &     &     &     &     &     &     &     & 1                \\
-n=3 & 0   & 0   & 2   & 1   &     &     &     &     &     &     & 3                \\
-n=4 & 0   & 0   & 4   & 4   & 1   &     &     &     &     &     & 9                \\
-n=5 & 0   & 0   & 8   & 12  & 8   & 1   &     &     &     &     & 29               \\
-n=6 & 0   & 0   & 16  & 32  & 44  & 12  & 1   &     &     &     & 105              \\
-n=7 & 0   & 0   & 32  & 80  & 208 & 92  & 18  & 1   &     &     & 431              \\
-n=8 & 0   & 0   & 64  & 192 & 912 & 576 & 200 & 24  & 1   &     & 1969             \\
-n=9 & 0   & 0   & 128 & 448 & 3840& 3216& 1776& 344 & 32  & 1   & 9785             \\
-\hline
-\end{tabular}
-\smallskip
-\end{center}
-where the values in the upper triangle are all 0. The row sums of this array yield the Bessel-Bell numbers \href{https://oeis.org/A007472}{A007472}:
+The numbers $\mStirling{n}{k}_2$ form a triangular array whose first few rows are listed in Table \ref{tab-bessel-stirling2}
+\begin{table}[]
+    \centering
+        \begin{tabular}{|l|*{10}{c}|c|}
+        \hline
+              & k=0 & k=1 & k=2 & k=3 & k=4 & k=5 & k=6 & k=7 & k=8 & k=9 & $\sum_{k=0}^{n}$ \\
+        \hline
+        n=0 & 1   &     &     &     &     &     &     &     &     &     & 1                \\
+        n=1 & 0   & 1   &     &     &     &     &     &     &     &     & 1                \\
+        n=2 & 0   & 0   & 1   &     &     &     &     &     &     &     & 1                \\
+        n=3 & 0   & 0   & 2   & 1   &     &     &     &     &     &     & 3                \\
+        n=4 & 0   & 0   & 4   & 4   & 1   &     &     &     &     &     & 9                \\
+        n=5 & 0   & 0   & 8   & 12  & 8   & 1   &     &     &     &     & 29               \\
+        n=6 & 0   & 0   & 16  & 32  & 44  & 12  & 1   &     &     &     & 105              \\
+        n=7 & 0   & 0   & 32  & 80  & 208 & 92  & 18  & 1   &     &     & 431              \\
+        n=8 & 0   & 0   & 64  & 192 & 912 & 576 & 200 & 24  & 1   &     & 1969             \\
+        n=9 & 0   & 0   & 128 & 448 & 3840& 3216& 1776& 344 & 32  & 1   & 9785             \\
+        \hline
+        \end{tabular}
+        \bigskip
+    \caption{The Bessel-Stirling numbers of the second kind, $\mStirling{n}{k}_2$. The values in the upper triangle are all 0.}
+    \label{tab-bessel-stirling2}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|*{10}{c}|c|}
+        \hline
+          & k=0 & k=1 & k=2   & k=3   & k=4   & k=5   & k=6   & k=7   & k=8   & k=9   & $\sum_{k=0}^{n}$ \\
+        \hline
+        n=0 & 1   &     &       &       &       &       &       &       &       &       & 1                  \\
+        n=1 & 0   & 1   &       &       &       &       &       &       &       &       & 1                  \\
+        n=2 & 0   & 0   & 1     &       &       &       &       &       &       &       & 1                  \\
+        n=3 & 0   & 0   & 2     & 1     &       &       &       &       &       &       & 3                  \\
+        n=4 & 0   & 0   & 4     & 4     & 1     &       &       &       &       &       & 9                  \\
+        n=5 & 0   & 0   & 16    & 20    & 8     & 1     &       &       &       &       & 45                 \\
+        n=6 & 0   & 0   & 64    & 96    & 52    & 12    & 1     &       &       &       & 225                \\
+        n=7 & 0   & 0   & 384   & 640   & 408   & 124   & 18    & 1     &       &       & 1575               \\
+        n=8 & 0   & 0   & 2304  & 4224  & 3088  & 1152  & 232   & 24    & 1     &       & 11025              \\
+        n=9 & 0   & 0   & 18432 & 36096 & 28928 & 12304 & 3008  & 424   & 32    & 1     & 99225              \\
+        \hline
+    \end{tabular}
+    \bigskip
+    \caption{Unsigned Bessel-Stirling numbers of the first kind, $\mStirlingone{n}{k}_2$.}
+    \label{tab-bessel-stirling1}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|*{10}{c}|c|}
+        \hline
+          & k=0 & k=1 & k=2   & k=3   & k=4   & k=5   & k=6   & k=7   & k=8   & k=9   & $\sum_{k=0}^{n}$ \\
+        \hline
+        n=0 & 1   &     &       &       &       &       &       &       &       &       & 1                  \\
+        n=1 & 0   & 1   &       &       &       &       &       &       &       &       & 1                  \\
+        n=2 & 0   & 0   & 1     &       &       &       &       &       &       &       & 1                  \\
+        n=3 & 0   & 0   & 4     & 1     &       &       &       &       &       &       & 5                  \\
+        n=4 & 0   & 0   & 16    & 8     & 1     &       &       &       &       &       & 25                 \\
+        n=5 & 0   & 0   & 96    & 64    & 16    & 1     &       &       &       &       & 177                \\
+        n=6 & 0   & 0   & 576   & 480   & 192   & 24    & 1     &       &       &       & 1273               \\
+        n=7 & 0   & 0   & 4608  & 4416  & 2400  & 432   & 36    & 1     &       &       & 11893              \\
+        n=8 & 0   & 0   & 36864 & 39936 & 28416 & 6720  & 864   & 48    & 1     &       & 112849             \\
+        n=9 & 0   & 0   & 368640& 436224& 380928& 109056& 18816 & 1536  & 64    & 1     & 1310305            \\
+        \hline
+    \end{tabular}
+    \bigskip
+    \caption{Bessel-Stirling numbers of the third kind.}
+    \label{tab-bessel-stirling3}
+\end{table}
+
+
+The row sums of this array yield the Bessel-Bell numbers \href{https://oeis.org/A007472}{A007472}:
 \[
-B_n^{(2)} = \sum_{k=0}^{n}\genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_2 = (1, 1, 1, 3, 9, 29, 105, 431, 1969, 9785, 52145, 296155, 1787385, ...)
+B_n^{(2)} = \sum_{k=0}^{n} \mStirling{n}{k}_2 = (1, 1, 1, 3, 9, 29, 105, 431, 1969, 9785, 52145, 296155, 1787385, ...)
 \]
 Examining the coefficients of this triangle, which I will refer to as the Bessel-Stirling numbers of the second kind, leads to the following conjecture about their recurrence relation:
 \begin{conjecture}[Recurrence relation of the Bessel-Stirling numbers]\label{conj-bs-recurrence}
@@ -488,11 +568,11 @@ Examining the coefficients of this triangle, which I will refer to as the Bessel
 \mStirling{n+1}{k}_2 = 2\floor{k/2} \, \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2, \,\,\,\,\, (n, k \ge 1)\\
 \]    
 \end{conjecture}
-This recurrence relation is almost identical to that for the Stirling numbers of the second kind, except that the coefficient in front of $\mStirling{n}{k}$ has parity - it is always even, with k rounded down to the nearest even integer. Computational results with Mathematica confirm that the coefficients defined in Theorem \ref{thm-bb-polynomials} and those in Conjecture \ref{conj-bs-recurrence} produce the triangle up to reasonably large $n$. This triangle is now available as OEIS entry \href{https://oeis.org/A383235}{A383235}.
+This recurrence relation is almost identical to that for the Stirling numbers of the second kind, except that the coefficient in front of $\mStirling{n}{k}$ has parity - it is always even, with k rounded down to the nearest even integer. Computational results with Mathematica confirm that the coefficients defined in Theorem \ref{thm-bb-polynomials} and those in Conjecture \ref{conj-bs-recurrence} produce the triangle up to reasonably large $n$. I recently submitted this triangle and is now available as OEIS entry \href{https://oeis.org/A383235}{A383235}.
 
 The Bessel-Sitrling numbers are a novel generalization of the Stirling numbers and joins a broader family of two-term recurrences (\cite{mansour_general_2012},\cite{neuwirth_recursively_2001},\cite{barbero_g_bivariate_2014},\cite{spiveySolutionsGeneralCombinatorial2011}). I will return to the connection between this new array and previous generalizations of the Stirling numbers in Section \ref{sec-final-remarks}.
 
-Due to the form of their recurrence, the Bessel-Stirling numbers admit many identities common to other such two-term recurrence triangular arrays. Here I list the most interesting of them.
+Due to the form of their recurrence, the Bessel-Stirling numbers admit many identities common to other such two-term recurrence triangular arrays (see \textbf{Appendix A} and \textbf{B}). The most important one is an explicit formula for calculating the Bessel-Stirling numbers directly (proof given in \textbf{Appendix A}):
 
 \begin{theorem}[Explicit formula for the Bessel-Stirling numbers of the second kind]\label{thm-bs-formula}
 The Bessel-Stirling numbers can be calculated explicitly for $n \ge 2, k \geq 2$ via  the following formula:
@@ -504,7 +584,7 @@ where $d$ and $c$ are determined as follows:
 \begin{aligned}
     d_{k,r} &= \frac{(-r)^{k-1}}{r!r!(\floor{\frac{k}{2}}-r)!(\floor{\frac{k-1}{2}}-r)!} \\
     c_{k,r} &= \begin{cases}
-                - c_{k,r} (r(2H_{r-1}-H_{\floor{\frac{k}{2}}-r}-H_{\floor{\frac{k-1}{2}}-r})-k+3) & \text{if} \, 1 \leq r < k/2\\
+                - d_{k,r} (r(2H_{r-1}-H_{\floor{\frac{k}{2}}-r}-H_{\floor{\frac{k-1}{2}}-r})-k+3) & \text{if} \, 1 \leq r < k/2\\
                 \frac{r^{2r}}{r!r!} & \text{if}  \, r = k/2\\
                 0 & \text{otherwise}
             \end{cases} 
@@ -521,7 +601,8 @@ $$
 $$
 Where $H_n$ is the n-th harmonic number, $\psi(x)$ is the digamma function, and $\Gamma(x)$ is the gamma function. 
 \end{theorem}
-The proof is lengthy and given in \textbf{Appendix A}, which also includes relationships to other known OEIS sequences. This formula provides a single, unified expression for the Bessel-Bell numbers that is valid for all integers $n, k \ge 0$. The inclusion of the j = 0 term in the sum is essential, as the limit process correctly evaluates its contribution, ensuring validity for the boundary conditions.
+
+Now that we understand the analytic properties of Bessel-Stirling and Bessel-Bell numbers, and their basic recurrences, the natural next questions is - What do these numbers count?
 
 \section{Combinatorial interpretation of the Bessel-Stirling numbers of the second kind and the Bessel-Bell numbers}\label{sec-combinatorial}
 \noindent One possible interpretation of the Bessel-Stirling numbers $\mStirling{n}{k}_2$ is that they enumerate the number of ways to place $n$ labeled marbles in $k$ unlabeled compartments following a parity-constrained urn model.
@@ -537,28 +618,100 @@ The Bessel-Stirling number of the second kind $\mStirling{n}{k}_2$ counts the nu
 Then the Bessel-Bell numbers (\href{https://oeis.org/A007472}{A007472}) count the total number of ways to partition n labeled objects in such non-empty two-compartment urns.
 \end{theorem}
 
-Before diving into the proof, let us go through some examples to build intuition. Let $\{\dots|\dots||\dots|\dots \}$ represent 2 urns with double vertical bars separating the urns and single vertical bars separating the compartments within an urn. The numbers between the bars will represent the objects, labeled in the order in which they were placed in the urn (one at a time).
-For $\mStirling{3}{2}_2$ we have two ways to place the objects in two compartments of a single urn: $\{13|2\}$ or $\{1|23\}$.
-For $\mStirling{3}{3}_2$ we have one way to place each object in its own compartment (2 urns, 3 compartments used): $\{1|2||3|\varnothing\}$
-
-For 4 objects we have:
-
-\begin{center}
-\begin{tabular}{|l|l|l|}
-\hline
-Z(n,k) & Count & Examples \\
-\hline
-Z(4,2) & 4 & \texttt{\{134|2\},\{14|23\},\{13|24\},\{1|234\}} \\
-Z(4,3) & 4 & \texttt{\{13|2$\Vert$4|$\varnothing$\},\{1|23$\Vert$4|$\varnothing$\},\{14|2$\Vert$3|$\varnothing$\},\{1|24$\Vert$3|$\varnothing$\}}\\
-Z(4,4) & 4 & \texttt{\{1|2$\Vert$3|4\}} \\
-\hline
-Z(5,2) & 8 & 8 cases (examples not yet provided)\\
-Z(5,3) & 12 & 12 cases (examples not yet provided)\\
-Z(5,4) & 8 & 8 cases (examples not yet provided)\\
-Z(5,5) & 1 & 1 case (example not yet provided)\\
-\hline
-\end{tabular}
-\end{center}
+Before diving into the proof, let us go through some examples to build intuition. Let $\frac{a}{b}\big|\frac{c}{d}$ represent 2 urns with vertical bars separating the urns and a horizontal bar separating the two compartments within an urn. The numbers that will replace the placeholder letters will represent the objects, labeled in the order in which they were placed in each compartment (one at a time).
+For $\mStirling{3}{2}_2$ we have two ways to place the objects in two compartments of a single urn: $\frac{1\,3}{2}$ or $\frac{1}{2\,3}$.
+For $\mStirling{3}{3}_2$ we have one way to place each object in its own compartment (2 urns, 3 compartments used): $\frac{1}{2}\big|\frac{3}{}$. All valid partitions up to 5 objects are presented in Table \ref{tab-bs-enumeration}.
+\bgroup
+\renewcommand{\arraystretch}{2}
+\begin{table}[]
+    \centering
+        \begin{tabular}{|l|l|p{10.5cm}|}
+        \hline
+        T(n,k) & Count & Examples \\
+        \hline
+        T(1,1) & 1 & \texttt{$
+            \frac{1}{}
+        $}\\
+        \hline
+        T(2,2) & 1 & \texttt{$
+            \frac{1}{2}
+            \smallskip
+        $}\\
+        \hline
+        T(3,2) & 2 & \texttt{$
+            \frac{1}{2\,3},\
+            \frac{1\,3}{2}
+        $}\\
+        T(3,3) & 1 & \texttt{$
+            \frac{1}{2}\big|\frac{3}{}
+            \smallskip
+        $}\\
+        \hline
+        T(4,2) & 4 & {$
+            \frac{1\,4}{2\,3},\ 
+            \frac{1\,3\,4}{2},\
+            \frac{1}{2\,3\,4},\ 
+            \frac{1\,3}{2\,4}
+        $} \\
+        T(4,3) & 4 & \texttt{$
+            \frac{1\,4}{2}\big|\frac{3}{},\
+            \frac{1}{2\,4}\big|\frac{3}{},\
+            \frac{1\,3}{2}\big|\frac{4}{},\
+            \frac{1}{2\,3}\big|\frac{4}{}
+        $}\\
+        T(4,4) & 1 & \texttt{$
+            \frac{1}{2}\big|\frac{3}{4}
+            \smallskip
+        $} \\
+        \hline
+        T(5,2) & 8 & \texttt{$
+            \frac{1\,4\,5}{2\,3},\
+            \frac{1\,4}{2\,3\,5},\
+            \frac{1\,3\,4\,5}{2},\
+            \frac{1\,3\,4}{2\,5},\
+            \frac{1\,5}{2\,3\,4},\
+            \frac{1}{2\,3\,4\,5},\
+            \frac{1\,3\,5}{2\,4},\
+            \frac{1\,3}{2\,4\,5}
+        $}\\
+        T(5,3) & 12 & \texttt{$
+            \frac{1\,4\,5}{2}\big|\frac{3}{},\
+            \frac{1\,4}{2\,5}\big|\frac{3}{\,},\
+            \frac{1\,5}{2\,4}\big|\frac{3}{\,},\
+            \frac{1}{2\,4\,5}\big|\frac{3}{\,},\
+            \frac{1\,3\,5}{2}\big|\frac{4}{\,},\
+            \frac{1\,3}{2\,5}\big|\frac{4}{\,},\
+            \frac{1\,5}{2\,3}\big|\frac{4}{\,},\
+            \frac{1}{2\,3\,5}\big|\frac{4}{\,},\
+            \newline\newline
+            \smallskip
+            \frac{1\,3\,4}{2}\big|\frac{5}{\,},\
+            \frac{1}{2\,3\,4}\big|\frac{5}{\,},\
+            \frac{1\,3}{2\,4}\big|\frac{5}{\,},\
+            \frac{1\,4}{2\,3}\big|\frac{5}{\,}
+        $}\\
+            
+        T(5,4) & 8 & \texttt{$
+            \frac{1\,3}{2} \big| \frac{4}{5},\
+            \frac{1\,4}{2} \big| \frac{3}{5},\
+            \frac{1\,5}{2} \big| \frac{3}{4},\
+            \frac{1}{2\,3} \big| \frac{4}{5},\
+            \frac{1}{2\,4} \big| \frac{3}{5},\
+            \frac{1}{2\,5} \big| \frac{3}{4},\
+            \frac{1}{2} \big| \frac{3\,5}{4},\
+            \frac{1}{2} \big| \frac{3}{4\,5}
+        $}\\
+        T(5,5) & 1 & \texttt{$
+            \frac{1}{2}\big|\frac{3}{4}\big|\frac{5}{\,}
+            \smallskip
+        $}\\
+        \hline
+        \end{tabular}
+        \bigskip
+    \caption{Valid Bessel-Stirling constrained partitions of $n$ objects into $k$ compartments of 2-compartment urns}
+    \label{tab-bs-enumeration}
+\end{table}
+\egroup
 \begin{proof}
 We proceed by induction on $n$. The base cases are straightforward:
 \begin{itemize}
@@ -567,17 +720,18 @@ We proceed by induction on $n$. The base cases are straightforward:
 \item $\mStirling{n}{k}_2 = 0$ for $k > n$: It's impossible to use more than $n$ compartments when placing $n$ marbles, since each compartment must contain at least one marble.
 \item $\mStirling{n}{n}_2 = 1$ for $n > 0$: There is exactly one way to place $n$ marbles into $n$ different compartments.
 \end{itemize}
-For the inductive step, assume that for some $n \geq 1$, the number $\mStirling{n}{k}_2$ correctly counts the arrangements of $n$ labeled marbles into $k$ compartments following our constraints. We need to show that $\mStirling{n+1}{k}_2 = 2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2$ counts the arrangements for $n+1$ marbles in $k$ compartments.
+For the inductive step, assume that for some $n \geq 1$, the number $\mStirling{n}{k}_2$ correctly counts the arrangements of $n$ labeled marbles into $k$ compartments following our constraints. We need to show that $\mStirling{n+1}{k}_2 = 2\lfloor k/2 \rfloor \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2$ counts the arrangements for $n+1$ marbles in $k$ compartments.
 Consider the placement options for the $(n+1)^{th}$ marble:
-
-Place in a new compartment: The $(n+1)^{th}$ marble can be placed in a new (previously unused) compartment, making the total number of compartments used equal to $k$. This requires that the previous $n$ marbles were arranged in $k-1$ compartments, and there are $\mStirling{n}{k-1}_2$ such arrangements.
-
-Place in a previously used compartment: The $(n+1)^{th}$ marble can be placed in one of the compartments already containing marbles. Here, the key insight comes from the urn model's constraints.
+\begin{itemize}
+    \item \textit{Place in a new compartment}: The $(n+1)$-th marble can be placed in a new (previously unused) compartment, making the total number of compartments used equal to $k$. This requires that the previous $n$ marbles were arranged in $k-1$ compartments, and there are $\mStirling{n}{k-1}_2$ such arrangements.
+    \item \textit{Place in a previously used compartment}: The $(n+1)$-th marble can be placed in one of the compartments already containing marbles. Here, the key insight comes from the urn model's constraints.
+\end{itemize}
 
 We need to count how many valid placement options exist among the $k$ compartments already in use. This depends on the distribution of these compartments across urns:
-
-When $k$ is even, say $k = 2j$, the $k$ compartments must be distributed across exactly $j$ fully-filled urns (both compartments used in each). This is because our constraints prohibit opening a new urn until all previous urns have at least one marble in each compartment. With $j$ fully-filled urns, we have $2j = k$ valid placement options for the $(n+1)^{th}$ marble, since we can place it in any of the already-used compartments.
-When $k$ is odd, say $k = 2j+1$, we must have $j$ fully-filled urns (accounting for $2j$ compartments) plus one urn with exactly one compartment used. According to the constraints, we cannot place another marble in this partially-filled urn's used compartment until its other compartment also contains a marble. Therefore, we have only $2j = 2\lfloor k/2 \rfloor$ valid placement options in previously used compartments.
+\begin{itemize}
+    \item \textit{When $k$ is even}, say $k = 2j$, the $k$ compartments must be distributed across exactly $j$ fully-filled urns (both compartments used in each). This is because our constraints prohibit opening a new urn until all previous urns have at least one marble in each compartment. With $j$ fully-filled urns, we have $2j = k$ valid placement options for the $(n+1)^{th}$ marble, since we can place it in any of the already-used compartments.
+    \item \textit{When $k$ is odd}, say $k = 2j+1$, we must have $j$ fully-filled urns (accounting for $2j$ compartments) plus one urn with exactly one compartment used. According to the constraints, we cannot place another marble in this partially-filled urn's used compartment until its other compartment also contains a marble. Therefore, we have only $2j = 2\lfloor k/2 \rfloor$ valid placement options in previously used compartments.
+\end{itemize}
 
 In either case, the number of valid placement options in previously used compartments is $2\lfloor k/2 \rfloor$. Since there are $\mStirling{n}{k}_2$ ways to arrange the first $n$ marbles in $k$ compartments, we have $2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2$ ways to place the $(n+1)^{th}$ marble in a previously used compartment.
 Combining both cases, the total number of ways to arrange $n+1$ marbles in $k$ compartments is:
@@ -585,50 +739,17 @@ $\mStirling{n+1}{k}_2 = 2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2 + \mStirli
 This matches exactly the recurrence relation for the Bessel-Stirling numbers, completing the proof.
 \end{proof}
 
-Note that this combinatorial interpretation easily generalizes to any $m$-Stirling numbers and $m$-Bell sequences. In the special case of $m=1$, each urn has only one compartment, so we are left with the standard combinatorial interpretation of counting partitions of labeled objects in unlabeled non-empty sets. This combinatorial interpretation may provide insight into why the sequence $a_n = \sum_{k=0}^n \mStirling{n}{k}_2$ shifts two places to the left after applying the binomial transform twice. The constraint requiring both compartments of an urn to be filled before opening a new urn creates a "pairing effect" that manifests mathematically as the shift-by-two property. This somewhat loose argument however requires further study.
+Note that this combinatorial interpretation easily generalizes to any $m$-Stirling numbers and $m$-Bell sequences. In the special case of $m=1$, each urn has only one compartment, so we are left with the standard combinatorial interpretation of counting partitions of labeled objects in unlabeled non-empty sets. This combinatorial interpretation may provide insight into why the sequence $a_n = \sum_{k=0}^n \mStirling{n}{k}_2$ shifts two places to the left after applying the binomial transform twice. The constraint requiring both compartments of an urn to be filled before opening a new urn creates a "pairing effect" that manifests mathematically as the shift-by-two property. This loose argument however requires further study. Finally, an easy way to enumerate the combinatorial object defined by the Bessel-stirling numbers of the second kind is via succession rules and a generating tree as introduced by West \cite{west_generating_1995}. See Figure \ref{fig:generating-tree} and Appendix C.
 
-\section{Succession rules and a generating tree for Bessel-Stirling numbers}\label{sec-succession-rule}
-\noindent The 2-Stirling numbers can also be elegantly described using the formalism of succession rules and generating trees, as introduced by West \cite{west_generating_1995}. This representation provides yet another perspective on the structure of these numbers and their recurrence relation.
-\begin{definition}[Succession Rule for 2-Stirling Numbers]
-The 2-Stirling triangle can be generated using the following succession rule:
-\[
-    \begin{aligned}
-        \Omega: \begin{cases}
-        (0) \\
-        (2k) \to (2k)^{2k} (2k+1) \\
-        (2k+1) \to (2k+1)^{2k}(2k+2)
-        \end{cases}
-    \end{aligned}
-\]
-where the notation $(a) \to (b)^c , (d)$ means that a node labeled $(a)$ produces $c$ children labeled $(b)$ and one child labeled $(d)$.
-\end{definition}
-Starting from the root node labeled $(0)$, we apply this rule iteratively to build a generating tree. The labels at level $n$ of this tree encode the 2-Stirling numbers $\mStirling{n}{k}_2$. Specifically, the number of nodes (the exponent) with label $(k)$ at level $n$ corresponds precisely to $\mStirling{n}{k}_2$.
-For example, the first few levels of the generating tree produce the following multisets of labels:
-\[
-    \begin{aligned}
-    \text{Level 0}: &{(0)} \\
-    \text{Level 1}: &{(1)} \\
-    \text{Level 2}: &{(2)} \\
-    \text{Level 3}: &{(2)^2(3)} \\
-    \text{Level 4}: &{(2)^4(3)^4(4)} \\
-    \text{Level 5}: &{(2)^8(3)^{12}(4)^8(5)} \\
-    \end{aligned}
-\]
-The total number of labels at level $n$ is precisely the $n$-th 2-Bell number (sequence A007472). This succession rule representation directly encodes the recurrence relation for 2-Stirling numbers. For even values $k = 2j$, a node labeled $(2j)$ produces $2j$ children with the same label plus one child with label $(2j+1)$, corresponding to the term $2j \cdot \mStirling{n}{2j}_2$ in the recurrence relation. Similarly, for odd values $k = 2j+1$, a node produces $2j$ children with the same label, corresponding to the term $2j \cdot \mStirling{n}{2j+1}_2$, plus one child with label $(2j+2)$.
-
-This succession rule formalism provides a direct connection to the combinatorial interpretation: the label $(k)$ represents using $k$ compartments, and the number of children with the same label reflects the number of valid placements in already-used compartments, while the single child with a new label represents opening a new compartment.
-
-% Where you want the figure to appear
-\begin{landscape}
-\begin{figure}[p]  % 'p' places it on a page of its own
+\begin{figure}[h]  % Use 'h' to place the figure here in the text
 \centering
-\begin{tikzpicture}[level distance=1.1cm,
-level 1/.style={sibling distance=16cm},
-level 2/.style={sibling distance=8cm},
-level 3/.style={sibling distance=7cm},
-level 4/.style={sibling distance=2.3cm},
+\begin{tikzpicture}[scale=0.5, level distance=1.1cm,
+level 1/.style={sibling distance=8cm},
+level 2/.style={sibling distance=7cm},
+level 3/.style={sibling distance=6.8cm},
+level 4/.style={sibling distance=2.2cm},
 level 5/.style={sibling distance=0.6cm},
-every node/.style={draw,circle,minimum size=0.25cm,font=\scriptsize}]
+every node/.style={draw,circle,minimum size=0.25cm,inner sep=0pt,font=\scriptsize,}]
 \node {0}
     child {node {1}
         child {node {2}
@@ -690,20 +811,141 @@ every node/.style={draw,circle,minimum size=0.25cm,font=\scriptsize}]
 \caption{First five levels of the generating tree for 2-Stirling numbers using the succession rule $\Omega$.}
 \label{fig:generating-tree}
 \end{figure}
-\end{landscape}
 
-\section{Bessel-Bell numbers of the first kind}
+\section{Bessel-Stirling numbers of the first kind and Bessel falling factorials}
+\noindent The regular Stirling numbers come in a dual pair. In addition to the Stirling numbers of the second kind, which we explored at length, there exist a partner triangular array that bears the name Stirling numbers of the first kind. The two arrays are orthogonal to each other, or inverses of one another:
+\[
+\sum_{j=k}^n s(n,j)S(j,k)=\sum_{j=k}^n(-1)^{n-j} \Stirlingone{n}{j}\Stirling{j}{k} = \delta_{n,k}
+\]
 
-UNFINISHED!
+Where $s(n,k) = (-1)^{n-k
+}\Stirlingone{n}{k}$ represents the \textit{signed} Stirling numbers of the first kind, $\Stirlingone{n}{k}$ represents the \textit{unsigned} Stirling numbers of the first kind, and $\delta_{n,k}$ is Konecker delta. When represented as lower-triangular matrices (as in Table \ref{tab-bessel-stirling2}), with $S$ representing the matrix of Stirling numbers of the second kind and $s$ matrix representing the Stirling numbers of the first kind, we have $s^TS = Ss^T= I$. The recurrence relation for the unsigned Stirling numbers of the first kind have a factor of $n$ rather than $k$:
+\[
+\Stirlingone{n+1}{k} = n\Stirlingone{n}{k} + \Stirlingone{n}{k-1}
+\]
 
-The regular Stirling numbers come in a dual pair. In addition to the Stirling numbers of the second kind, which we explored at length, there exist a partner triangular array that bears the name Stirling numbers of the first kind. The two arrays are orthogonal to each other, meaning that ...
+Similarly we find that the Bessel-Stirling numbers also have a first kind, defined by the following recurrence.
+\begin{definition}[Unsigned Bessel-Stirling numbers of the first kind]
+    \[
+    \mStirlingone{n+1}{k}_2 = 2\floor{n/2}\mStirlingone{n}{k}_2 + \mStirlingone{n}{k-1}_2
+    \]
+\end{definition}
 
-Similarly we find that the 2-Stirling numbers also have a first kind, defined by the following recurrence: ...
+\begin{proposition}
+    \[
+        \sum_{j=k}^n (-1)^{n-j}\mStirlingone{n}{j}_2\mStirling{j}{k}_2=\delta_{k,n}
+    \]
+\end{proposition}
 
-Amazingly, although this triangular array is also not present in OEIS, its row sums yield a sequence with a rich combinatorial history: A000246! A000246 is known to be the row sums of a couple of other triangles, neither of which is the one formed by the 2-Stirling numbers of the first kind....
+The first few rows of the unsigned Bessel-Stirling numbers of the first kind are shown in Table \ref{tab-bessel-stirling1}. Amazingly, although this triangular array is also not present in OEIS, its row sums yield a sequence with a rich combinatorial history: A000246, the number of permutations in the symmetric group $S_n$ that have odd order. A000246 is known to be the row sums of a couple of other triangles, neither of which is the one formed by the 2-Stirling numbers of the first kind.
 
+This recurrence closely mirrors that of the standard Stirling numbers of the first kind, but with the factor $n$ replaced by $2\floor{n/2}$, reflecting the "even-step" structure inherent in the Bessel framework. Just as the ordinary Stirling numbers of the first kind arise in the context of change of basis from ordinary powers to falling powers, these generalized coefficients appear as the change-of-basis matrix between ordinary powers and a novel class of falling factorials.
+
+\subsection{Bessel falling factorials}
+
+\begin{figure}[h]  % Use 'h' to place the figure here in the text
+\centering
+\[
+\begin{tikzcd}[column sep=9em, row sep=4.5em]
+    x^{\overline{n}} 
+        \arrow[rd, bend left=45, "(-1)^{n-k}\Stirling{n}{k}" description]
+        \arrow[dd, bend left=15, "{\Lah{n}{k}}" description]
+    & & 
+    x^{\ooline{n}}
+        \arrow[ld, bend left=-45, swap, "(-1)^{n-k}\mStirling{n}{k}" description]
+        \arrow[dd, bend left=-15, swap, "{\mLah{n}{k}}" description]
+    \\
+    & 
+    x^{n} 
+        \arrow[ul, bend left=15, "\Stirlingone{n}{k}" description]
+        \arrow[ur, bend left=-15, swap, "\mStirlingone{n}{k}" description]
+        \arrow[dl, bend left=45, "(-1)^{n-k}\Stirlingone{n}{k}" description]
+        \arrow[dr, bend left=-45, swap, "(-1)^{n-k}\mStirlingone{n}{k}" description]
+    &\\
+    x^{\underline{n}}
+        \arrow[uu, bend left=45, "{(-1)^{n-k}\Lah{n}{k}}" description]
+        \arrow[ur, bend left=15, "\Stirling{n}{k}" description]
+    & & 
+    x^{\uuline{n}}
+        \arrow[uu, bend left=-45, swap, "{(-1)^{n-k}\mLah{n}{k}}" description]
+        \arrow[ul, bend left=-15, swap, "\mStirling{n}{k}" description]
+\end{tikzcd}
+\]
+\caption{Stirling numbers and Bessel-Stirling numbers are transformations between polynomial bases. The regular Stirling (and Lah) numbers convert between ordinary powers (middle), falling powers (bottom left), and rising powers (top left). The Bessel-Stirling numbers convert between ordinary powers, Bessel falling powers (bottom right), and Bessel rising powers (top right).}
+\label{fig:commutative-diagram}
+\end{figure}
+
+The signed Stirling numbers of the first kind are well known to be the coefficients in the expansion of the falling factorial:
+\[
+x^{\underline{n}} =\prod_{k=0}^{n-1}(x - k)= x(x-1)(x-2)\cdots(x-n+1) = \sum_{k=0}^n (-1)^{n-k} \Stirlingone{n}{k} x^k.
+\]
+
+In the Bessel case, we discover a strikingly analogous structure. 
+\begin{definition}
+    Define the Bessel falling and rising factorials (or even-step falling factorials) as:
+\[
+\begin{aligned}
+    x^{\uuline{n}} &= \prod_{k=0}^{n-1}(x-2\floor{k/2})= x^2(x-2)^2\cdots(x - 2\floor{(n-1)/2}) \\
+    x^{\ooline{n}} &= \prod_{k=0}^{n-1}(x+2\floor{k/2})= x^2(x+2)^2\cdots(x + 2\floor{(n-1)/2}) 
+\end{aligned}
+\]  
+\end{definition}
+\begin{theorem}
+The (signed) Bessel-Stirling numbers of the first kind appear as the coefficients in the expansion of the Bessel falling\ rising factorials:
+\[
+\begin{aligned}
+    x^{\uuline{n}} &= \sum_{k=0}^n (-1)^{n-k} \mStirlingone{n}{k}_2 x^k\\
+    x^{\ooline{n}} &= \sum_{k=0}^n \mStirlingone{n}{k}_2 x^k.
+\end{aligned}
+\]
+\end{theorem}
+Here is the expansion for the first 5 Bessel rising factorials (note that not all degrees on the left-hand side are square):
+\[
+\begin{aligned}
+     x &= x &\\
+     x^2 &= x^2 &\\
+     x^2(x+2) &= 2x^2+x^3 &\\
+     x^2(x+2)^2 &= 4x^2+4x^3+x^4 &\\
+     x^2(x+2)^2(x+4) &= 16x^2+20x^3+8x^4+x^5 &\\
+     x^2(x+2)^2(x+4)^2 &= 64x^2+96x^3+52x^4+12x^5 +x^6& \\
+\end{aligned}
+\]
+Just like the regular falling powers form an alternative polynomial basis, which can be converted to and from using the Stirling numbers, the same is true for these Bessel falling powers. You can recover a monomial from them using the Bessel-Stirling numbers of the second kind:
+
+\[
+x^n =\sum_{k=0}^n \mStirling{n}{k} x^{\uuline{n}}
+\]
+
+Thus, the two Bessel-Stirling triangles again form a pair of lower-triangular inverse matrices—one converting monomials to generalized factorials, the other reversing the transformation. In addition, there exists an analogue to the Lah numbers, the Bessel-Bell numbers of the third kind, which converts between the two generalized falling/rising powers (see Figure \ref{fig:commutative-diagram}). Just like the Lah numbers, these final triangular array is simply the matrix product of the two Bessel-Bell number triangles. This fully mirrors the classical Stirling duality and confirms that the Bessel numbers of both kinds constitute a proper combinatorial and algebraic generalization of the Bell–Stirling–Touchard framework.
+
+TODO: Combinatorial interpretation of the first kind numbers
 
 \section{The general case}\label{sec-general-case}
+Now that we have explored the case $m=2$ at depth, we can give the theory for the general case. 
+
+\begin{proposition}
+    The exponential generating functions for m-Bell numbers satisfy the m-th order ODE:
+    \[
+    \sum_{k=0}^m\Stirling{m}{k}t^kf^{(m)}-t^m
+    \]
+\end{proposition}
+
+As for the case $m=2$, set $t=e^x$, $t=\frac{dt}{dx}$ and $f(t)=\mathcal{A}(x)$. Let $D_x$ be the derivative operator with respect to $x$ and $D_t$ be the derivative operator with respect to $t$. Then we have:
+\[
+    \begin{aligned}
+        t&=D_xt \\
+        D_xA(x)&=D_xf(x)=D_xt\,D_tf(t) = tD_tf(t)\\
+        D_x^m &= (tD_t)^m\\
+        D_x^{m}\mathcal{A}(x) - e^{mx} \mathcal{A}(x) &= (tD_t)^mf-t^mf=0 \\
+    \end{aligned}
+\]
+\begin{lemma}
+    \[
+    (xD_x)^n = \sum_{k=0}^{n}\Stirling{n}{k}x^kD_x^k
+    \]
+\end{lemma}
+
+
 To-be-done:
 
 - [ ] explicit solution to the m-th order ODE in terms of \cite{tauberGeneralizationsExponentialFunction1960}.
@@ -723,8 +965,6 @@ where $\mStirling{n}{k}_m$ is a number satisfying the following two-term recurre
 for $n, k \ge 0$ and initial conditions $\genfrac{\lfloor}{\rfloor}{0pt}{}{n}{k}_m = \delta_{n,k}$ for $k\ge n$.
 \end{conjecture}
 
-BLA-BLA-BLA
-
 The succession rule presented in Section \ref{sec-succession-rule} can also be generalized to $m$-Stirling numbers by adapting the pattern to reflect the $m$-compartment structure:
 \begin{definition}[Succession Rule for $m$-Stirling Numbers]
 \begin{align}
@@ -741,6 +981,9 @@ This representation further reinforces the structural unity of the $m$-Stirling 
 Perhaps the most intriguing result from the current work is the connection between the $m$-Bell numbers and the moments of an existing generalization of the Poisson distribution - the Conway-Maxwell-Poisson distribution...
 
 \section{Final remarks}\label{sec-final-remarks}
+- What is the connection between the triangle of the Bessel-Stirling numbers of the first kind, and sequence A000246, which form its row sums?
+
+\printbibliography
 
 \pagebreak
 
@@ -892,20 +1135,20 @@ Combining everything we have:
     \end{aligned}
 \end{equation}
 Next, let us find an explicit formula for $\mStirling{n}{k}_2$. From \ref{znk-coef} and \ref{pkx}:
-$$
+\[
 \begin{aligned}
     \mStirling{n}{k}_2 &=[x^{n-k}]P_k(x) \\
     &= [x^{n-k}]\left[ \sum_{1 \leq j \leq \floor{k/2}} \frac{c_{k,j}}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} \frac{d_{k,j}}{(1-2jx)^2} \right]\\
      &= \sum_{1 \leq j \leq \floor{k/2}}c_{k,j}[x^{n-k}]  \frac{1}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} d_{k,j}[x^{n-k}]\frac{1}{(1-2jx)^2} \\ 
 \end{aligned}
-$$
+\]
 We have the standard geometric series expansions:
-$$
+\[
 \begin{aligned}
      & [x^{n-k}]\frac{1}{1-2jx} = [x^{n-k}]\sum_{i\geq0}(2j)^ix^i = (2j)^{n-k}\\ 
      & [x^{n-k}]\frac{1}{(1-2jx)^2} = [x^{n-k}]\sum_{i\geq0}(i+1)(2j)^ix^i = (n-k+1)(2j)^{n-k}.\\ 
 \end{aligned}
-$$
+\]
 Which results in the following final set of formulas valid for $n \geq 2, k \geq 2$:
 \begin{equation}\label{z-d-c}
     \begin{aligned}
@@ -920,9 +1163,10 @@ Which results in the following final set of formulas valid for $n \geq 2, k \geq
 \end{equation}
 
 This piecewise construction is necessary because the Harmonic numbers have a singularity at negative integer indices, which occurs when $r \geq k/2$ or $r\leq 0$. This problem can be avoided by replacing the Harmonic numbers with the identity $H(n) = \psi(n+1)+\gamma$ where $\gamma$ is the Euler-Mascheroni constant and $\psi(x)$ is the Digamma function, and by replacing the factorials with the Gamma function. Since we have digamma functions in the numerator and gamma functions in the denominator of the resulting expression, the limit of their ratio as the argument approaches non-positive integer indices is well defined. Specifically, using the residues of the digamma and gamma functions around the negative integer poles it can be easily shown that
-$$
+\[
 \lim_{x \to -n}\frac{\psi(x)}{\Gamma(x)} = (-1)^{n+1}n!, \quad n \in\mathbb{N}^{+}.
-$$
+\]
+
 After incorporating the coefficient definitions into the expression for $\mStirling{n}{k}_2$ (\ref{z-d-c}) and performing simplifications using properties of these special functions, we arrive at the following expression. 
 $$
 \begin{aligned}
@@ -993,9 +1237,40 @@ and since $\mStirling{n}{k}_2 =0$ when $k > n$, we can start $j$ from $k$, and a
 \end{proof}
 
 \pagebreak
-\section{Appendix C: Comparison of properties of the Bell-Stirling-Touchard framework and the 2-Bell/2-Stirling generalization}
+\section*{Appendix C: Succession rules and a generating tree for Bessel-Stirling numbers}\label{sec-succession-rule}
+\noindent The Bessel-Stirling numbers of the second kind can also be elegantly described using the formalism of succession rules and generating trees, as introduced by West \cite{west_generating_1995}. This representation provides yet another perspective on the structure of these numbers and their recurrence relation.
+\begin{definition}[Succession Rule for 2-Stirling Numbers]
+The Bessel-Stirling triangle of the second kind can be generated using the following succession rule:
+\[
+    \begin{aligned}
+        \Omega: \begin{cases}
+        (0) \\
+        (2k) \to (2k)^{2k} (2k+1) \\
+        (2k+1) \to (2k+1)^{2k}(2k+2)
+        \end{cases}
+    \end{aligned}
+\]
+where the notation $(a) \to (b)^c , (d)$ means that a node labeled $(a)$ produces $c$ children labeled $(b)$ and one child labeled $(d)$.
+\end{definition}
+Starting from the root node labeled $(0)$, we apply this rule iteratively to build a generating tree. The labels at level $n$ of this tree encode the 2-Stirling numbers $\mStirling{n}{k}_2$. Specifically, the number of nodes (the exponent) with label $(k)$ at level $n$ corresponds precisely to $\mStirling{n}{k}_2$.
+For example, the first few levels of the generating tree produce the following multisets of labels:
+\[
+    \begin{aligned}
+    \text{Level 0}: &{(0)} \\
+    \text{Level 1}: &{(1)} \\
+    \text{Level 2}: &{(2)} \\
+    \text{Level 3}: &{(2)^2(3)} \\
+    \text{Level 4}: &{(2)^4(3)^4(4)} \\
+    \text{Level 5}: &{(2)^8(3)^{12}(4)^8(5)} \\
+    \end{aligned}
+\]
+The total number of labels at level $n$ is precisely the $n$-th Bessel-Bell number (sequence A007472). This succession rule representation directly encodes the recurrence relation for 2-Stirling numbers. For even values $k = 2j$, a node labeled $(2j)$ produces $2j$ children with the same label plus one child with label $(2j+1)$, corresponding to the term $2j \cdot \mStirling{n}{2j}_2$ in the recurrence relation. Similarly, for odd values $k = 2j+1$, a node produces $2j$ children with the same label, corresponding to the term $2j \cdot \mStirling{n}{2j+1}_2$, plus one child with label $(2j+2)$.
+
+This succession rule formalism provides a direct connection to the combinatorial interpretation: the label $(k)$ represents using $k$ compartments, and the number of children with the same label reflects the number of valid placements in already-used compartments, while the single child with a new label represents opening a new compartment.
+
+\pagebreak
+\section*{Appendix D: Comparison of properties of the Bell-Stirling-Touchard framework and the 2-Bell/2-Stirling generalization}
 
 PUT A TABLE HERE TO HIGHLIGHT THE PARALLELS AND TO SERVE AS EASY REFERENCE
 
-\printbibliography
 \end{document}
