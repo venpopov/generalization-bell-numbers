@@ -1,0 +1,518 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 14.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     18955,        510]
+NotebookOptionsPosition[     16258,        458]
+NotebookOutlinePosition[     16655,        474]
+CellTagsIndexPosition[     16612,        471]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+This is the general recurrence definition of the m-Stirling numbers of both \
+kinds\
+\>", "Text",
+ CellChangeTimes->{{3.955605885943883*^9, 
+  3.955605906832556*^9}},ExpressionUUID->"9c006cc6-1c40-4e7d-b26a-\
+93bf21794b39"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "mStirling2", "]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling2", "[", 
+    RowBox[{"0", ",", "0", ",", "m_"}], "]"}], "=", "1"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling2", "[", 
+    RowBox[{"0", ",", "k_", ",", "m_"}], "]"}], ":=", 
+   RowBox[{"0", "/;", 
+    RowBox[{"k", ">", "0"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling2", "[", 
+    RowBox[{"n_", ",", "0", ",", "m_"}], "]"}], ":=", 
+   RowBox[{"0", "/;", 
+    RowBox[{"n", ">", "0"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling2", "[", 
+    RowBox[{"n_", ",", "k_", ",", "m_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"mStirling2", "[", 
+     RowBox[{"n", ",", "k", ",", "m"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"m", "*", 
+      RowBox[{"Floor", "[", 
+       RowBox[{"k", "/", "m"}], "]"}], "*", 
+      RowBox[{"mStirling2", "[", 
+       RowBox[{
+        RowBox[{"n", "-", "1"}], ",", "k", ",", "m"}], "]"}]}], "+", 
+     RowBox[{"mStirling2", "[", 
+      RowBox[{
+       RowBox[{"n", "-", "1"}], ",", 
+       RowBox[{"k", "-", "1"}], ",", "m"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling2array", "[", 
+    RowBox[{"m_", ",", " ", "nmax_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"mStirling2", "[", 
+      RowBox[{"n", ",", "k", ",", "m"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"n", ",", "0", ",", "nmax"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "0", ",", "nmax"}], "}"}]}], "]"}]}], ";"}]}], "Input",\
+
+ CellChangeTimes->{{3.955605261748824*^9, 3.9556053259751043`*^9}, {
+  3.955605408818087*^9, 3.955605409791773*^9}},
+ CellLabel->
+  "In[624]:=",ExpressionUUID->"a4fcdc31-b207-41a5-b00b-70ef20ebd7b6"],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "mStirling1", "]"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1", "[", 
+    RowBox[{"0", ",", "0", ",", "m_"}], "]"}], "=", "1"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1", "[", 
+    RowBox[{"0", ",", "k_", ",", "m_"}], "]"}], ":=", 
+   RowBox[{"0", "/;", 
+    RowBox[{"k", ">", "0"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1", "[", 
+    RowBox[{"n_", ",", "0", ",", "m_"}], "]"}], ":=", 
+   RowBox[{"0", "/;", 
+    RowBox[{"n", ">", "0"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1", "[", 
+    RowBox[{"n_", ",", "k_", ",", "m_"}], "]"}], ":=", 
+   RowBox[{
+    RowBox[{"mStirling1", "[", 
+     RowBox[{"n", ",", "k", ",", "m"}], "]"}], "=", 
+    RowBox[{
+     RowBox[{"m", "*", 
+      RowBox[{"Floor", "[", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"n", "-", "1"}], ")"}], "/", "m"}], "]"}], "*", 
+      RowBox[{"mStirling1", "[", 
+       RowBox[{
+        RowBox[{"n", "-", "1"}], ",", "k", ",", "m"}], "]"}]}], "+", 
+     RowBox[{"mStirling1", "[", 
+      RowBox[{
+       RowBox[{"n", "-", "1"}], ",", 
+       RowBox[{"k", "-", "1"}], ",", "m"}], "]"}]}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1array", "[", 
+    RowBox[{"m_", ",", " ", "nmax_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"mStirling1", "[", 
+      RowBox[{"n", ",", "k", ",", "m"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"n", ",", "0", ",", "nmax"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"k", ",", "0", ",", "nmax"}], "}"}]}], "]"}]}], ";"}]}], "Input",\
+
+ CellChangeTimes->{{3.955605261748824*^9, 3.9556053646051903`*^9}, {
+  3.955605414725052*^9, 3.955605414930252*^9}, {3.955605453102*^9, 
+  3.9556054575572443`*^9}},
+ CellLabel->
+  "In[638]:=",ExpressionUUID->"d741443e-4d7e-482d-987b-286e651f6de2"],
+
+Cell[CellGroupData[{
+
+Cell["Standard Stirling numbers", "Section",
+ CellChangeTimes->{{3.9556059945048428`*^9, 
+  3.955606011174397*^9}},ExpressionUUID->"059c155a-5411-4c87-9ea7-\
+18b536edc51a"],
+
+Cell["\<\
+For m=1 we recover the unsigned Stirling numbers of the first kind:\
+\>", "Text",
+ CellChangeTimes->{{3.955605911066839*^9, 3.955605924204584*^9}, {
+  3.9556059704630823`*^9, 
+  3.9556060137424726`*^9}},ExpressionUUID->"c6e46f99-518a-4c27-86fa-\
+42b491a22054"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mStirling1array", "[", 
+   RowBox[{"1", ",", "8"}], "]"}], " ", "//", " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.955605377945322*^9, 3.955605401692083*^9}, {
+  3.9556058448095627`*^9, 3.9556058706320457`*^9}},
+ CellLabel->
+  "In[658]:=",ExpressionUUID->"fd4750eb-dd4a-445f-9817-36bcb089333f"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "2", "3", "1", "0", "0", "0", "0", "0"},
+    {"0", "6", "11", "6", "1", "0", "0", "0", "0"},
+    {"0", "24", "50", "35", "10", "1", "0", "0", "0"},
+    {"0", "120", "274", "225", "85", "15", "1", "0", "0"},
+    {"0", "720", "1764", "1624", "735", "175", "21", "1", "0"},
+    {"0", "5040", "13068", "13132", "6769", "1960", "322", "28", "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.9556053938982477`*^9, 3.955605416726403*^9}, 
+   3.9556054609922123`*^9, {3.955605852652047*^9, 3.955605878455915*^9}},
+ CellLabel->
+  "Out[658]//TableForm=",ExpressionUUID->"9df8bc4f-81fe-4f2b-8f8b-\
+61bdcd935dab"]
+}, Open  ]],
+
+Cell["The Stirling numbers of the second kind:", "Text",
+ CellChangeTimes->{{3.9556059278874826`*^9, 3.9556059409387712`*^9}, {
+  3.955606020978016*^9, 
+  3.955606022044403*^9}},ExpressionUUID->"93543b08-57af-48fa-82b2-\
+7c6d24359a5a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mStirling2array", "[", 
+   RowBox[{"1", ",", "8"}], "]"}], " ", "//", " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.955605429141204*^9, 3.95560542924708*^9}, {
+  3.955605850539145*^9, 3.9556058754017467`*^9}},
+ CellLabel->
+  "In[657]:=",ExpressionUUID->"02960c61-0724-45c1-a20a-36fb7005ee9a"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "3", "1", "0", "0", "0", "0", "0"},
+    {"0", "1", "7", "6", "1", "0", "0", "0", "0"},
+    {"0", "1", "15", "25", "10", "1", "0", "0", "0"},
+    {"0", "1", "31", "90", "65", "15", "1", "0", "0"},
+    {"0", "1", "63", "301", "350", "140", "21", "1", "0"},
+    {"0", "1", "127", "966", "1701", "1050", "266", "28", "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.9556054297292433`*^9, 3.955605462924281*^9, {3.955605856572853*^9, 
+   3.955605875857581*^9}},
+ CellLabel->
+  "Out[657]//TableForm=",ExpressionUUID->"d95c6894-368e-4adf-9383-\
+422ca20fd0ba"]
+}, Open  ]],
+
+Cell["\<\
+And the Lah numbers (Stirling numbers of the third kind) which is the matrix \
+product of the first two.\
+\>", "Text",
+ CellChangeTimes->{{3.955605945188594*^9, 
+  3.9556059662940617`*^9}},ExpressionUUID->"0607298f-7adc-4aa9-80bd-\
+3146b7dfa480"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1array", "[", 
+    RowBox[{"1", ",", "8"}], "]"}], ".", 
+   RowBox[{"mStirling2array", "[", 
+    RowBox[{"1", ",", "8"}], "]"}]}], " ", "//", " ", "TableForm"}]], "Input",\
+
+ CellChangeTimes->{{3.955605590263644*^9, 3.955605611241396*^9}, {
+   3.955605697662773*^9, 3.955605701817548*^9}, 3.955605826976034*^9},
+ CellLabel->
+  "In[654]:=",ExpressionUUID->"e1d3e4d3-c06e-4af3-a05a-0d508893e16b"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "2", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "6", "6", "1", "0", "0", "0", "0", "0"},
+    {"0", "24", "36", "12", "1", "0", "0", "0", "0"},
+    {"0", "120", "240", "120", "20", "1", "0", "0", "0"},
+    {"0", "720", "1800", "1200", "300", "30", "1", "0", "0"},
+    {"0", "5040", "15120", "12600", "4200", "630", "42", "1", "0"},
+    {"0", "40320", "141120", "141120", "58800", "11760", "1176", "56", "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.955605590881764*^9, 3.9556056119148417`*^9}, 
+   3.9556057196394253`*^9, 3.9556058278634367`*^9},
+ CellLabel->
+  "Out[654]//TableForm=",ExpressionUUID->"09489232-c6c2-4982-94a0-\
+37e75d66acbb"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bessel-Stirling numbers (2-Stirling)", "Section",
+ CellChangeTimes->{{3.955606036697113*^9, 
+  3.9556060446589317`*^9}},ExpressionUUID->"51e97321-50bb-4ea4-859b-\
+6ca177234745"],
+
+Cell["\<\
+For m=2 we get the unsigned Bessel-Stirling numbers of the first kind:\
+\>", "Text",
+ CellChangeTimes->{{3.955605911066839*^9, 3.955605924204584*^9}, {
+  3.9556059704630823`*^9, 3.9556060137424726`*^9}, {3.955606056822645*^9, 
+  3.95560606498853*^9}},ExpressionUUID->"0931f41a-3658-4d52-aac8-\
+ef527a615c9b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mStirling1array", "[", 
+   RowBox[{"2", ",", "8"}], "]"}], " ", "//", " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.955605377945322*^9, 3.955605401692083*^9}, {
+  3.9556058448095627`*^9, 3.9556058706320457`*^9}, {3.9556060739307833`*^9, 
+  3.955606074021706*^9}},
+ CellLabel->
+  "In[659]:=",ExpressionUUID->"1a6bbb13-b826-4114-b9fc-5f5a08a9a6da"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "2", "1", "0", "0", "0", "0", "0"},
+    {"0", "0", "4", "4", "1", "0", "0", "0", "0"},
+    {"0", "0", "16", "20", "8", "1", "0", "0", "0"},
+    {"0", "0", "64", "96", "52", "12", "1", "0", "0"},
+    {"0", "0", "384", "640", "408", "124", "18", "1", "0"},
+    {"0", "0", "2304", "4224", "3088", "1152", "232", "24", "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.9556053938982477`*^9, 3.955605416726403*^9}, 
+   3.9556054609922123`*^9, {3.955605852652047*^9, 3.955605878455915*^9}, 
+   3.955606074495421*^9},
+ CellLabel->
+  "Out[659]//TableForm=",ExpressionUUID->"e341e867-9926-4062-921b-\
+039226300bc9"]
+}, Open  ]],
+
+Cell["The Bessel-Stirling numbers of the second kind:", "Text",
+ CellChangeTimes->{{3.9556059278874826`*^9, 3.9556059409387712`*^9}, {
+  3.955606020978016*^9, 3.955606022044403*^9}, {3.955606099907866*^9, 
+  3.955606103350279*^9}},ExpressionUUID->"cb662257-40f0-43b0-af86-\
+214ed0d149d8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"mStirling2array", "[", 
+   RowBox[{"2", ",", "8"}], "]"}], " ", "//", " ", "TableForm"}]], "Input",
+ CellChangeTimes->{{3.955605429141204*^9, 3.95560542924708*^9}, {
+  3.955605850539145*^9, 3.9556058754017467`*^9}, {3.955606079156723*^9, 
+  3.955606079178958*^9}},
+ CellLabel->
+  "In[660]:=",ExpressionUUID->"3bf525f2-aa48-43ed-8477-17ed20aa87d3"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "2", "1", "0", "0", "0", "0", "0"},
+    {"0", "0", "4", "4", "1", "0", "0", "0", "0"},
+    {"0", "0", "8", "12", "8", "1", "0", "0", "0"},
+    {"0", "0", "16", "32", "44", "12", "1", "0", "0"},
+    {"0", "0", "32", "80", "208", "92", "18", "1", "0"},
+    {"0", "0", "64", "192", "912", "576", "200", "24", "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{
+  3.9556054297292433`*^9, 3.955605462924281*^9, {3.955605856572853*^9, 
+   3.955605875857581*^9}, 3.955606079730154*^9},
+ CellLabel->
+  "Out[660]//TableForm=",ExpressionUUID->"2f0a7ee0-3b3c-4b55-86f2-\
+7384cf9691f7"]
+}, Open  ]],
+
+Cell["\<\
+And the Bessel-Lah numbers (Bessel-Stirling numbers of the third kind) which \
+is the matrix product of the first two.\
+\>", "Text",
+ CellChangeTimes->{{3.955605945188594*^9, 3.9556059662940617`*^9}, {
+  3.955606108189334*^9, 
+  3.955606114128899*^9}},ExpressionUUID->"e518aca7-d107-4d0d-9ecf-\
+58d3430fbc62"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"mStirling1array", "[", 
+    RowBox[{"2", ",", "9"}], "]"}], ".", 
+   RowBox[{"mStirling2array", "[", 
+    RowBox[{"2", ",", "9"}], "]"}]}], " ", "//", " ", "TableForm"}]], "Input",\
+
+ CellChangeTimes->{{3.955605590263644*^9, 3.955605611241396*^9}, {
+   3.955605697662773*^9, 3.955605701817548*^9}, 3.955605826976034*^9, {
+   3.9556060931661167`*^9, 3.955606096372107*^9}, {3.955615611197212*^9, 
+   3.9556156145574636`*^9}},
+ CellLabel->
+  "In[672]:=",ExpressionUUID->"fc2bb9f4-1cc9-4fb1-a0e8-57284852e3ee"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"1", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "1", "0", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "1", "0", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "4", "1", "0", "0", "0", "0", "0", "0"},
+    {"0", "0", "16", "8", "1", "0", "0", "0", "0", "0"},
+    {"0", "0", "96", "64", "16", "1", "0", "0", "0", "0"},
+    {"0", "0", "576", "480", "192", "24", "1", "0", "0", "0"},
+    {"0", "0", "4608", "4416", "2400", "432", "36", "1", "0", "0"},
+    {"0", "0", "36864", "39936", "28416", "6720", "864", "48", "1", "0"},
+    {"0", "0", "368640", "436224", "380928", "109056", "18816", "1536", "64", 
+     "1"}
+   },
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+   GridBoxSpacings->{"Columns" -> {
+       Offset[0.27999999999999997`], {
+        Offset[2.0999999999999996`]}, 
+       Offset[0.27999999999999997`]}, "Rows" -> {
+       Offset[0.2], {
+        Offset[0.4]}, 
+       Offset[0.2]}}],
+  Function[BoxForm`e$, 
+   TableForm[BoxForm`e$]]]], "Output",
+ CellChangeTimes->{{3.955605590881764*^9, 3.9556056119148417`*^9}, 
+   3.9556057196394253`*^9, 3.9556058278634367`*^9, {3.955606096736424*^9, 
+   3.9556061196390543`*^9}, 3.955615617548986*^9},
+ CellLabel->
+  "Out[672]//TableForm=",ExpressionUUID->"f7b3dd73-4f10-44b2-bee6-\
+d84ef21d18bb"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1127, 1196},
+WindowMargins->{{Automatic, 310}, {Automatic, 79}},
+FrontEndVersion->"14.2 for Mac OS X ARM (64-bit) (March 16, 2025)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"a393d74b-5175-4201-b96c-169d349cff93"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 233, 6, 50, "Text",ExpressionUUID->"9c006cc6-1c40-4e7d-b26a-93bf21794b39"],
+Cell[790, 28, 1777, 52, 258, "Input",ExpressionUUID->"a4fcdc31-b207-41a5-b00b-70ef20ebd7b6"],
+Cell[2570, 82, 1884, 55, 258, "Input",ExpressionUUID->"d741443e-4d7e-482d-987b-286e651f6de2"],
+Cell[CellGroupData[{
+Cell[4479, 141, 172, 3, 99, "Section",ExpressionUUID->"059c155a-5411-4c87-9ea7-18b536edc51a"],
+Cell[4654, 146, 270, 6, 50, "Text",ExpressionUUID->"c6e46f99-518a-4c27-86fa-42b491a22054"],
+Cell[CellGroupData[{
+Cell[4949, 156, 336, 7, 44, "Input",ExpressionUUID->"fd4750eb-dd4a-445f-9817-36bcb089333f"],
+Cell[5288, 165, 1144, 26, 270, "Output",ExpressionUUID->"9df8bc4f-81fe-4f2b-8f8b-61bdcd935dab"]
+}, Open  ]],
+Cell[6447, 194, 235, 4, 50, "Text",ExpressionUUID->"93543b08-57af-48fa-82b2-7c6d24359a5a"],
+Cell[CellGroupData[{
+Cell[6707, 202, 333, 7, 44, "Input",ExpressionUUID->"02960c61-0724-45c1-a20a-36fb7005ee9a"],
+Cell[7043, 211, 1103, 27, 270, "Output",ExpressionUUID->"d95c6894-368e-4adf-9383-422ca20fd0ba"]
+}, Open  ]],
+Cell[8161, 241, 256, 6, 50, "Text",ExpressionUUID->"0607298f-7adc-4aa9-80bd-3146b7dfa480"],
+Cell[CellGroupData[{
+Cell[8442, 251, 450, 11, 44, "Input",ExpressionUUID->"e1d3e4d3-c06e-4af3-a05a-0d508893e16b"],
+Cell[8895, 264, 1140, 26, 270, "Output",ExpressionUUID->"09489232-c6c2-4982-94a0-37e75d66acbb"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10084, 296, 183, 3, 99, "Section",ExpressionUUID->"51e97321-50bb-4ea4-859b-6ca177234745"],
+Cell[10270, 301, 318, 6, 50, "Text",ExpressionUUID->"0931f41a-3658-4d52-aac8-ef527a615c9b"],
+Cell[CellGroupData[{
+Cell[10613, 311, 387, 8, 44, "Input",ExpressionUUID->"1a6bbb13-b826-4114-b9fc-5f5a08a9a6da"],
+Cell[11003, 321, 1154, 27, 270, "Output",ExpressionUUID->"e341e867-9926-4062-921b-039226300bc9"]
+}, Open  ]],
+Cell[12172, 351, 288, 4, 50, "Text",ExpressionUUID->"cb662257-40f0-43b0-af86-214ed0d149d8"],
+Cell[CellGroupData[{
+Cell[12485, 359, 382, 8, 44, "Input",ExpressionUUID->"3bf525f2-aa48-43ed-8477-17ed20aa87d3"],
+Cell[12870, 369, 1118, 27, 270, "Output",ExpressionUUID->"2f0a7ee0-3b3c-4b55-86f2-7384cf9691f7"]
+}, Open  ]],
+Cell[14003, 399, 319, 7, 83, "Text",ExpressionUUID->"e518aca7-d107-4d0d-9ecf-58d3430fbc62"],
+Cell[CellGroupData[{
+Cell[14347, 410, 554, 13, 44, "Input",ExpressionUUID->"fc2bb9f4-1cc9-4fb1-a0e8-57284852e3ee"],
+Cell[14904, 425, 1326, 29, 333, "Output",ExpressionUUID->"f7b3dd73-4f10-44b2-bee6-d84ef21d18bb"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
