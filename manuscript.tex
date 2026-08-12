@@ -119,7 +119,7 @@ To clearly ground the analogy between the Bell--Stirling--Touchard framework and
 \]
 %
 \begin{proposition}[Functional equation for the e.g.f.\ of $m$-Bell numbers]\label{prop:mbell-egf}
-Let $\mathcal{A}(x)$ be the exponential generating function of a sequence \( a = (a_n) \) satisfying \eqref{eq-mbell-operator}.
+Let $\mathcal{A}(x)$ be the exponential generating function of a sequence \( a = (a_n) \) satisfying \eqref{eq:m-shift-recurrence}.
 Then \( \mathcal{A}(x) \) satisfies the $m$-th order ODE
 \[
 \left(\frac{\mathrm{d}}{\mathrm{d}x}\right)^m \mathcal{A}(x) - e^{mx} \mathcal{A}(x) = 0.
@@ -1284,9 +1284,9 @@ Fix $m \geq 1$ and let
 \]
 Then:
 \begin{enumerate}
-    \item[(i)] each $\rho_r$ satisfies the $m$-Bell recurrence \eqref{eq-mbell-recurrence} with initial conditions $\rho_r(n) = \delta_{n,r}$ for $0 \leq n < m$; hence $\rho_r = B^{(m,r)}$ is the $r$-th primitive $m$-Bell sequence;
+    \item[(i)] each $\rho_r$ satisfies the $m$-Bell recurrence \eqref{eq:m-shift-recurrence} with initial conditions $\rho_r(n) = \delta_{n,r}$ for $0 \leq n < m$; hence $\rho_r = B^{(m,r)}$ is the $r$-th primitive $m$-Bell sequence;
     \item[(ii)] the full row sums satisfy $\sigma = \sum_{r=0}^{m-1}\rho_r = B^{(m)}$, the composite $m$-Bell sequence;
-    \item[(iii)] every sequence satisfying \eqref{eq-mbell-recurrence} is the unique linear combination $\sum_{r} a_r B^{(m,r)}$ of the residue-class row sums determined by its initial values $a_0, \ldots, a_{m-1}$.
+    \item[(iii)] every sequence satisfying \eqref{eq:m-shift-recurrence} is the unique linear combination $\sum_{r} a_r B^{(m,r)}$ of the residue-class row sums determined by its initial values $a_0, \ldots, a_{m-1}$.
 \end{enumerate}
 \end{corollary}
 \begin{proof}
@@ -1294,7 +1294,7 @@ Then:
 \[
 \rho_r(n+m) = \sum_{j=0}^{n}\binom{n}{j}m^{n-j}\rho_r(j),
 \]
-which is exactly \eqref{eq-mbell-recurrence}. The initial values follow from Lemma \ref{lem-identity-rows}: for $n < m$, row $n$ contains the single entry $1$ at $k = n$, contributing to $\rho_r$ if and only if $n \equiv r$, i.e.\ $n = r$. (ii) Sum (i) over $r$. (iii) A solution of \eqref{eq-mbell-recurrence} is determined by its first $m$ values, and the primitives form a basis for the space of initial conditions.
+which is exactly \eqref{eq:m-shift-recurrence}. The initial values follow from Lemma \ref{lem-identity-rows}: for $n < m$, row $n$ contains the single entry $1$ at $k = n$, contributing to $\rho_r$ if and only if $n \equiv r$, i.e.\ $n = r$. (ii) Sum (i) over $r$. (iii) A solution of \eqref{eq:m-shift-recurrence} is determined by its first $m$ values, and the primitives form a basis for the space of initial conditions.
 \end{proof}
 
 For $m = 2$, Corollary \ref{cor-mbell-rowsums} recovers Corollary \ref{cor-2bell-rowsums} by entirely elementary means. Table \ref{tab-mbell-numbers} lists the composite $m$-Bell numbers for $m \le 4$ and the primitive sequences for $m = 3$.
@@ -1329,7 +1329,7 @@ We next generalize the analytic theory of Sections \ref{sec-m2} and \ref{sec-2-s
 which is itself yet another manifestation of the Stirling numbers as change-of-basis coefficients (from the basis $(tD)^k$ to the basis $t^kD^k$ of the Weyl algebra).
 
 \begin{proposition}\label{prop-general-ode}
-The e.g.f.\ $\mathcal{A}(x)$ of a sequence satisfying \eqref{eq-mbell-operator} equals $f(e^x)$, where $f$ satisfies the $m$-th order ODE
+The e.g.f.\ $\mathcal{A}(x)$ of a sequence satisfying \eqref{eq:m-shift-recurrence} equals $f(e^x)$, where $f$ satisfies the $m$-th order ODE
 \begin{equation}\label{eq-general-ode-t}
 (tD_t)^m f = t^m f, \qquad \text{equivalently} \qquad \sum_{k=0}^m\Stirling{m}{k}\,t^k f^{(k)}(t) = t^m f(t).
 \end{equation}
