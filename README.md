@@ -34,3 +34,30 @@ biber manuscript
 pdflatex manuscript.tex
 pdflatex manuscript.tex
 ```
+
+The `biber` pass is not optional: without it no `.bbl` is written and biblatex silently renders
+every citation as its raw bold key (`[bernstein1995]`) instead of a number, with an empty
+bibliography.
+
+### Troubleshooting: `biber` fails on recent macOS
+
+TeX Live ships `biber` for macOS as a universal (x86_64 + arm64) binary that, at startup,
+extracts its own arm64 slice by calling `lipo -extract_family`. Recent macOS releases dropped
+that flag from `lipo`, so `biber` aborts with:
+
+```
+biber: extracting arm64 binary with lipo failed (wstatus=256)
+```
+
+Because the failure happens before any LaTeX pass, the build "succeeds" and the broken
+citations are the only visible symptom. Fix it once per machine by installing a thin arm64
+`biber` earlier on `PATH`:
+
+```sh
+lipo /usr/local/texlive/2025/bin/universal-darwin/biber -thin arm64 -o ~/bin/biber
+chmod +x ~/bin/biber
+```
+
+Verify with `biber --version` (should print a version, not the `lipo` usage text). Adjust the
+TeX Live year in the path if needed; on Apple silicon `~/bin` must precede the TeX Live bin
+directory on `PATH`. To undo: `rm ~/bin/biber`.
