@@ -2,3 +2,14 @@
 _manuscript/
 site_libs/
 local/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
