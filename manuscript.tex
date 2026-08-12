@@ -129,7 +129,7 @@ Then \( \mathcal{A}(x) \) satisfies the $m$-th order ODE
 \begin{proof}
 The binomial transform and the left-shift operator acting on $a$ have simple effects on the e.g.f., $\mathcal{B}(x)$, of the resulting sequence $b$ (e.g.\ \cite{bernstein1995}):
 %
-\begin{equation}\label{eq-egf-transform}
+\begin{equation}
 \begin{aligned}
 b = \mathrm{BINOM} \circ a \quad &\iff\quad \mathcal{B}(x) = e^x \mathcal{A}(x) \\
 b = \mathrm{L} \circ a \quad &\iff\quad \mathcal{B}(x) = \mathcal{A}'(x).
@@ -171,13 +171,13 @@ Summing \eqref{eq-stirling-shift} over $k$ recovers the Bell recurrence \eqref{e
 
 The Stirling numbers of the second kind count the number of ways to partition $n$ labeled objects into $k$ unlabeled non-empty subsets and are the coefficients of the Touchard (also known as Bell or exponential) polynomials:
 %
-\begin{equation}\label{eq-touchard-def}
+\begin{equation}
     T_n(x) = \sum_{k=0}^{n} \genfrac\{\}{0pt}{}{n}{k} x^k,
 \end{equation}
 %
 whose e.g.f.\ is a bivariate generalization of the Bell numbers' e.g.f.:
 %
-\begin{equation}\label{eq-touchard-egf}
+\begin{equation}
     \sum_{n=0}^{\infty} T_n(x) \frac{t^n}{n!} = e^{x(e^t-1)}.
 \end{equation}
 %
@@ -276,7 +276,7 @@ f(t)=p\,I_0(t)+q\,K_0(t),
 %
 with $I_\nu$ and $K_\nu$ being the modified Bessel functions of the first and second kind, and $p$ and $q$ constants determined by the initial conditions. Therefore, we obtain the general solution for $\mathcal{A}(x)$, the e.g.f.\ of sequences \href{https://oeis.org/A007472}{A007472}, \href{https://oeis.org/A351143}{A351143} and \href{https://oeis.org/A351028}{A351028}, by substituting back $t=e^x$:
 %
-\begin{equation}\label{eq-m2-ODE-solution}
+\begin{equation}
 \mathcal{A}(x)=p\, I_0(e^x) + q\,K_0(e^x).
 \end{equation}
 %
@@ -291,7 +291,7 @@ To determine $p$ and $q$ we use the known initial conditions. Sequence A007472 i
 %
 where $f(x)\bigr|_{x=0}$ denotes evaluation at 0. The derivatives of $I_0$ and $K_0$ are thankfully straightforward (\href{https://dlmf.nist.gov/10.29.E3}{10.29.3}) \cite{NIST:DLMF}:
 %
-\begin{equation}\label{eq-bessel-deriv1}
+\begin{equation}
 \begin{aligned}
 I_0'(z) &= I_1(z) \\
 K_0'(z) &= -K_1(z). 
@@ -358,7 +358,7 @@ The e.g.f.s of the 2-Bell numbers are admittedly more complicated than the e.g.f
 %
 We have the following standard series for $I_0$ and $K_0$, valid for real $z > 0$, which is the only case we need (with the principal branch of the logarithm they extend to the cut plane; see \href{https://dlmf.nist.gov/10.25.E2}{10.25.2} and \href{https://dlmf.nist.gov/10.31.E2}{10.31.2}) \cite{NIST:DLMF}:
 %
-\begin{equation}\label{eq-i-k-0-series}
+\begin{equation}
     \begin{aligned}
         I_0(z) &= \sum_{k=0}^{\infty} \frac{(\frac{1}{2}z)^{2k}}{k!k!} \\
         K_0(z) &= -\log\biggl(\frac{z}{2}\biggr)I_0(z) + \sum_{k=0}^{\infty}\frac{\psi(k+1)(\frac{1}{2}z)^{2k}}{k!k!}
@@ -500,7 +500,7 @@ The same evaluation applied to the pair $(F_0, F_1)$ re-derives Theorem \ref{thm
 \end{remark}
 
 Finally, by combining Theorem~\ref{thm-bessel-dobiski} and Theorem~\ref{thm-besselk-dobinski}, we have
-\begin{equation}\label{eq-pq-combination}
+\begin{equation}
 \begin{aligned}
 p\, I_0(e^x) + q\, K_0(e^x) = \sum_{n=0}^\infty \frac{x^n}{n!} \bigg[ v_n \big(p I_0(1) + q K_0(1)\big) + u_n \big(p I_1(1) - q K_1(1)\big)\bigg].
 \end{aligned}
@@ -1624,7 +1624,7 @@ We know from the initial conditions that $A_0(x) = 1$, hence:
 \end{aligned}
 \]
 and so on. More generally, the ordinary generating function for the $k$-th column is
-\begin{equation}\label{column-ogf}
+\begin{equation}
 A_k(x) = \frac{x^k}{\prod_{j=1}^k(1-2\floor{j/2}x)},
 \end{equation}
 which is Equation \eqref{eq-column-ogf} of the main text. In order to get an explicit formula for $\mStirling{n}{k}_2$, use the technique on p.~19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}:
