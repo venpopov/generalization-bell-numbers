@@ -13,3 +13,11 @@ local/
 *.run.xml
 *.synctex.gz
 *.toc
+*.fls
+*.fdb_latexmk
+*.lof
+*.lot
+*.xdv
+*.nav
+*.snm
+*.vrb

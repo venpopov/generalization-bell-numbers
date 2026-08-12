@@ -111,7 +111,7 @@ Finally, just as the classical Bell numbers are the moments of the Poisson distr
 
 To clearly ground the analogy between the Bell--Stirling--Touchard framework and the novel results, we begin with a review of standard results and notation \cite{comtet1974, sándor2004}.
 
-\section{Background}\label{sec-background}
+\section{Background}
 \noindent The exponential generating function (e.g.f.) $\mathcal{A}(x)$ of a sequence $(a_n)_{n \geq 0}$ is a formal power series in $x$:
 %
 \[
@@ -119,7 +119,7 @@ To clearly ground the analogy between the Bell--Stirling--Touchard framework and
 \]
 %
 \begin{proposition}[Functional equation for the e.g.f.\ of $m$-Bell numbers]\label{prop:mbell-egf}
-Let $\mathcal{A}(x)$ be the exponential generating function of a sequence \( a = (a_n) \) satisfying \eqref{eq-mbell-operator}.
+Let $\mathcal{A}(x)$ be the exponential generating function of a sequence \( a = (a_n) \) satisfying \eqref{eq:m-shift-recurrence}.
 Then \( \mathcal{A}(x) \) satisfies the $m$-th order ODE
 \[
 \left(\frac{\mathrm{d}}{\mathrm{d}x}\right)^m \mathcal{A}(x) - e^{mx} \mathcal{A}(x) = 0.
@@ -129,7 +129,7 @@ Then \( \mathcal{A}(x) \) satisfies the $m$-th order ODE
 \begin{proof}
 The binomial transform and the left-shift operator acting on $a$ have simple effects on the e.g.f., $\mathcal{B}(x)$, of the resulting sequence $b$ (e.g.\ \cite{bernstein1995}):
 %
-\begin{equation}\label{eq-egf-transform}
+\begin{equation}
 \begin{aligned}
 b = \mathrm{BINOM} \circ a \quad &\iff\quad \mathcal{B}(x) = e^x \mathcal{A}(x) \\
 b = \mathrm{L} \circ a \quad &\iff\quad \mathcal{B}(x) = \mathcal{A}'(x).
@@ -171,13 +171,13 @@ Summing \eqref{eq-stirling-shift} over $k$ recovers the Bell recurrence \eqref{e
 
 The Stirling numbers of the second kind count the number of ways to partition $n$ labeled objects into $k$ unlabeled non-empty subsets and are the coefficients of the Touchard (also known as Bell or exponential) polynomials:
 %
-\begin{equation}\label{eq-touchard-def}
+\begin{equation}
     T_n(x) = \sum_{k=0}^{n} \genfrac\{\}{0pt}{}{n}{k} x^k,
 \end{equation}
 %
 whose e.g.f.\ is a bivariate generalization of the Bell numbers' e.g.f.:
 %
-\begin{equation}\label{eq-touchard-egf}
+\begin{equation}
     \sum_{n=0}^{\infty} T_n(x) \frac{t^n}{n!} = e^{x(e^t-1)}.
 \end{equation}
 %
@@ -276,7 +276,7 @@ f(t)=p\,I_0(t)+q\,K_0(t),
 %
 with $I_\nu$ and $K_\nu$ being the modified Bessel functions of the first and second kind, and $p$ and $q$ constants determined by the initial conditions. Therefore, we obtain the general solution for $\mathcal{A}(x)$, the e.g.f.\ of sequences \href{https://oeis.org/A007472}{A007472}, \href{https://oeis.org/A351143}{A351143} and \href{https://oeis.org/A351028}{A351028}, by substituting back $t=e^x$:
 %
-\begin{equation}\label{eq-m2-ODE-solution}
+\begin{equation}
 \mathcal{A}(x)=p\, I_0(e^x) + q\,K_0(e^x).
 \end{equation}
 %
@@ -291,7 +291,7 @@ To determine $p$ and $q$ we use the known initial conditions. Sequence A007472 i
 %
 where $f(x)\bigr|_{x=0}$ denotes evaluation at 0. The derivatives of $I_0$ and $K_0$ are thankfully straightforward (\href{https://dlmf.nist.gov/10.29.E3}{10.29.3}) \cite{NIST:DLMF}:
 %
-\begin{equation}\label{eq-bessel-deriv1}
+\begin{equation}
 \begin{aligned}
 I_0'(z) &= I_1(z) \\
 K_0'(z) &= -K_1(z). 
@@ -358,7 +358,7 @@ The e.g.f.s of the 2-Bell numbers are admittedly more complicated than the e.g.f
 %
 We have the following standard series for $I_0$ and $K_0$, valid for real $z > 0$, which is the only case we need (with the principal branch of the logarithm they extend to the cut plane; see \href{https://dlmf.nist.gov/10.25.E2}{10.25.2} and \href{https://dlmf.nist.gov/10.31.E2}{10.31.2}) \cite{NIST:DLMF}:
 %
-\begin{equation}\label{eq-i-k-0-series}
+\begin{equation}
     \begin{aligned}
         I_0(z) &= \sum_{k=0}^{\infty} \frac{(\frac{1}{2}z)^{2k}}{k!k!} \\
         K_0(z) &= -\log\biggl(\frac{z}{2}\biggr)I_0(z) + \sum_{k=0}^{\infty}\frac{\psi(k+1)(\frac{1}{2}z)^{2k}}{k!k!}
@@ -500,7 +500,7 @@ The same evaluation applied to the pair $(F_0, F_1)$ re-derives Theorem \ref{thm
 \end{remark}
 
 Finally, by combining Theorem~\ref{thm-bessel-dobiski} and Theorem~\ref{thm-besselk-dobinski}, we have
-\begin{equation}\label{eq-pq-combination}
+\begin{equation}
 \begin{aligned}
 p\, I_0(e^x) + q\, K_0(e^x) = \sum_{n=0}^\infty \frac{x^n}{n!} \bigg[ v_n \big(p I_0(1) + q K_0(1)\big) + u_n \big(p I_1(1) - q K_1(1)\big)\bigg].
 \end{aligned}
@@ -513,7 +513,7 @@ Thus the e.g.f.\ of a 2-Bell sequence is structurally similar to that of the 1-B
 
 \noindent The similarity of the Bessel--Bell numbers' e.g.f.\ to the standard Bell numbers' e.g.f.\ immediately invites the question of whether there is also a Bessel--Stirling equivalent of the triangular array of the Stirling numbers of the second kind, whose rows sum to the Bell numbers. There is, and the correct recurrence modifies the classical one in a single place.
 
-\begin{definition}[Bessel--Stirling numbers of the second kind]\label{def-bs2}
+\begin{definition}[Bessel--Stirling numbers of the second kind]
 Let $\mStirling{n}{k}_2$ be defined for integers $n, k \geq 0$ by the initial conditions $\mStirling{0}{k}_2 = \delta_{0,k}$, the convention $\mStirling{n}{k}_2 = 0$ for $k < 0$, and the two-term recurrence
 \begin{equation}\label{eq-bs-recurrence}
 \mStirling{n+1}{k}_2 = 2\floor{k/2} \, \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2.
@@ -1134,7 +1134,7 @@ We emphasize that while the row sums agree, the triangle $\mStirlingone{n}{k}_2$
 
 The classical Lah numbers $\Lah{n}{k} = \binom{n-1}{k-1}\frac{n!}{k!}$ convert rising factorials into falling factorials, and equal the matrix product of the unsigned first-kind and second-kind Stirling triangles. The same construction goes through in the Bessel setting.
 
-\begin{definition}[Bessel--Lah numbers]\label{def-bessel-lah}
+\begin{definition}[Bessel--Lah numbers]
 Define $\mLah{n}{k}_2$ as the connection coefficients between the Bessel rising and falling factorial bases:
 \[
 x^{\ooline{n}} = \sum_{k=0}^n \mLah{n}{k}_2\; x^{\uuline{k}}.
@@ -1203,7 +1203,7 @@ Figure \ref{fig:commutative-diagram} summarizes how all six triangles act as con
 
 \subsection{The $m$-Stirling triangle and the shift identity}
 
-\begin{definition}[$m$-Stirling numbers of the second kind]\label{def-mstirling}
+\begin{definition}[$m$-Stirling numbers of the second kind]
 For an integer $m \geq 1$, define $\mStirling{n}{k}_m$ for $n, k \geq 0$ by $\mStirling{0}{k}_m = \delta_{0,k}$, the convention $\mStirling{n}{k}_m = 0$ for $k < 0$, and the recurrence
 \begin{equation}\label{eq-mstirling-recurrence}
 \mStirling{n+1}{k}_m = m\floor{k/m} \, \mStirling{n}{k}_m + \mStirling{n}{k-1}_m.
@@ -1284,9 +1284,9 @@ Fix $m \geq 1$ and let
 \]
 Then:
 \begin{enumerate}
-    \item[(i)] each $\rho_r$ satisfies the $m$-Bell recurrence \eqref{eq-mbell-recurrence} with initial conditions $\rho_r(n) = \delta_{n,r}$ for $0 \leq n < m$; hence $\rho_r = B^{(m,r)}$ is the $r$-th primitive $m$-Bell sequence;
+    \item[(i)] each $\rho_r$ satisfies the $m$-Bell recurrence \eqref{eq:m-shift-recurrence} with initial conditions $\rho_r(n) = \delta_{n,r}$ for $0 \leq n < m$; hence $\rho_r = B^{(m,r)}$ is the $r$-th primitive $m$-Bell sequence;
     \item[(ii)] the full row sums satisfy $\sigma = \sum_{r=0}^{m-1}\rho_r = B^{(m)}$, the composite $m$-Bell sequence;
-    \item[(iii)] every sequence satisfying \eqref{eq-mbell-recurrence} is the unique linear combination $\sum_{r} a_r B^{(m,r)}$ of the residue-class row sums determined by its initial values $a_0, \ldots, a_{m-1}$.
+    \item[(iii)] every sequence satisfying \eqref{eq:m-shift-recurrence} is the unique linear combination $\sum_{r} a_r B^{(m,r)}$ of the residue-class row sums determined by its initial values $a_0, \ldots, a_{m-1}$.
 \end{enumerate}
 \end{corollary}
 \begin{proof}
@@ -1294,7 +1294,7 @@ Then:
 \[
 \rho_r(n+m) = \sum_{j=0}^{n}\binom{n}{j}m^{n-j}\rho_r(j),
 \]
-which is exactly \eqref{eq-mbell-recurrence}. The initial values follow from Lemma \ref{lem-identity-rows}: for $n < m$, row $n$ contains the single entry $1$ at $k = n$, contributing to $\rho_r$ if and only if $n \equiv r$, i.e.\ $n = r$. (ii) Sum (i) over $r$. (iii) A solution of \eqref{eq-mbell-recurrence} is determined by its first $m$ values, and the primitives form a basis for the space of initial conditions.
+which is exactly \eqref{eq:m-shift-recurrence}. The initial values follow from Lemma \ref{lem-identity-rows}: for $n < m$, row $n$ contains the single entry $1$ at $k = n$, contributing to $\rho_r$ if and only if $n \equiv r$, i.e.\ $n = r$. (ii) Sum (i) over $r$. (iii) A solution of \eqref{eq:m-shift-recurrence} is determined by its first $m$ values, and the primitives form a basis for the space of initial conditions.
 \end{proof}
 
 For $m = 2$, Corollary \ref{cor-mbell-rowsums} recovers Corollary \ref{cor-2bell-rowsums} by entirely elementary means. Table \ref{tab-mbell-numbers} lists the composite $m$-Bell numbers for $m \le 4$ and the primitive sequences for $m = 3$.
@@ -1329,7 +1329,7 @@ We next generalize the analytic theory of Sections \ref{sec-m2} and \ref{sec-2-s
 which is itself yet another manifestation of the Stirling numbers as change-of-basis coefficients (from the basis $(tD)^k$ to the basis $t^kD^k$ of the Weyl algebra).
 
 \begin{proposition}\label{prop-general-ode}
-The e.g.f.\ $\mathcal{A}(x)$ of a sequence satisfying \eqref{eq-mbell-operator} equals $f(e^x)$, where $f$ satisfies the $m$-th order ODE
+The e.g.f.\ $\mathcal{A}(x)$ of a sequence satisfying \eqref{eq:m-shift-recurrence} equals $f(e^x)$, where $f$ satisfies the $m$-th order ODE
 \begin{equation}\label{eq-general-ode-t}
 (tD_t)^m f = t^m f, \qquad \text{equivalently} \qquad \sum_{k=0}^m\Stirling{m}{k}\,t^k f^{(k)}(t) = t^m f(t).
 \end{equation}
@@ -1624,7 +1624,7 @@ We know from the initial conditions that $A_0(x) = 1$, hence:
 \end{aligned}
 \]
 and so on. More generally, the ordinary generating function for the $k$-th column is
-\begin{equation}\label{column-ogf}
+\begin{equation}
 A_k(x) = \frac{x^k}{\prod_{j=1}^k(1-2\floor{j/2}x)},
 \end{equation}
 which is Equation \eqref{eq-column-ogf} of the main text. In order to get an explicit formula for $\mStirling{n}{k}_2$, use the technique on p.~19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}:
@@ -1911,7 +1911,7 @@ and since $\mStirling{n}{k}_2 =0$ when $k > n$, we can start $j$ from $k$ and sh
 Both identities, with $b = m\floor{k/m}$, hold verbatim for the general $m$-Stirling numbers of the second kind, by the same proofs.
 
 \pagebreak
-\section*{Appendix C: Succession rules and a generating tree for Bessel--Stirling numbers}\label{sec-succession-rule}
+\section*{Appendix C: Succession rules and a generating tree for Bessel--Stirling numbers}
 \noindent The Bessel--Stirling numbers of the second kind can also be elegantly described using the formalism of succession rules and generating trees, as introduced by West \cite{west_generating_1995}. This representation provides yet another perspective on the structure of these numbers and their recurrence relation.
 \begin{definition}[Succession rule for Bessel--Stirling numbers of the second kind]
 The Bessel--Stirling triangle of the second kind can be generated using the following succession rule:
