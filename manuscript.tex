@@ -9,6 +9,7 @@
 \usepackage{stmaryrd} % double-bracket and double-floor delimiters
 \usepackage{pdflscape}  % For PDF output (rotates the page in the PDF viewer)
 \usepackage{tikz-cd}
+\usepackage[left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
 \usepackage{hyperref}
 
 % Custom commands
@@ -26,7 +27,6 @@
 \newcommand{\R}{\mathbf{R}} % The real numbers.
 
 % Formatting
-\RequirePackage[left=1.5in,right=1.5in,top=1in,bottom=1in]{geometry}
 \newtheorem{theorem}{Theorem}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -41,7 +41,7 @@
 \author{Vencislav Popov}
 \email{vencislav.popov@gmail.com}
 \address{Department of Psychology, University of Zurich}
-\thanks{Computational results and other supporting information is available on \href{https://github.com/venpopov/generalization-bell-numbers}{GitHub} and \href{https://www.wolframcloud.com/obj/vpopov0/Published/marray-recurrence-triangle.nb}{Wolfram Cloud}}
+\thanks{Computational results and other supporting information are available on \href{https://github.com/venpopov/generalization-bell-numbers}{GitHub} and \href{https://www.wolframcloud.com/obj/vpopov0/Published/marray-recurrence-triangle.nb}{Wolfram Cloud}}
 \subjclass[2020]{Primary 05A18, 11B73; Secondary 05A15, 33C10, 60E05}
 \date{}
 
@@ -50,7 +50,7 @@
 
 \begin{document}
 \begin{abstract}
-We introduce a natural generalization of the Bell numbers: the $m$-Bell numbers $B^{(m)}_{n}$, characterized by invariance under $m$ binomial transforms followed by an $m$-place left shift. Their exponential generating functions satisfy $m$-th order ordinary differential equations whose solutions are hypergeometric (hyper-Bessel) functions, specializing to the exponential function when $m=1$ (classical Bell numbers) and to modified Bessel functions when $m=2$ (yielding ``Bessel--Bell'' numbers). Mirroring the Bell--Stirling correspondence, we construct $m$-Stirling triangular arrays from the two-term recurrence $\mStirling{n+1}{k}_m=m\floor{k/m}\mStirling{n}{k}_m+\mStirling{n}{k-1}_m$ and prove an elementary shift identity from which the central structure theorem follows: the row sums of the $m$-Stirling triangle reproduce $B^{(m)}_{n}$, and, more finely, the residue-class row sums are precisely the $m$ primitive $m$-Bell sequences. The $m$-Stirling numbers come in dual pairs (with first-kind partners, generalized falling factorials, and Lah-type companions), serve as conversion operators between polynomial bases, admit Dobi\'nski-like formulas, and count parity-constrained partitions in an urn model as well as restricted permutation insertion histories. Finally, we show that the $m$-Bell numbers govern the moments of the Conway--Maxwell--Poisson distribution with integer dispersion parameter $\nu=m$, exactly as the Bell numbers govern the moments of the Poisson distribution.
+We introduce a natural generalization of the Bell numbers: the $m$-Bell numbers $B^{(m)}_{n}$, characterized by the property that $m$ applications of the binomial transform reproduce the original sequence shifted $m$ places to the left. Their exponential generating functions satisfy $m$-th order ordinary differential equations whose solutions are hypergeometric (hyper-Bessel) functions, specializing to the exponential function when $m=1$ (classical Bell numbers) and to modified Bessel functions when $m=2$ (yielding ``Bessel--Bell'' numbers). Mirroring the Bell--Stirling correspondence, we construct $m$-Stirling triangular arrays from the two-term recurrence $\mStirling{n+1}{k}_m=m\floor{k/m}\mStirling{n}{k}_m+\mStirling{n}{k-1}_m$ and prove an elementary shift identity from which the central structure theorem follows: the row sums of the $m$-Stirling triangle reproduce $B^{(m)}_{n}$, and, more finely, the residue-class row sums are precisely the $m$ primitive $m$-Bell sequences. The $m$-Stirling numbers come in dual pairs (with first-kind partners, generalized falling factorials, and Lah-type companions), serve as conversion operators between polynomial bases, admit Dobi\'nski-like formulas, and count congruence-constrained partitions in an urn model as well as restricted permutation insertion histories. Finally, we show that the $m$-Bell numbers govern the moments of the Conway--Maxwell--Poisson distribution with integer dispersion parameter $\nu=m$, exactly as the Bell numbers govern the moments of the Poisson distribution.
 \end{abstract}
 
 \keywords{Bell numbers, Stirling numbers, set partitions, binomial transform, Conway--Maxwell--Poisson distribution, modified Bessel functions, hypergeometric functions}
@@ -80,10 +80,10 @@ To simplify the notation, following Bernstein and Sloane \cite{bernstein1995}, d
 \[
 \begin{aligned}
 \mathrm{BINOM} \circ [a_0,a_1,a_2, \dots] &= \bigg[\binom{0}{0}a_0,\binom{1}{0}a_0+\binom{1}{1}a_1, \ldots, \sum_{k=0}^n\binom{n}{k}a_k, \ldots \bigg] \\
-L \circ [a_0,a_1,a_2, \ldots] &= [a_1,a_2, \ldots]
+\mathrm{L} \circ [a_0,a_1,a_2, \ldots] &= [a_1,a_2, \ldots],
 \end{aligned}
 \]
-where $\mathrm{BINOM}$ is the binomial transform operator applied to sequence $a$, whereas $L$ is the left-shift operator. The Bell numbers then form the unique sequence that satisfies the following equality with initial condition $a_0 = 1$:
+where $\mathrm{BINOM}$ is the binomial transform operator applied to sequence $a$, whereas $\mathrm{L}$ is the left-shift operator. The Bell numbers then form the unique sequence that satisfies the following equality with initial condition $a_0 = 1$:
 \[
 \mathrm{BINOM} \circ a = \mathrm{L} \circ a.
 \]
@@ -92,7 +92,7 @@ Consider a new generalization of the Bell numbers defined by the following prope
 \begin{equation}\label{eq-mbell-recurrence}
 B^{(m)}_{n+m} = \sum_{k=0}^n \binom{n}{k} m^{n-k} B_k^{(m)},
 \end{equation}
-where the upper index $(m)$ has no algebraic meaning and should be read merely as an ``$m$-Bell'' number. Equivalently, these sequences satisfy the operator equation
+where the upper index $(m)$ has no algebraic meaning and should be read merely as a label marking an ``$m$-Bell'' number. Equivalently, these sequences satisfy the operator equation
 \begin{equation}\label{eq-mbell-operator}
 \mathrm{BINOM}^m \circ a = \mathrm{L}^m \circ a.
 \end{equation}
@@ -105,7 +105,7 @@ In this paper we show that the $m$-fold binomial--shift-invariance property that
 \]
 motivating the name \emph{$m$-Stirling numbers} (Sections \ref{sec-2-stirling} and \ref{sec-general-case}). Our central structural result is an elementary shift identity for these triangles (Theorem \ref{thm-shift-identity}), from which we deduce that the row sums of the $m$-Stirling triangle form the composite $m$-Bell sequence and---more finely---that the row sums along residue classes of $k \bmod m$ are precisely the $m$ primitive $m$-Bell sequences (Corollary \ref{cor-mbell-rowsums}). For $m = 2$ this identifies A351143 and A351028 as the even-$k$ and odd-$k$ halves of a single triangle whose full row sums give A007472.
 
-Like the classical Stirling numbers, the $m$-Stirling numbers come in dual pairs: there are companion triangles of the first kind, together with generalized falling factorials and Lah-type arrays, and the whole family acts as a system of conversion operators between polynomial bases (Section \ref{sec-first-kind}). Each $m$-Stirling array of the second kind also arises from the coefficients of polynomials generated by applying the exponential scaling operator to the hypergeometric e.g.f.s, once these are paired with appropriate \emph{carrier functions} (Sections \ref{sec-2-stirling} and \ref{sec-general-case}). On the combinatorial side, the $m$-Stirling and $m$-Bell numbers count parity-constrained partitions in an urn model with $m$-compartment urns (Section \ref{sec-combinatorial}), while the first-kind numbers count permutations built by a parity-restricted insertion process (Section \ref{sec-first-kind}). Finally, just as the classical Bell numbers are the moments of the Poisson distribution with unit rate, the $m$-Bell numbers turn out to govern the moments of a well-known generalization of the Poisson distribution, the Conway--Maxwell--Poisson distribution \cite{shmueliUsefulDistributionFitting2005}, at integer dispersion parameter $\nu = m$ (Section \ref{sec-cmp}). Appendix D collects the parallels between the classical framework and its generalization in a single reference table.
+Like the classical Stirling numbers, the $m$-Stirling numbers come in dual pairs: there are companion triangles of the first kind, together with generalized falling factorials and Lah-type arrays, and the whole family acts as a system of conversion operators between polynomial bases (Section \ref{sec-first-kind}). Each $m$-Stirling array of the second kind also arises from the coefficients of polynomials generated by applying the exponential scaling operator to the hypergeometric e.g.f.s, once these are paired with appropriate \emph{carrier functions} (Sections \ref{sec-2-stirling} and \ref{sec-general-case}). On the combinatorial side, the $m$-Stirling and $m$-Bell numbers count congruence-constrained partitions in an urn model with $m$-compartment urns (Section \ref{sec-combinatorial}), while the first-kind numbers count permutations built by a parity-restricted insertion process (Section \ref{sec-first-kind}). Finally, just as the classical Bell numbers are the moments of the Poisson distribution with unit rate, the $m$-Bell numbers turn out to govern the moments of a well-known generalization of the Poisson distribution, the Conway--Maxwell--Poisson distribution \cite{shmueliUsefulDistributionFitting2005}, at integer dispersion parameter $\nu = m$ (Section \ref{sec-cmp}). Appendix D collects the parallels between the classical framework and its generalization in a single reference table.
 
 To clearly ground the analogy between the Bell--Stirling--Touchard framework and the novel results, we begin with a review of standard results and notation \cite{comtet1974, sándor2004}.
 
@@ -128,7 +128,7 @@ It is well known that both the binomial transform and the left-shift operator ac
 \begin{equation}\label{eq-egf-transform}
 \begin{aligned}
 b = \mathrm{BINOM} \circ a \quad &\iff\quad \mathcal{B}(x) = e^x \mathcal{A}(x) \\
-b = \mathrm{L} \circ a \quad &\iff\quad \mathcal{B}(x) = \mathcal{A}'(x)
+b = \mathrm{L} \circ a \quad &\iff\quad \mathcal{B}(x) = \mathcal{A}'(x).
 \end{aligned}
 \end{equation}
 Applying $\mathrm{BINOM}$ $m$ times corresponds to multiplying $\mathcal{A}(x)$ by $e^{mx}$. Applying $\mathrm{L}$ $m$ times corresponds to taking the $m$-th derivative. Therefore, if \(\mathrm{BINOM}^m \circ a = \mathrm{L}^m \circ a\), then
@@ -161,7 +161,7 @@ The Stirling numbers of the second kind count the number of ways to partition $n
 \begin{equation}\label{eq-touchard-def}
     T_n(x) = \sum_{k=0}^{n} \genfrac\{\}{0pt}{}{n}{k} x^k,
 \end{equation}
-whose e.g.f.\ is a bi-variate generalization of the Bell numbers' e.g.f.:
+whose e.g.f.\ is a bivariate generalization of the Bell numbers' e.g.f.:
 \begin{equation}\label{eq-touchard-egf}
     \sum_{n=0}^{\infty} T_n(x) \frac{t^n}{n!} = e^{x(e^t-1)}.
 \end{equation}
@@ -178,7 +178,7 @@ A final useful relation is the celebrated Dobi\'nski formula \cite{wilfGeneratin
 \begin{equation}\label{eq-bell-dobinski}
 \begin{aligned}
 T_n(x) & =e^{-x}\sum_{k=0}^{\infty}\frac{x^k k^n}{k!} \\
-B_n & = \frac{1}{e}\sum_{k=0}^{\infty}\frac{k^n}{k!}
+B_n & = \frac{1}{e}\sum_{k=0}^{\infty}\frac{k^n}{k!}.
 \end{aligned}
 \end{equation}
 
@@ -256,14 +256,14 @@ where $f(x)\bigr|_{x=0}$ denotes evaluation at 0. The derivatives of $I_0$ and $
 \begin{equation}\label{eq-bessel-deriv1}
 \begin{aligned}
 I_0'(z) &= I_1(z) \\
-K_0'(z) &= -K_1(z). \\
+K_0'(z) &= -K_1(z). 
 \end{aligned}
 \end{equation}
 By the chain rule we get
 \begin{equation*}
     \begin{aligned}
         \tfrac{\mathrm{d}}{\mathrm{d}x}I_0\bigl(e^x\bigr) &= e^xI_1\bigl(e^x\bigr) \\
-        \tfrac{\mathrm{d}}{\mathrm{d}x}K_0\bigl(e^x\bigr) &= -e^xK_1\bigl(e^x\bigr). \\
+        \tfrac{\mathrm{d}}{\mathrm{d}x}K_0\bigl(e^x\bigr) &= -e^xK_1\bigl(e^x\bigr). 
     \end{aligned}
 \end{equation*}
 Evaluating at $x=0$ gives
@@ -277,10 +277,10 @@ After some standard algebraic torture we get the following expressions for $p$ a
 \[
 \begin{aligned}
 p &= \frac{1-qK_0(1)}{I_0(1)} \\
-q &= \frac{I_1(1)}{I_1(1)K_0(1)+I_0(1)K_1(1)}
+q &= \frac{I_1(1)}{I_1(1)K_0(1)+I_0(1)K_1(1)}.
 \end{aligned}
 \]
-These expressions can be simplified further due to the following Bessel identity concerning the Wronskian of the modified Bessel functions (see \href{https://dlmf.nist.gov/10.28.E2}{10.28.2}):
+These expressions can be simplified further due to the following Bessel identity concerning the Wronskian of the modified Bessel functions (see \href{https://dlmf.nist.gov/10.28.E2}{10.28.2}) \cite{NIST:DLMF}:
 \begin{equation}\label{eq-bessel-wronskian-general}
     I_\nu(z)K_{\nu+1}(z)+I_{\nu+1}(z)K_\nu(z) = 1/z,
 \end{equation}
@@ -333,7 +333,7 @@ Proceed by strong induction. First, establish the base cases:
 \[
 \begin{aligned}
 S(0) &= \sum_{k=0}^{\infty} \frac{1}{2^{2k}k!k!} = I_0(1) \\
-S(1) &= \sum_{k=0}^{\infty} \frac{2k}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{1}{2^{2k-1}(k-1)!k!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k+1}k!(k+1)!} = I_1(1),\\
+S(1) &= \sum_{k=0}^{\infty} \frac{2k}{2^{2k}k!k!} = \sum_{k=1}^{\infty} \frac{1}{2^{2k-1}(k-1)!k!} = \sum_{k=0}^{\infty} \frac{1}{2^{2k+1}k!(k+1)!} = I_1(1),
 \end{aligned}
 \]
 where in the case of $S(1)$ we used the series expansion of the modified Bessel function of general integer order $\nu \ge 0$ evaluated at $1$ (\href{https://dlmf.nist.gov/10.25.E2}{10.25.2}) \cite{NIST:DLMF}:
@@ -359,7 +359,7 @@ S(n+2) &= \sum_{j=0}^{n}\binom{n}{j}2^{n-j} (v_j I_0(1)+u_j I_1(1)) \\
 where the last step applies the defining recurrence \eqref{eq-2bell-recurrence} of the primitive sequences $v$ and $u$. This completes the proof. Table \ref{tab-vn-un-coefs} illustrates the first few cases.
 \end{proof}
 
-\begin{table}[]
+\begin{table}[htbp]
     \centering
         \begin{tabular}{|c|l|c|c|c|}
         \hline
@@ -375,7 +375,7 @@ where the last step applies the defining recurrence \eqref{eq-2bell-recurrence} 
         \hline
         \end{tabular}
         \bigskip
-    \caption{Coefficients in the expansion of the Dobi\'nski-like formula for the Bessel--Bell numbers (Theorem \ref{thm-bessel-dobiski})}
+    \caption{Coefficients in the expansion of the Dobi\'nski-like formula for the Bessel--Bell numbers (Theorem \ref{thm-bessel-dobiski}).}
     \label{tab-vn-un-coefs}
 \end{table}
 
@@ -448,7 +448,7 @@ The notation follows the bracket style for binomial coefficients $\binom{n}{k}$ 
 
 This recurrence is almost identical to that of the Stirling numbers of the second kind, except that the coefficient in front of $\mStirling{n}{k}_2$ has parity---it is always even, with $k$ rounded down to the nearest even integer. The numbers $\mStirling{n}{k}_2$ form a triangular array whose first few rows are listed in Table \ref{tab-bessel-stirling2}; the triangle is available as OEIS entry \href{https://oeis.org/A383235}{A383235}, which was submitted in the course of this work. An immediate consequence of the definition is that $\mStirling{n}{k}_2 = 0$ for $k > n$ (each application of \eqref{eq-bs-recurrence} raises the maximal index $k$ by one), that $\mStirling{n}{n}_2 = 1$, and that $\mStirling{n}{1}_2 = \delta_{n,1}$, since the coefficient $2\floor{k/2}$ vanishes for $k \in \{0, 1\}$.
 
-\begin{table}[]
+\begin{table}[htbp]
     \centering
         \begin{tabular}{|l|*{10}{c}|c|}
         \hline
@@ -475,7 +475,7 @@ The row sums of this array visibly reproduce the Bessel--Bell numbers \href{http
 \[
 \sum_{k=0}^{n} \mStirling{n}{k}_2 = (1, 1, 1, 3, 9, 29, 105, 431, 1969, 9785, 52145, 296155, 1787385, \ldots).
 \]
-In this section we prove this and more via the operational calculus of \emph{carrier systems}; Section \ref{sec-general-case} gives an independent, purely combinatorial proof valid for every $m$.
+In this section we prove this and more via the operational calculus of \emph{carrier systems}; Section \ref{sec-general-case} gives an independent, completely elementary proof valid for every $m$.
 
 \subsection{Carrier systems and Bessel--Touchard polynomials}
 
@@ -534,7 +534,7 @@ V_1(x) &= x\,I_1(x) \\
 V_2(x) &= x^2\,I_0(x) \\
 V_3(x) &= 2x^2\,I_0(x) + x^3\,I_1(x) \\
 V_4(x) &= 4x^2\,I_0(x) + 4x^3\,I_1(x) + x^4\,I_0(x) \\
-V_5(x) &= 8x^2\,I_0(x) + 12x^3\,I_1(x) + 8x^4\,I_0(x) + x^5\,I_1(x) \\
+V_5(x) &= 8x^2\,I_0(x) + 12x^3\,I_1(x) + 8x^4\,I_0(x) + x^5\,I_1(x).
 \end{aligned}
 \]
 Notice two things. First, these polynomials are generated in very much the same way as the Touchard polynomials, but by applying the exponential scaling operator to $I_0(x)$ instead of to $e^x$. Second, each monomial $x^k$ is accompanied by a modified Bessel carrier function: $I_0$ ``carries'' the even degrees of $x$ and $I_1$ ``carries'' the odd degrees. The proper analogue of the Touchard polynomials should not have these carrier functions attached. Thankfully, the solution is the same one that produced integer coefficients for the e.g.f.s in Section \ref{2-bell-integer-coefs}: combine the two independent carrier systems, with weights chosen so that the general Wronskian identity \eqref{eq-bessel-wronskian-general} cancels all carriers.
@@ -598,7 +598,7 @@ For the first display, Theorem \ref{thm-m2-egf} identifies $G(t,1)$ as the e.g.f
 
 Corollary \ref{cor-2bell-rowsums} reveals a satisfying structure: \emph{the two primitive 2-Bell sequences are interleaved inside a single triangle}---A351143 collects the even-indexed columns and A351028 the odd-indexed ones, while their sum A007472 collects them all. In Section \ref{sec-general-case} (Corollary \ref{cor-mbell-rowsums}) we will prove by elementary means that this picture persists for every $m$, with the $m$ primitive $m$-Bell sequences appearing as the residue-class row sums of the $m$-Stirling triangle.
 
-The Bessel--Stirling numbers are a novel generalization of the Stirling numbers and join a broader family of two-term recurrences (\cite{mansour_general_2012,neuwirth_recursively_2001,barbero_g_bivariate_2014,spiveySolutionsGeneralCombinatorial2011}). We return to the connection between this new array and previous generalizations of the Stirling numbers in Section \ref{sec-final-remarks}. Note also that the Bessel--Stirling numbers are distinct from the $r$-Stirling numbers of Broder \cite{broder1984}, despite the superficially similar subscript notation.
+The Bessel--Stirling numbers are a novel generalization of the Stirling numbers and join a broader family of two-term recurrences \cite{mansour_general_2012,neuwirth_recursively_2001,barbero_g_bivariate_2014,spiveySolutionsGeneralCombinatorial2011}. We return to the connection between this new array and previous generalizations of the Stirling numbers in Section \ref{sec-final-remarks}. Note also that the Bessel--Stirling numbers are distinct from the $r$-Stirling numbers of Broder \cite{broder1984}, despite the superficially similar subscript notation.
 
 Due to the form of their recurrence, the Bessel--Stirling numbers admit many identities common to other such two-term-recurrence triangular arrays (see Appendices A and B). The most important one is an explicit formula (proof given in Appendix A):
 
@@ -619,7 +619,7 @@ where $d$ and $c$ are determined as follows:
 \end{aligned}
 \]
 Alternatively, the following limit representation is valid for all $n\ge0, k\ge 0$:
-$$
+\[
 \begin{aligned}
     \mStirling{n}{k}_2 &= (-1)^{k-1}\, 2^{n-k} \sum_{j=0}^{\floor{k/2}} \lim_{t \to j} \left[t^{n-1}\,
         \frac
@@ -628,7 +628,7 @@ $$
         \\
         \Psi_k(t) &= 2\psi(t)-\psi\left(\floor{\tfrac{k}{2}}-t+1\right)-\psi\left(\floor{\tfrac{k-1}{2}}-t+1\right),
 \end{aligned}
-$$
+\]
 where $H_n$ is the $n$-th harmonic number, $\psi(x)$ is the digamma function, and $\Gamma(x)$ is the gamma function.
 \end{theorem}
 
@@ -651,7 +651,7 @@ which itself follows directly from the recurrence \eqref{eq-bs-recurrence} (see 
 Now that we understand the analytic properties of the Bessel--Stirling and Bessel--Bell numbers and their basic recurrences, the natural next question is: what do these numbers count?
 
 \section{Combinatorial interpretation of the Bessel--Stirling numbers of the second kind and the Bessel--Bell numbers}\label{sec-combinatorial}
-\noindent The Bessel--Stirling numbers $\mStirling{n}{k}_2$ enumerate the number of ways to place $n$ labeled marbles into $k$ unlabeled compartments following a parity-constrained urn model.
+\noindent The Bessel--Stirling numbers $\mStirling{n}{k}_2$ count the number of ways to place $n$ labeled marbles into $k$ unlabeled compartments following a parity-constrained urn model.
 \begin{theorem}[The two-compartment urn model]\label{thm-urn-model}
 The Bessel--Stirling number of the second kind $\mStirling{n}{k}_2$ counts the number of ways to arrange $n$ labeled marbles (placed one at a time in the order $1, 2, \ldots, n$) in $k$ total compartments distributed across urns with two unlabeled compartments each, subject to the following constraints:
 \begin{itemize}
@@ -669,7 +669,7 @@ For $\mStirling{3}{2}_2$ we have two ways to place the marbles in two compartmen
 For $\mStirling{3}{3}_2$ we have one way to place each marble in its own compartment (2 urns, 3 compartments used): $\frac{1}{2}\big|\frac{3}{}$. All valid partitions of up to 5 objects are presented in Table \ref{tab-bs-enumeration}.
 \bgroup
 \renewcommand{\arraystretch}{2}
-\begin{table}[]
+\begin{table}[htbp]
     \centering
         \begin{tabular}{|l|l|p{10.5cm}|}
         \hline
@@ -693,7 +693,7 @@ For $\mStirling{3}{3}_2$ we have one way to place each marble in its own compart
             \smallskip
         $}\\
         \hline
-        T(4,2) & 4 & {$
+        T(4,2) & 4 & \texttt{$
             \frac{1\,4}{2\,3},\
             \frac{1\,3\,4}{2},\
             \frac{1}{2\,3\,4},\
@@ -754,7 +754,7 @@ For $\mStirling{3}{3}_2$ we have one way to place each marble in its own compart
         \hline
         \end{tabular}
         \bigskip
-    \caption{Valid Bessel--Stirling constrained partitions of $n$ objects into $k$ compartments of 2-compartment urns}
+    \caption{Valid Bessel--Stirling constrained partitions of $n$ objects into $k$ compartments of 2-compartment urns.}
     \label{tab-bs-enumeration}
 \end{table}
 \egroup
@@ -775,8 +775,8 @@ Consider the placement options for the $(n+1)$-st marble:
 
 We need to count how many valid placement options exist among the $k$ compartments already in use. This depends on the distribution of these compartments across urns:
 \begin{itemize}
-    \item \textit{When $k$ is even}, say $k = 2j$, the $k$ compartments must be distributed across exactly $j$ fully-filled urns (both compartments used in each). This is because our constraints prohibit opening a new urn until all previous urns have at least one marble in each compartment. With $j$ fully-filled urns, we have $2j = k$ valid placement options for the $(n+1)$-st marble, since we can place it in any of the already-used compartments.
-    \item \textit{When $k$ is odd}, say $k = 2j+1$, we must have $j$ fully-filled urns (accounting for $2j$ compartments) plus one urn with exactly one compartment used. According to the constraints, we cannot place another marble in this partially-filled urn's used compartment until its other compartment also contains a marble. Therefore, we have only $2j = 2\lfloor k/2 \rfloor$ valid placement options in previously used compartments.
+    \item \textit{When $k$ is even}, say $k = 2j$, the $k$ compartments must be distributed across exactly $j$ fully filled urns (both compartments used in each). This is because our constraints prohibit opening a new urn until all previous urns have at least one marble in each compartment. With $j$ fully filled urns, we have $2j = k$ valid placement options for the $(n+1)$-st marble, since we can place it in any of the already-used compartments.
+    \item \textit{When $k$ is odd}, say $k = 2j+1$, we must have $j$ fully filled urns (accounting for $2j$ compartments) plus one urn with exactly one compartment used. According to the constraints, we cannot place another marble in this partially-filled urn's used compartment until its other compartment also contains a marble. Therefore, we have only $2j = 2\lfloor k/2 \rfloor$ valid placement options in previously used compartments.
     \end{itemize}
 
 In either case, the number of valid placement options in previously used compartments is $2\lfloor k/2 \rfloor$. Since there are $\mStirling{n}{k}_2$ ways to arrange the first $n$ marbles in $k$ compartments, we have $2\lfloor k/2 \rfloor \cdot \mStirling{n}{k}_2$ ways to place the $(n+1)$-st marble in a previously used compartment.
@@ -850,13 +850,14 @@ every node/.style={draw,circle,minimum size=0.25cm,inner sep=0pt,font=\scriptsiz
                     child {node {4}}
                     child {node {4}}
                     child {node {4}}
+                    child {node {4}}
                     child {node {5}}
                 }
             }
         }
     };
 \end{tikzpicture}
-\caption{First five levels of the generating tree for the Bessel--Stirling numbers of the second kind using the succession rule $\Omega$ of Appendix C.}
+\caption{The first six levels (levels $0$--$5$) of the generating tree for the Bessel--Stirling numbers of the second kind using the succession rule $\Omega$ of Appendix C. The nine level-4 nodes read $(2)^4(3)^4(4)$ and the twenty-nine level-5 nodes read $(2)^8(3)^{12}(4)^8(5)$.}
 \label{fig:generating-tree}
 \end{figure}
 
@@ -880,7 +881,7 @@ Let $\mStirlingone{n}{k}_2$ be defined for $n, k \geq 0$ by $\mStirlingone{0}{k}
 
 The first few rows of the unsigned Bessel--Stirling numbers of the first kind are shown in Table \ref{tab-bessel-stirling1}. This recurrence closely mirrors that of the standard Stirling numbers of the first kind, but with the factor $n$ replaced by $2\floor{n/2}$, reflecting the ``even-step'' structure inherent in the Bessel framework. Just as the ordinary Stirling numbers of the first kind arise in the context of a change of basis from ordinary powers to falling powers, these generalized coefficients appear as the change-of-basis matrix between ordinary powers and a novel class of falling factorials.
 
-\begin{table}[]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|l|*{10}{c}|c|}
         \hline
@@ -903,7 +904,7 @@ The first few rows of the unsigned Bessel--Stirling numbers of the first kind ar
     \label{tab-bessel-stirling1}
 \end{table}
 
-\begin{table}[]
+\begin{table}[htbp]
     \centering
     \small
     \begin{tabular}{|l|*{10}{c}|c|}
@@ -960,12 +961,12 @@ Induction on $n$, rising version first. Multiplying $x^{\ooline{n}} = \sum_k \mS
 Here are the expansions of the first few Bessel rising factorials:
 \[
 \begin{aligned}
-     x^{\ooline{1}} = x &= x &\\
-     x^{\ooline{2}} = x^2 &= x^2 &\\
-     x^{\ooline{3}} = x^2(x+2) &= 2x^2+x^3 &\\
-     x^{\ooline{4}} = x^2(x+2)^2 &= 4x^2+4x^3+x^4 &\\
-     x^{\ooline{5}} = x^2(x+2)^2(x+4) &= 16x^2+20x^3+8x^4+x^5 &\\
-     x^{\ooline{6}} = x^2(x+2)^2(x+4)^2 &= 64x^2+96x^3+52x^4+12x^5 +x^6& \\
+     x^{\ooline{1}} = x &= x \\
+     x^{\ooline{2}} = x^2 &= x^2 \\
+     x^{\ooline{3}} = x^2(x+2) &= 2x^2+x^3 \\
+     x^{\ooline{4}} = x^2(x+2)^2 &= 4x^2+4x^3+x^4 \\
+     x^{\ooline{5}} = x^2(x+2)^2(x+4) &= 16x^2+20x^3+8x^4+x^5 \\
+     x^{\ooline{6}} = x^2(x+2)^2(x+4)^2 &= 64x^2+96x^3+52x^4+12x^5 +x^6.
 \end{aligned}
 \]
 Just as the regular falling powers form an alternative polynomial basis, which can be converted to and from the monomial basis using the Stirling numbers, the same is true for the Bessel falling powers. One recovers a monomial from them using the Bessel--Stirling numbers of the second kind:
@@ -1092,11 +1093,11 @@ Figure \ref{fig:commutative-diagram} summarizes how all six triangles act as con
 \begin{tikzcd}[column sep=9em, row sep=4.5em]
     x^{\overline{n}}
         \arrow[rd, bend left=45, "(-1)^{n-k}\Stirling{n}{k}" description]
-        \arrow[dd, bend left=15, "{\Lah{n}{k}}" description]
+        \arrow[dd, bend left=15, "{(-1)^{n-k}\Lah{n}{k}}" description]
     & &
     x^{\ooline{n}}
         \arrow[ld, bend left=-45, swap, "(-1)^{n-k}\mStirling{n}{k}_2" description]
-        \arrow[dd, bend left=-15, swap, "{\mLah{n}{k}_2}" description]
+        \arrow[dd, bend left=-15, swap, "{(-1)^{n-k}\mLah{n}{k}_2}" description]
     \\
     &
     x^{n}
@@ -1106,15 +1107,15 @@ Figure \ref{fig:commutative-diagram} summarizes how all six triangles act as con
         \arrow[dr, bend left=-45, swap, "(-1)^{n-k}\mStirlingone{n}{k}_2" description]
     &\\
     x^{\underline{n}}
-        \arrow[uu, bend left=45, "{(-1)^{n-k}\Lah{n}{k}}" description]
+        \arrow[uu, bend left=45, "{\Lah{n}{k}}" description]
         \arrow[ur, bend left=15, "\Stirling{n}{k}" description]
     & &
     x^{\uuline{n}}
-        \arrow[uu, bend left=-45, swap, "{(-1)^{n-k}\mLah{n}{k}_2}" description]
+        \arrow[uu, bend left=-45, swap, "{\mLah{n}{k}_2}" description]
         \arrow[ul, bend left=-15, swap, "\mStirling{n}{k}_2" description]
 \end{tikzcd}
 \]
-\caption{Stirling numbers and Bessel--Stirling numbers as transformations between polynomial bases. The regular Stirling (and Lah) numbers convert between ordinary powers (middle), falling powers (bottom left), and rising powers (top left). The Bessel--Stirling numbers convert between ordinary powers, Bessel falling powers (bottom right), and Bessel rising powers (top right). An arrow from basis $u$ to basis $v$ labeled $c_{n,k}$ means $u_n = \sum_k c_{n,k}v_k$.}
+\caption{Stirling numbers and Bessel--Stirling numbers as transformations between polynomial bases. The regular Stirling (and Lah) numbers convert between ordinary powers (middle), falling powers (bottom left), and rising powers (top left). The Bessel--Stirling numbers convert between ordinary powers, Bessel falling powers (bottom right), and Bessel rising powers (top right). An arrow from basis $u$ to basis $v$ labeled $c_{n,k}$ encodes the expansion $v_n = \sum_k c_{n,k}\,u_k$.}
 \label{fig:commutative-diagram}
 \end{figure}
 
@@ -1131,7 +1132,7 @@ For an integer $m \geq 1$, define $\mStirling{n}{k}_m$ for $n, k \geq 0$ by $\mS
 For $m = 1$ this is the classical Stirling triangle of the second kind; for $m=2$, the Bessel--Stirling triangle of Section \ref{sec-2-stirling}. Table \ref{tab-3stirling} displays the triangle for $m = 3$.
 \end{definition}
 
-\begin{table}[]
+\begin{table}[htbp]
     \centering
         \begin{tabular}{|l|*{10}{c}|c|}
         \hline
@@ -1219,7 +1220,7 @@ which is exactly \eqref{eq-mbell-recurrence}. The initial values follow from Lem
 
 For $m = 2$, Corollary \ref{cor-mbell-rowsums} recovers Corollary \ref{cor-2bell-rowsums} by entirely elementary means. Table \ref{tab-mbell-numbers} lists the composite $m$-Bell numbers for $m \le 4$ and the primitive sequences for $m = 3$.
 
-\begin{table}[]
+\begin{table}[htbp]
     \centering
     \begin{tabular}{|l|l|}
     \hline
@@ -1287,7 +1288,7 @@ which after the shift $k \mapsto k+1$ is $x$ times the $k$-th term of $C_1$. For
 which is $x$ times the $k$-th term of $C_{r+1}$ when $r + 1 \le m - 1$, and---since the case $r+1 = m$ reads $x\, x^{mk}/\big(m^{mk}(k!)^{m}\big)$---is $x$ times the $k$-th term of $C_0$ when $r = m-1$. The identification with ${}_0F_{m-1}$ follows by rewriting the factorials as Pochhammer symbols. The eigenvalue equation is \eqref{eq-carrier-ode}.
 \end{proof}
 
-In the notation of Delerue's hyper-Bessel functions $I^{(m-1)}_{\nu_1,\ldots,\nu_{m-1}}$ \cite{delerue1953, kiryakova1994}, we have $C^{(m)}_r = I^{(m-1)}_{(0,\ldots,0,1,\ldots,1)}$ with $r-1$ zeros and $m-r$ ones. The carrier expansion theorem now holds verbatim:
+In the notation of Delerue's hyper-Bessel functions $I^{(m-1)}_{\nu_1,\ldots,\nu_{m-1}}$ \cite{delerue1953, kiryakova1994}, we have $C^{(m)}_0 = I^{(m-1)}_{(0,\ldots,0)}$ and, for $1 \le r \le m-1$, $C^{(m)}_r = I^{(m-1)}_{(0,\ldots,0,1,\ldots,1)}$ with $r-1$ zeros and $m-r$ ones. The carrier expansion theorem now holds verbatim:
 
 \begin{theorem}[General carrier expansion]\label{thm-general-carrier-expansion}
 Let $(f_0, \ldots, f_{m-1})$ be any carrier system of modulus $m$ for $xD$. Then
@@ -1300,6 +1301,12 @@ f_0(xe^t) = \sum_{n=0}^\infty \frac{t^n}{n!}\sum_{k=0}^n \mStirling{n}{k}_m\, x^
 \begin{proof}
 Identical to that of Theorem \ref{thm-carrier-expansion}: since $xD$ is a derivation, $(xD)(x^k f_r) = (k-r)x^kf_r + x^{k+1}f_{(r+1) \bmod m}$ for $r = k \bmod m$, and $k - r = m\floor{k/m}$; the coefficients therefore evolve by \eqref{eq-mstirling-recurrence}.
 \end{proof}
+
+For the hyper-Bessel system of Proposition \ref{prop-hyper-bessel} we retain the notation of Theorem \ref{thm-carrier-expansion} and write $V_n(x) = \sum_{k} \mStirling{n}{k}_m x^k\, C^{(m)}_{k \bmod m}(x)$. We also call
+\[
+\mathscr{B}^{(m)}_n(x) = \sum_{k=0}^{n} \mStirling{n}{k}_m\, x^k
+\]
+the \emph{$m$-Touchard polynomials}; by Corollary \ref{cor-mbell-rowsums}, $\mathscr{B}^{(m)}_n(1) = B^{(m)}_n$.
 
 \subsection{A general Dobi\'nski formula}
 
@@ -1333,7 +1340,7 @@ The solution space of $\mathcal{A}^{(m)} = e^{mx}\mathcal{A}$ is $m$-dimensional
 \end{remark}
 
 \begin{remark}
-The primitive/composite decomposition has a classical constant-coefficient shadow: replacing the operator equation $\mathrm{BINOM}^m a = L^m a$ by $a = L^m a$ (i.e.\ dropping the transform) yields the ODE $\mathcal{A}^{(m)} = \mathcal{A}$, whose primitive solutions are the $m$-sections of the exponential function studied by Tauber \cite{tauberGeneralizationsExponentialFunction1960}. The $m$-Bell theory developed here can thus be viewed as the ``binomial-transform deformation'' of the theory of exponential sections.
+The primitive/composite decomposition has a classical constant-coefficient shadow: replacing the operator equation $\mathrm{BINOM}^m \circ\, a = \mathrm{L}^m \circ\, a$ by $a = \mathrm{L}^m \circ\, a$ (i.e.\ dropping the transform) yields the ODE $\mathcal{A}^{(m)} = \mathcal{A}$, whose primitive solutions are the $m$-sections of the exponential function studied by Tauber \cite{tauberGeneralizationsExponentialFunction1960}. The $m$-Bell theory developed here can thus be viewed as the ``binomial-transform deformation'' of the theory of exponential sections.
 \end{remark}
 
 \subsection{Duals, factorials, and combinatorics for general $m$}
@@ -1480,7 +1487,7 @@ Thus the scaled moments of the $\mathrm{CMP}(m^{-m}, m)$ distribution are $\math
 \noindent We conclude with remarks situating the $m$-Stirling framework within the literature, and a list of open problems. Appendix D presents a reference table cataloguing the parallels between the classical theory, the Bessel case $m = 2$, and general $m$.
 
 \subsection{Relation to other generalizations of Stirling numbers}
-Triangular arrays defined by two-term recurrences of the form $T(n+1,k) = f(n,k)T(n,k) + T(n,k-1)$ have been studied at great generality---as ``Galton arrays'' by Neuwirth \cite{neuwirth_recursively_2001}, through bivariate generating function PDEs by Barbero et al.\ \cite{barbero_g_bivariate_2014}, and via explicit-formula machinery by Spivey \cite{spiveySolutionsGeneralCombinatorial2011} and Mansour, Mulay and Shattuck \cite{mansour_general_2012}. The $m$-Stirling triangles fit these frameworks formally but sit outside their sharpest results: the coefficient $m\floor{k/m}$ is not of the affine form $\alpha + \beta n + \gamma k$ covered by the complete classification in \cite{barbero_g_bivariate_2014}, and the general explicit formula of \cite{mansour_general_2012} requires the column weights $b_k$ to be pairwise distinct, whereas ours occur with multiplicity $m$---this is exactly why the partial-fraction analysis in Appendix A involves higher-order poles and produces the harmonic-number corrections in Theorem \ref{thm-bs-formula}. The $m$-Stirling numbers are also distinct from Broder's $r$-Stirling numbers \cite{broder1984} (which restrict where the first $r$ elements sit) and from the Bessel numbers of Cheon et al.\ \cite{cheonGeneralizedBesselNumbers2013a} (connection coefficients of Bessel polynomials); the appearance of Bessel functions in our $m = 2$ case is structural (the e.g.f.\ ODE), not definitional.
+Triangular arrays defined by two-term recurrences of the form $T(n+1,k) = f(n,k)T(n,k) + T(n,k-1)$ have been studied in great generality---as ``Galton arrays'' by Neuwirth \cite{neuwirth_recursively_2001}, through bivariate generating function PDEs by Barbero et al.\ \cite{barbero_g_bivariate_2014}, and via explicit-formula machinery by Spivey \cite{spiveySolutionsGeneralCombinatorial2011} and Mansour, Mulay and Shattuck \cite{mansour_general_2012}. The $m$-Stirling triangles fit these frameworks formally but sit outside their sharpest results: the coefficient $m\floor{k/m}$ is not of the affine form $\alpha + \beta n + \gamma k$ covered by the complete classification in \cite{barbero_g_bivariate_2014}, and the general explicit formula of \cite{mansour_general_2012} requires the column weights $b_k$ to be pairwise distinct, whereas ours occur with multiplicity $m$---this is exactly why the partial-fraction analysis in Appendix A involves higher-order poles and produces the harmonic-number corrections in Theorem \ref{thm-bs-formula}. The $m$-Stirling numbers are also distinct from Broder's $r$-Stirling numbers \cite{broder1984} (which restrict where the first $r$ elements sit) and from the Bessel numbers of Cheon et al.\ \cite{cheonGeneralizedBesselNumbers2013a} (connection coefficients of Bessel polynomials); the appearance of Bessel functions in our $m = 2$ case is structural (the e.g.f.\ ODE), not definitional.
 
 \subsection{The sequence A000246 and a missing bijection}
 Proposition \ref{prop-a000246} shows that the row sums of the Bessel--Stirling triangle of the first kind count the permutations of odd order, while Theorem \ref{thm-insertion-model} exhibits the triangle itself as counting parity-admissible permutations by cycles. Since the two $9$-element sets for $n = 4$ already differ, the equinumerosity is genuinely non-trivial at the level of the statistic. A bijection between odd-order permutations and parity-admissible permutations---ideally one translating a natural statistic on odd-order permutations into the cycle count of the admissible ones---would give a fully combinatorial account of Table \ref{tab-bessel-stirling1}.
@@ -1493,16 +1500,16 @@ Find a direct bijective proof of the shift identity \eqref{eq-shift-identity} in
 Determine explicit closed forms, analogous to Theorem \ref{thm-m2-egf}, for the e.g.f.s of the individual primitive $m$-Bell sequences when $m \geq 3$, in terms of hyper-Bessel functions of the second kind (Remark \ref{rem-solution-space}).
 \end{problem}
 \begin{problem}
-The Bell numbers satisfy the Touchard congruence $B_{p+n} \equiv B_n + B_{n+1} \pmod p$. The $m$-Stirling triangles show visible $m$-adic structure (for instance $\mStirling{n}{m}_m = m^{\,n-m}$ for $n \geq m$, by the column generating function); a systematic study of congruence properties of the $m$-Bell sequences is open.
+The Bell numbers satisfy the Touchard congruence $B_{p+n} \equiv B_n + B_{n+1} \pmod p$ for every prime $p$. The $m$-Stirling triangles show visible $m$-adic structure (for instance $\mStirling{n}{m}_m = m^{\,n-m}$ for $n \geq m$, by the column generating function); a systematic study of congruence properties of the $m$-Bell sequences is open.
 \end{problem}
 \begin{problem}
 The Hankel determinants of the Bell numbers are the superfactorials $\prod_{i=0}^{n} i!$. The Hankel determinants of A007472 begin $1, 0, -4, -48, 0, 442368, \ldots$, with zeros and negative entries, so A007472 is not the moment sequence of a positive measure---yet Corollary \ref{cor-cmp-mbell} exhibits it as the integer ``shadow'' of one. Explaining this Hankel structure (e.g.\ via continued fractions or orthogonal polynomials for the CMP weight) is open.
 \end{problem}
 \begin{problem}
-Develop $q$-analogues: both the urn model (Theorem \ref{thm-general-urn}) and the file-placement interpretation (Proposition \ref{prop-symmetric-functions}) suggest natural inversion statistics, and the Garsia--Remmel $q$-rook framework applies to the doubled staircase boards.
+Develop $q$-analogues: both the urn model (Theorem \ref{thm-general-urn}) and the file-placement interpretation (Proposition \ref{prop-symmetric-functions}) suggest natural inversion statistics, and the Garsia--Remmel $q$-rook framework \cite{garsiaRemmel1986} applies to the doubled staircase boards.
 \end{problem}
 \begin{problem}
-Determine the asymptotics of $B^{(m)}_n$ for fixed $m \geq 2$, generalizing the Moser--Wyman asymptotics of the Bell numbers; the Dobi\'nski-type series of Theorem \ref{thm-general-dobinski} is the natural starting point for a saddle-point analysis.
+Determine the asymptotics of $B^{(m)}_n$ for fixed $m \geq 2$, generalizing the Moser--Wyman asymptotics of the Bell numbers \cite{moserWyman1955}; the Dobi\'nski-type series of Theorem \ref{thm-general-dobinski} is the natural starting point for a saddle-point analysis.
 \end{problem}
 
 \printbibliography
@@ -1511,90 +1518,90 @@ Determine the asymptotics of $B^{(m)}_n$ for fixed $m \geq 2$, generalizing the 
 
 \section*{Appendix A: Explicit formula for the Bessel--Stirling numbers (proof of Theorem \ref{thm-bs-formula})}
 Let $A_k$ be the ordinary generating function for the $k$-th column over $x^n$:
-$$
+\[
 A_k(x) = \sum_{n\ge0} \mStirling{n}{k}_2 x^n.
-$$
+\]
 We first multiply each side of the recurrence \eqref{eq-bs-recurrence} by $x^n$ and sum over $n$:
-$$
+\[
 \begin{aligned}
 \sum_{n \geq 1} \mStirling{n}{k}_2x^n &= 2\floor{k/2}\sum_{n \geq 1}\mStirling{n-1}{k}_2x^n + \sum_{n \geq 1} \mStirling{n-1}{k-1}_2 x^n \\
 A_k -\mStirling{0}{k}_2&=2\floor{k/2}x A_k+x A_{k-1}, \quad k \geq 1.
 \end{aligned}
-$$
+\]
 Since $\mStirling{0}{k}_2 = 0$ when $k \neq 0$, this simplifies to the following recurrence for the column generating function:
-$$
+\[
 A_k = \frac{x}{(1-2\floor{k/2}x)} A_{k-1}.
-$$
+\]
 We know from the initial conditions that $A_0(x) = 1$, hence:
-$$
+\[
 \begin{aligned}
     A_0 &= 1 \\
     A_1 &= x \\
     A_2 &= \frac{x^2}{1-2x} \\
     A_3 &= \frac{x^3}{(1-2x)^2} \\
     A_4 &= \frac{x^4}{(1-2x)^2 (1-4x)} \\
-    A_5 &= \frac{x^5}{(1-2x)^2 (1-4x)^2}, \\
+    A_5 &= \frac{x^5}{(1-2x)^2 (1-4x)^2}, 
 \end{aligned}
-$$
+\]
 and so on. More generally, the ordinary generating function for the $k$-th column is
 \begin{equation}\label{column-ogf}
 A_k(x) = \frac{x^k}{\prod_{j=1}^k(1-2\floor{j/2}x)},
 \end{equation}
 which is Equation \eqref{eq-column-ogf} of the main text. In order to get an explicit formula for $\mStirling{n}{k}_2$, use the technique on p.~19 of \cite{wilfGeneratingfunctionologyThirdEdition2005}:
-$$
+\[
 \mStirling{n}{k}_2 = [x^n]A_k(x),
-$$
+\]
 where $[x^n]$ is the coefficient extraction operator. Start with a partial fraction decomposition of $A_k(x)$. First, denote
-$$
+\[
 A_k(x) = x^kP_k(x),
-$$
+\]
 where
-$$
+\[
 P_k(x) = \prod_{1 \leq j \leq k}\frac{1}{1-2\floor{j/2}x}.
-$$
+\]
 Hence
 \begin{equation}\label{znk-coef}
 \mStirling{n}{k}_2 = [x^n]x^kP_k(x) = [x^{n-k}]P_k(x).
 \end{equation}
-We can express $P_k(x)$ as a sum of partial fractions with unknown coefficients (note the slight difference in ranges for odd and even $k$):
+We can express $P_k(x)$ as a sum of partial fractions with unknown coefficients, writing $k = 2\mu$ or $k = 2\mu + 1$ according to parity (the letter $m$ is reserved for the paper's global modulus, equal to $2$ throughout this appendix):
 
 \begin{equation}\label{pkx}
     \begin{aligned}
-    P_{2m}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m,j}}{1-2jx} + \sum_{1 \leq j \leq m-1} \frac{d_{2m,j}}{(1-2jx)^2} \\
-    P_{2m+1}(x) &= \sum_{1 \leq j \leq m} \frac{c_{2m+1,j}}{1-2jx} + \sum_{1 \leq j \leq m} \frac{d_{2m+1,j}}{(1-2jx)^2}
+    P_{2\mu}(x) &= \sum_{1 \leq j \leq \mu} \frac{c_{2\mu,j}}{1-2jx} + \sum_{1 \leq j \leq \mu-1} \frac{d_{2\mu,j}}{(1-2jx)^2} \\
+    P_{2\mu+1}(x) &= \sum_{1 \leq j \leq \mu} \frac{c_{2\mu+1,j}}{1-2jx} + \sum_{1 \leq j \leq \mu} \frac{d_{2\mu+1,j}}{(1-2jx)^2}
     \end{aligned}
 \end{equation}
 
-It is easy to calculate the $d$ coefficients with the standard Heaviside cover-up method:
-$$
+It is easy to calculate the $d$ coefficients with the standard Heaviside cover-up method; note that the factor $(1-2rx)^2$ cancels the two factors of $P_k$ with $j \in \{2r, 2r+1\}$, both of which have $\floor{j/2} = r$:
+\[
 \begin{aligned}
     d_{k,r} &= (1-2rx)^2P_k(x)\big|_{x=\frac{1}{2r}} \\
     &= (1-2rx)^2 \prod_{1 \leq j \leq k} \frac{1}{1-2 \floor{j/2}x} \bigg|_{x=\frac{1}{2r}} \\
-    &= \prod_{1 \leq j < 2r} \frac{1}{1-\floor{j/2}/r} \prod_{2r < j \leq k} \frac{1}{1- \floor{j/2}/r} \\
-    &= \prod_{1 \leq j < 2r} \frac{r}{r-\floor{j/2}} \prod_{2r < j \leq k} \frac{r}{r- \floor{j/2}}, \\
+    &= \prod_{1 \leq j < 2r} \frac{1}{1-\floor{j/2}/r} \prod_{2r+1 < j \leq k} \frac{1}{1- \floor{j/2}/r} \\
+    &= \prod_{1 \leq j < 2r} \frac{r}{r-\floor{j/2}} \prod_{2r+1 < j \leq k} \frac{r}{r- \floor{j/2}},
 \end{aligned}
-$$
+\]
 which simplifies to
 \begin{equation}\label{d-k-r}
         d_{k,r}=\frac{(-r)^{k-1}}{r!\,r!\,(\floor{\frac{k}{2}}-r)!\,(\floor{\frac{k-1}{2}}-r)!}.
 \end{equation}
 $d_{k,r}$ varies only slightly for even and odd $k$:
-$$
+\[
 \begin{aligned}
-    d_{2m,r} &= \frac{-r^{2m-1}}{r!\,r!\,(m-r)!\,(m-1-r)!} \\
-    d_{2m+1,r} &= \frac{r^{2m}}{r!\,r!\,(m-r)!\,(m-r)!} \\
+    d_{2\mu,r} &= \frac{-r^{2\mu-1}}{r!\,r!\,(\mu-r)!\,(\mu-1-r)!} \\
+    d_{2\mu+1,r} &= \frac{r^{2\mu}}{r!\,r!\,(\mu-r)!\,(\mu-r)!}
 \end{aligned}
-$$
-For the $c_{k,j}$ coefficients, we have two main cases to consider. When $k=2m$ is even and $j=m$, $P_k(x)$ has a simple pole at $x = \frac{1}{2m}$, so we get $c_{2m,m}$ easily by the same method:
+\]
+For the $c_{k,j}$ coefficients, we have two main cases to consider. When $k=2\mu$ is even and $j=\mu$, $P_k(x)$ has a simple pole at $x = \frac{1}{2\mu}$, so we get $c_{2\mu,\mu}$ easily by the same method:
 \begin{equation}\label{c-2m-m}
-    c_{2m,m} = (1-2mx)P_{2m}(x)\big|_{x=\frac{1}{2m}} = \frac{m^{2m}}{m!\,m!}
+    c_{2\mu,\mu} = (1-2\mu x)P_{2\mu}(x)\big|_{x=\frac{1}{2\mu}} = \frac{\mu^{2\mu}}{\mu!\,\mu!}.
 \end{equation}
 For the remaining $c$ coefficients we have a pole of $P_k(x)$ of multiplicity 2 at $x = \frac{1}{2j}$, so we need to use the derivative method. Specifically:
-$$
+\[
 -2r\,c_{k,r} = \frac{\mathrm{d}}{\mathrm{d}x} (1-2rx)^2P_k(x)\bigg|_{x=\frac{1}{2r}}
-$$
+\]
 Let
-$$
+\[
 \begin{aligned}
 Q_r &= (1-2rx)^2 P_k(x) = \prod_{j} \frac{1}{(1-2jx)^{e_j}},\\
 e_j &=
@@ -1604,41 +1611,41 @@ e_j &=
     0, & \mathrm{otherwise}
     \end{cases}
 \end{aligned}
-$$
+\]
 Then $c_{k,r} = -\frac{1}{2r}Q'_r\left (\frac{1}{2r} \right)$, and we can use the logarithmic derivative to simplify the calculation:
 
-$$
+\[
 \begin{aligned}
     \frac{Q'_{r}}{Q_r} &= \frac{\mathrm{d}}{\mathrm{d}x}\log(Q_r) = \frac{\mathrm{d}}{\mathrm{d}x}\left[ -\sum_{j} e_j\log(1-2jx) \right]=  \sum_{j} 2e_j\frac{j}{1-2jx}  \\
     c_{k,r} &= - \frac{1}{2r}Q'_r\left (\frac{1}{2r} \right) = -\frac{1}{2r} Q_r\left(\frac{1}{2r}\right) 2\sum_{j} e_j\frac{j}{1-j/r} \\
-    &= -\frac{1}{2r} 2 d_{k,r}\sum_{j}e_j\frac{rj }{r-j} = - d_{k,r}\sum_{j}e_j \frac{j}{r-j} \\
+    &= -\frac{1}{2r} 2 d_{k,r}\sum_{j}e_j\frac{rj }{r-j} = - d_{k,r}\sum_{j}e_j \frac{j}{r-j} 
 \end{aligned}
-$$
-Let $s_k=\sum_{j}e_j\frac{j}{r-j}$ and simplify. First, consider the case $k=2m+1$:
-$$
+\]
+Let $s_{k,r}=\sum_{j}e_j\frac{j}{r-j}$ and simplify. First, consider the case $k=2\mu+1$:
+\[
 \begin{aligned}
-    s_{2m+1} &=  2\sum_{\substack{1 \leq j \leq m \\ j \neq r}}\frac{j}{r-j} \\
-    &= 2\left[\frac{1}{r-1}+\frac{2}{r-2} + \cdots  + \frac{r-1}{1}-\frac{r+1}{1}-\frac{r+2}{2}-\cdots-\frac{m}{m-r}\right]\\
-    &= 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq m-r}\frac{j+r}{j} \\
-    &= 2r\left(\sum_{1 \leq j \leq r-1}\frac{1}{j}\right) - 2(r-1) - 2r\left(\sum_{1 \leq j \leq m-r}\frac{1}{j}\right)-2(m-r)\\
-    &= 2r(H_{r-1}-H_{m-r})-2m+2, \\
+    s_{2\mu+1,r} &=  2\sum_{\substack{1 \leq j \leq \mu \\ j \neq r}}\frac{j}{r-j} \\
+    &= 2\left[\frac{1}{r-1}+\frac{2}{r-2} + \cdots  + \frac{r-1}{1}-\frac{r+1}{1}-\frac{r+2}{2}-\cdots-\frac{\mu}{\mu-r}\right]\\
+    &= 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq \mu-r}\frac{j+r}{j} \\
+    &= 2r\left(\sum_{1 \leq j \leq r-1}\frac{1}{j}\right) - 2(r-1) - 2r\left(\sum_{1 \leq j \leq \mu-r}\frac{1}{j}\right)-2(\mu-r)\\
+    &= 2r(H_{r-1}-H_{\mu-r})-2\mu+2,
 \end{aligned}
-$$
-where $H_n$ is the $n$-th harmonic number. We proceed similarly for $k=2m$, with some care about $e_{m}=1$:
-$$
+\]
+where $H_n$ is the $n$-th harmonic number. We proceed similarly for $k=2\mu$, with some care about $e_{\mu}=1$:
+\[
 \begin{aligned}
-    s_{2m} &= \sum_{j}e_j \frac{j}{r-j} = \frac{m}{r-m} + 2\sum_{\substack{1 \leq j \leq m-1 \\ j \neq r}}\frac{j}{r-j}\\
-    &= \frac{m}{r-m} + 2 \sum_{1 \leq j \leq r-1} \frac{j}{r-j} - 2\sum_{r+1 \leq j \leq m-1}\frac{j}{j-r} \\
-    &= \frac{m}{r-m} + 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq m-r-1}\frac{j+r}{j} \\
-    &= \frac{m}{r-m} + 2rH_{r-1}-2(r-1)-2rH_{m-r-1}-2(m-r-1) \\
-    &=  2rH_{r-1} - 2rH_{m-r-1}-2(m-2)-\frac{m}{m-r}  \\
-    &= 2rH_{r-1} - 2rH_{m-r-1} - 2(m-2) - \frac{r}{m-r} -1 \\
-    &= r\left(2H_{r-1} - H_{m-r-1}-H_{m-r}\right) - 2m + 3
+    s_{2\mu,r} &= \sum_{j}e_j \frac{j}{r-j} = \frac{\mu}{r-\mu} + 2\sum_{\substack{1 \leq j \leq \mu-1 \\ j \neq r}}\frac{j}{r-j}\\
+    &= \frac{\mu}{r-\mu} + 2 \sum_{1 \leq j \leq r-1} \frac{j}{r-j} - 2\sum_{r+1 \leq j \leq \mu-1}\frac{j}{j-r} \\
+    &= \frac{\mu}{r-\mu} + 2\sum_{1 \leq j \leq r-1}\frac{r-j}{j} -2\sum_{1 \leq j \leq \mu-r-1}\frac{j+r}{j} \\
+    &= \frac{\mu}{r-\mu} + 2rH_{r-1}-2(r-1)-2rH_{\mu-r-1}-2(\mu-r-1) \\
+    &=  2rH_{r-1} - 2rH_{\mu-r-1}-2(\mu-2)-\frac{\mu}{\mu-r}  \\
+    &= 2rH_{r-1} - 2rH_{\mu-r-1} - 2(\mu-2) - \frac{r}{\mu-r} -1 \\
+    &= r\left(2H_{r-1} - H_{\mu-r-1}-H_{\mu-r}\right) - 2\mu + 3.
 \end{aligned}
-$$
-Generally, when $r \neq m$:
+\]
+Generally, when $r \neq \mu$:
 \begin{equation}\label{s-k}
-    s_k = r(2H_{r-1}-H_{\floor{k/2}-r}-H_{\floor{(k-1)/2}-r})-k+3.
+    s_{k,r} = r(2H_{r-1}-H_{\floor{k/2}-r}-H_{\floor{(k-1)/2}-r})-k+3.
 \end{equation}
 Combining everything we have:
 \begin{equation}\label{d-s-c}
@@ -1658,14 +1665,14 @@ Next, let us find an explicit formula for $\mStirling{n}{k}_2$. From \eqref{znk-
 \begin{aligned}
     \mStirling{n}{k}_2 &=[x^{n-k}]P_k(x) \\
     &= [x^{n-k}]\left[ \sum_{1 \leq j \leq \floor{k/2}} \frac{c_{k,j}}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} \frac{d_{k,j}}{(1-2jx)^2} \right]\\
-     &= \sum_{1 \leq j \leq \floor{k/2}}c_{k,j}[x^{n-k}]  \frac{1}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} d_{k,j}[x^{n-k}]\frac{1}{(1-2jx)^2} \\
+     &= \sum_{1 \leq j \leq \floor{k/2}}c_{k,j}[x^{n-k}]  \frac{1}{1-2jx} + \sum_{1 \leq j \leq \floor{(k-1)/2}} d_{k,j}[x^{n-k}]\frac{1}{(1-2jx)^2} 
 \end{aligned}
 \]
 We have the standard geometric series expansions:
 \[
 \begin{aligned}
      & [x^{n-k}]\frac{1}{1-2jx} = [x^{n-k}]\sum_{i\geq0}(2j)^ix^i = (2j)^{n-k}\\
-     & [x^{n-k}]\frac{1}{(1-2jx)^2} = [x^{n-k}]\sum_{i\geq0}(i+1)(2j)^ix^i = (n-k+1)(2j)^{n-k}.\\
+     & [x^{n-k}]\frac{1}{(1-2jx)^2} = [x^{n-k}]\sum_{i\geq0}(i+1)(2j)^ix^i = (n-k+1)(2j)^{n-k}.
 \end{aligned}
 \]
 This results in the following final set of formulas, valid for $n \geq 2, k \geq 2$:
@@ -1687,7 +1694,7 @@ This piecewise construction is necessary because the harmonic numbers have singu
 \]
 
 After incorporating the coefficient definitions into the expression for $\mStirling{n}{k}_2$ \eqref{z-d-c} and performing simplifications using properties of these special functions, we arrive at the limit representation stated in Theorem \ref{thm-bs-formula}:
-$$
+\[
 \begin{aligned}
     \mStirling{n}{k}_2 &= (-1)^{k-1}\, 2^{n-k} \sum_{j=0}^{\floor{k/2}} \lim_{t \to j} \left[t^{n-1}\,
         \frac
@@ -1696,7 +1703,7 @@ $$
         \\
         \Psi_k(t) &= 2\psi(t)-\psi\left(\floor{\tfrac{k}{2}}-t+1\right)-\psi\left(\floor{\tfrac{k-1}{2}}-t+1\right),
 \end{aligned}
-$$
+\]
 This formula provides a single, unified expression for $\mStirling{n}{k}_2$ that is valid for all integers $n,k \geq 0$. The inclusion of the $j=0$ term in the sum is essential, as the limit process correctly evaluates its contribution, ensuring validity for boundary cases like $\mStirling{0}{0}_2=\mStirling{1}{1}_2=1$, and ensuring $\mStirling{n}{k}_2=0$ for $k>n$. \hfill $\square$
 
 \pagebreak
@@ -1726,19 +1733,20 @@ From the induction hypothesis:
 which completes the proof.
 \end{proof}
 \begin{proposition}[Hockey-stick-like identity]
+For $k \geq 1$,
     \[
-        \mStirling{n}{k}_2 = \sum_{j=k}^{n}b^{n-j} \mStirling{j-1}{k-1}_2
+        \mStirling{n}{k}_2 = \sum_{j=k}^{n}b^{n-j} \mStirling{j-1}{k-1}_2.
     \]
 \end{proposition}
 \begin{proof}
 Set $n=0$ in Lemma \ref{lemma-dist-hockey}:
-$$
+\[
     \mStirling{j}{k}_2 = b^j \mStirling{0}{k}_2 +\sum_{i=0}^{j-1}b^{j-1-i}\mStirling{i}{k-1}_2.
-$$
+\]
 Due to the initial conditions $\mStirling{0}{0}_2=1$, $\mStirling{n}{0}_2 = \mStirling{0}{k}_2 =0$ ($n, k \geq 1$), the first term on the right-hand side vanishes for $k \geq 1$. Then we can simplify, rewriting the indices:
-$$
+\[
 \mStirling{n}{k}_2 = \sum_{j=0}^{n-1}b^{n-j-1}\mStirling{j}{k-1}_2,
-$$
+\]
 and since $\mStirling{n}{k}_2 =0$ when $k > n$, we can start $j$ from $k$ and shift it by 1 to match the proposition's form:
 \[
         \mStirling{n}{k}_2 = \sum_{j=k}^{n}b^{n-j} \mStirling{j-1}{k-1}_2. \qedhere
@@ -1772,7 +1780,7 @@ For example, the first few levels of the generating tree produce the following m
     \text{Level 2}: &\ {(2)} \\
     \text{Level 3}: &\ {(2)^2(3)} \\
     \text{Level 4}: &\ {(2)^4(3)^4(4)} \\
-    \text{Level 5}: &\ {(2)^8(3)^{12}(4)^8(5)} \\
+    \text{Level 5}: &\ {(2)^8(3)^{12}(4)^8(5)} 
     \end{aligned}
 \]
 The total number of labels at level $n$ is precisely the $n$-th Bessel--Bell number (sequence A007472). This succession rule directly encodes the recurrence relation for the Bessel--Stirling numbers. For even values $k = 2j$, a node labeled $(2j)$ produces $2j$ children with the same label plus one child with label $(2j+1)$, corresponding to the term $2j \cdot \mStirling{n}{2j}_2$ in the recurrence relation. Similarly, for odd values $k = 2j+1$, a node produces $2j$ children with the same label, corresponding to the term $2j \cdot \mStirling{n}{2j+1}_2$, plus one child with label $(2j+2)$.
@@ -1792,7 +1800,7 @@ This succession rule formalism provides a direct connection to the combinatorial
 \textbf{Property} & \textbf{Classical ($m=1$)} & \textbf{Bessel case ($m=2$)} & \textbf{General $m$} \\
 \hline
 Defining shift property & $B_{n+1} = \sum_k \binom{n}{k}B_k$ & $B^{(2)}_{n+2} = \sum_k \binom{n}{k}2^{n-k}B^{(2)}_k$ & $B^{(m)}_{n+m} = \sum_k \binom{n}{k}m^{n-k}B^{(m)}_k$ \\
-Operator equation & $\mathrm{BINOM}\, a = L\, a$ & $\mathrm{BINOM}^2 a = L^2 a$ & $\mathrm{BINOM}^m a = L^m a$ \\
+Operator equation & $\mathrm{BINOM}\, a = \mathrm{L}\, a$ & $\mathrm{BINOM}^2 a = \mathrm{L}^2 a$ & $\mathrm{BINOM}^m a = \mathrm{L}^m a$ \\
 e.g.f.\ ODE & $\mathcal{A}' = e^x \mathcal{A}$ & $\mathcal{A}'' = e^{2x}\mathcal{A}$ & $\mathcal{A}^{(m)} = e^{mx}\mathcal{A}$ \\
 ODE at $t=e^x$ & $tf' = tf$ & $t^2f''+tf' = t^2f$ & $(tD)^m f = t^m f$ \\
 Primary carrier & $e^t$ & $I_0(t)$ & $C^{(m)}_0(t) = {}_0F_{m-1}(;1,\ldots,1;(t/m)^m)$ \\
