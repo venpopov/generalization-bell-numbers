@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber manuscript"] 1786528580.53238 "manuscript.bcf" "manuscript.bbl" "manuscript" 1786528584.90209 0
-  "manuscript.bcf" 1786528584.8057 113105 6a990e02186cdf4d6ef8a0879654d7b2 "pdflatex"
+["biber manuscript"] 1786528580.53238 "manuscript.bcf" "manuscript.bbl" "manuscript" 1786528669.80772 0
+  "manuscript.bcf" 1786528669.71124 113105 6a990e02186cdf4d6ef8a0879654d7b2 "pdflatex"
   "references.bib" 1786527702.29392 13473 f33bc200cffe4c2007785785b0a9c870 ""
   (generated)
   "manuscript.bbl"
   "manuscript.blg"
   (rewritten before read)
-["pdflatex"] 1786528583.12155 "/Users/vepopo/GitHub/generalization-bell-numbers/manuscript.tex" "manuscript.pdf" "manuscript" 1786528584.90236 0
-  "/Users/vepopo/GitHub/generalization-bell-numbers/manuscript.tex" 1786528580.18778 144244 3900e5cf56a3b65833b28d4e2b2992d5 ""
+["pdflatex"] 1786528668.18811 "/Users/vepopo/GitHub/generalization-bell-numbers/manuscript.tex" "manuscript.pdf" "manuscript" 1786528669.80801 0
+  "/Users/vepopo/GitHub/generalization-bell-numbers/manuscript.tex" 1786528666.30011 144137 938fcfd12790c1d59525c539efcb37ff ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -226,11 +226,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1771082239 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1771082179 3345737 5ffa547a73745f262754041321266fa5 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "manuscript.aux" 1786528584.80121 25329 04e07308bea28169e4723a0238790324 "pdflatex"
-  "manuscript.bbl" 1786528581.38947 46334 6ab615d15ea2729e09fc9d5d49d65089 "biber manuscript"
-  "manuscript.out" 1786528584.80481 9594 1283bc758b940af9257fc1f2d2b8b3f2 "pdflatex"
-  "manuscript.run.xml" 1786528584.8063 2347 0ea089e4c99776f66610f072748109f1 "pdflatex"
-  "manuscript.tex" 1786528580.18778 144244 3900e5cf56a3b65833b28d4e2b2992d5 ""
+  "manuscript.aux" 1786528669.70726 24879 6ff30dbe5fb53b08a0cfa9af092c64a2 "pdflatex"
+  "manuscript.bbl" 1786528588.22624 46334 6ab615d15ea2729e09fc9d5d49d65089 "biber manuscript"
+  "manuscript.out" 1786528669.71038 9594 1283bc758b940af9257fc1f2d2b8b3f2 "pdflatex"
+  "manuscript.run.xml" 1786528669.7119 2347 0ea089e4c99776f66610f072748109f1 "pdflatex"
+  "manuscript.tex" 1786528666.30011 144137 938fcfd12790c1d59525c539efcb37ff ""
   (generated)
   "manuscript.aux"
   "manuscript.bcf"

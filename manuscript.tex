@@ -111,7 +111,7 @@ Finally, just as the classical Bell numbers are the moments of the Poisson distr
 
 To clearly ground the analogy between the Bell--Stirling--Touchard framework and the novel results, we begin with a review of standard results and notation \cite{comtet1974, sándor2004}.
 
-\section{Background}\label{sec-background}
+\section{Background}
 \noindent The exponential generating function (e.g.f.) $\mathcal{A}(x)$ of a sequence $(a_n)_{n \geq 0}$ is a formal power series in $x$:
 %
 \[
@@ -513,7 +513,7 @@ Thus the e.g.f.\ of a 2-Bell sequence is structurally similar to that of the 1-B
 
 \noindent The similarity of the Bessel--Bell numbers' e.g.f.\ to the standard Bell numbers' e.g.f.\ immediately invites the question of whether there is also a Bessel--Stirling equivalent of the triangular array of the Stirling numbers of the second kind, whose rows sum to the Bell numbers. There is, and the correct recurrence modifies the classical one in a single place.
 
-\begin{definition}[Bessel--Stirling numbers of the second kind]\label{def-bs2}
+\begin{definition}[Bessel--Stirling numbers of the second kind]
 Let $\mStirling{n}{k}_2$ be defined for integers $n, k \geq 0$ by the initial conditions $\mStirling{0}{k}_2 = \delta_{0,k}$, the convention $\mStirling{n}{k}_2 = 0$ for $k < 0$, and the two-term recurrence
 \begin{equation}\label{eq-bs-recurrence}
 \mStirling{n+1}{k}_2 = 2\floor{k/2} \, \mStirling{n}{k}_2 + \mStirling{n}{k-1}_2.
@@ -1134,7 +1134,7 @@ We emphasize that while the row sums agree, the triangle $\mStirlingone{n}{k}_2$
 
 The classical Lah numbers $\Lah{n}{k} = \binom{n-1}{k-1}\frac{n!}{k!}$ convert rising factorials into falling factorials, and equal the matrix product of the unsigned first-kind and second-kind Stirling triangles. The same construction goes through in the Bessel setting.
 
-\begin{definition}[Bessel--Lah numbers]\label{def-bessel-lah}
+\begin{definition}[Bessel--Lah numbers]
 Define $\mLah{n}{k}_2$ as the connection coefficients between the Bessel rising and falling factorial bases:
 \[
 x^{\ooline{n}} = \sum_{k=0}^n \mLah{n}{k}_2\; x^{\uuline{k}}.
@@ -1203,7 +1203,7 @@ Figure \ref{fig:commutative-diagram} summarizes how all six triangles act as con
 
 \subsection{The $m$-Stirling triangle and the shift identity}
 
-\begin{definition}[$m$-Stirling numbers of the second kind]\label{def-mstirling}
+\begin{definition}[$m$-Stirling numbers of the second kind]
 For an integer $m \geq 1$, define $\mStirling{n}{k}_m$ for $n, k \geq 0$ by $\mStirling{0}{k}_m = \delta_{0,k}$, the convention $\mStirling{n}{k}_m = 0$ for $k < 0$, and the recurrence
 \begin{equation}\label{eq-mstirling-recurrence}
 \mStirling{n+1}{k}_m = m\floor{k/m} \, \mStirling{n}{k}_m + \mStirling{n}{k-1}_m.
@@ -1911,7 +1911,7 @@ and since $\mStirling{n}{k}_2 =0$ when $k > n$, we can start $j$ from $k$ and sh
 Both identities, with $b = m\floor{k/m}$, hold verbatim for the general $m$-Stirling numbers of the second kind, by the same proofs.
 
 \pagebreak
-\section*{Appendix C: Succession rules and a generating tree for Bessel--Stirling numbers}\label{sec-succession-rule}
+\section*{Appendix C: Succession rules and a generating tree for Bessel--Stirling numbers}
 \noindent The Bessel--Stirling numbers of the second kind can also be elegantly described using the formalism of succession rules and generating trees, as introduced by West \cite{west_generating_1995}. This representation provides yet another perspective on the structure of these numbers and their recurrence relation.
 \begin{definition}[Succession rule for Bessel--Stirling numbers of the second kind]
 The Bessel--Stirling triangle of the second kind can be generated using the following succession rule:
