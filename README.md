@@ -1,4 +1,4 @@
-# The theory of hypergeometric Stirling and Bell numbers
+# m-Bell and m-Stirling numbers: binomial transforms, hyper-Bessel functions, and moments of the Conway–Maxwell–Poisson distribution
 
 This repository contains the manuscript and supporting computational material for a paper on a
 generalization of the Bell numbers: the *m-Bell numbers*, sequences that shift left by *m* places
