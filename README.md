@@ -24,8 +24,7 @@ Highlights:
   `amsaddr`, `pdflscape`)
 - `references.bib` — bibliography
 - `notebooks/` — Mathematica notebooks with computational verification
-- `index.qmd`, `supporting/` — earlier drafts and standalone derivations (superseded by the
-  manuscript)
+- `supporting/` — standalone derivations from earlier drafts (superseded by the manuscript)
 
 ## Build
 
